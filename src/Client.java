@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -39,11 +40,36 @@ public class Client {
 		playPane.setBackground(new Color(0xe2e2e2));
 		playPane.setBounds(20, 20, 430, 430);
 		
+		OXButton b1 = new OXButton();
+		OXButton b2 = new OXButton();
+		OXButton b3 = new OXButton();
+		OXButton b4 = new OXButton();
+		OXButton b5 = new OXButton();
+		OXButton b6 = new OXButton();
+		OXButton b7 = new OXButton();
+		OXButton b8 = new OXButton();
+		OXButton b9 = new OXButton();
+		
+		b1.setX();
+		
+		playPane.setLayout(new GridLayout(3,3));
+		playPane.add(b1);
+		playPane.add(b2);
+		playPane.add(b3);
+		playPane.add(b4);
+		playPane.add(b5);
+		playPane.add(b6);
+		playPane.add(b7);
+		playPane.add(b8);
+		playPane.add(b9);
+		
 		
 		// right text panel --------------------------------------------------
 		JPanel textPane = new JPanel();
 		textPane.setBackground(new Color(0xf3e9e9));
 		textPane.setBounds(470, 20, 310, 430);
+		
+		
 		
 		// score panel -------------------------------------------------------
 		JPanel scorePane = new JPanel();
