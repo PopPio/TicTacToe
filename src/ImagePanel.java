@@ -5,6 +5,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+// use to create JPanel with image background :)
 class ImagePanel extends JPanel {
 
   private Image img;
