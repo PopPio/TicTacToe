@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -40,6 +41,7 @@ public class Client {
 		playPane.setBackground(new Color(0xe2e2e2));
 		playPane.setBounds(20, 20, 430, 430);
 		
+		
 		OXButton b1 = new OXButton();
 		OXButton b2 = new OXButton();
 		OXButton b3 = new OXButton();
@@ -50,7 +52,8 @@ public class Client {
 		OXButton b8 = new OXButton();
 		OXButton b9 = new OXButton();
 		
-		b1.setX();
+		b1.check();
+		b5.setO();
 		
 		playPane.setLayout(new GridLayout(3,3));
 		playPane.add(b1);
@@ -95,6 +98,14 @@ public class Client {
 		chatPane.setBackground(new Color(0xecedec));
 		chatPane.setBounds(470, 470, 310, 90);
 		
+		// send button
+		JButton sendButton = new JButton("send");
+		sendButton.setFont(new Font("Arial", Font.BOLD, 14));
+		sendButton.setBorder(null);
+		sendButton.setBorderPainted(false);
+		sendButton.setBackground(new Color(0xac193d));
+		sendButton.setBounds(720, 560, 60, 20);
+		sendButton.setForeground(Color.WHITE);
 		
 		// add them all
 		mainPane.setLayout(null);
@@ -102,9 +113,12 @@ public class Client {
 		mainPane.add(textPane);
 		mainPane.add(scorePane);
 		mainPane.add(chatPane);
+		mainPane.add(sendButton);
 		
+		java.net.URL icon_URL = Client.class.getResource("img/logo_tiny.png");
+		BufferedImage frame_icon = ImageIO.read(icon_URL);
+		frame.setIconImage(frame_icon);
 		frame.getContentPane().add(mainPane, BorderLayout.CENTER);
-		
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
