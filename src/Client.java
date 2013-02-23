@@ -3,17 +3,21 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
 public class Client {
-
+	static Color pinkMain = new Color(0xAC193D);
+	static Color pinkDark = new Color(0x85132F);
+	
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -86,14 +90,14 @@ public class Client {
 			java.net.URL img_o_URL = Client.class.getResource("img/bg_o.png");
 			BufferedImage bg_o = ImageIO.read(img_o_URL);
 			ImagePanel scoreOPane = new ImagePanel(bg_o);
-			scoreOPane.setBackground(new Color(0xddeff0));
+//			scoreOPane.setBackground(new Color(0xddeff0));
 			scoreOPane.setBounds(0, 0, 205, 110);
 			scorePane.add(scoreOPane);
 		
 			java.net.URL img_x_URL = Client.class.getResource("img/bg_x.png");
 			BufferedImage bg_x = ImageIO.read(img_x_URL);
 			ImagePanel scoreXPane = new ImagePanel(bg_x);
-			scoreXPane.setBackground(new Color(0xddeff0));
+//			scoreXPane.setBackground(new Color(0xddeff0));
 			scoreXPane.setBounds(225, 0, 205, 110);
 			scorePane.add(scoreXPane);
 		
@@ -103,13 +107,21 @@ public class Client {
 		chatPane.setBounds(470, 470, 310, 90);
 		
 		// send button
-		JButton sendButton = new JButton("send");
+		final JButton sendButton = new JButton("send");
 		sendButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		sendButton.setBorder(null);
 		sendButton.setBorderPainted(false);
-		sendButton.setBackground(new Color(0xac193d));
-		sendButton.setBounds(730, 560, 50, 20);
+		sendButton.setBackground(pinkMain);
+		sendButton.setBounds(735, 560, 45, 20);
 		sendButton.setForeground(Color.WHITE);
+		sendButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	sendButton.setBackground(pinkDark);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	sendButton.setBackground(pinkMain);
+		    }
+		});
 		
 		// add them all
 		mainPane.setLayout(null);
