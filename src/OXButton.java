@@ -60,6 +60,9 @@ public class OXButton extends JButton {
         });
         
     }
+    /**
+     * player select button (will be O or X based on constructor parameter.
+     */
     public void check() {
 		if(type == TYPE_O) {
 			setO();
@@ -68,7 +71,9 @@ public class OXButton extends JButton {
 		}
     }
     
-    
+    /**
+     * Set current button to O
+     */
     public void setO () {
     	try {
     		Image img = ImageIO.read(getClass().getResource("img/o.png"));
@@ -78,6 +83,9 @@ public class OXButton extends JButton {
    
     	}
     }
+    /**
+     * Set current button to X
+     */
     public void setX () {
     	try {
     		Image img = ImageIO.read(getClass().getResource("img/x.png"));

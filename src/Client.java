@@ -3,14 +3,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -52,9 +48,6 @@ public class Client {
 		OXButton b8 = new OXButton();
 		OXButton b9 = new OXButton();
 		
-		b1.check();
-		b5.setO();
-		
 		playPane.setLayout(new GridLayout(3,3));
 		playPane.add(b1);
 		playPane.add(b2);
@@ -67,10 +60,21 @@ public class Client {
 		playPane.add(b9);
 		
 		
+		//-------------TEST OXButton--------------
+		b1.check();
+		b5.setO();
+		//-----------END TEST OXButton------------
+		
+		
+		// top bar
+		JPanel topPane = new JPanel();
+		topPane.setBackground(Color.WHITE);
+		topPane.setBounds(470, 20, 310, 25);
+
 		// right text panel --------------------------------------------------
 		JPanel textPane = new JPanel();
 		textPane.setBackground(new Color(0xf3e9e9));
-		textPane.setBounds(470, 20, 310, 430);
+		textPane.setBounds(470, 45, 310, 405);
 		
 		
 		
@@ -100,16 +104,17 @@ public class Client {
 		
 		// send button
 		JButton sendButton = new JButton("send");
-		sendButton.setFont(new Font("Arial", Font.BOLD, 14));
+		sendButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		sendButton.setBorder(null);
 		sendButton.setBorderPainted(false);
 		sendButton.setBackground(new Color(0xac193d));
-		sendButton.setBounds(720, 560, 60, 20);
+		sendButton.setBounds(730, 560, 50, 20);
 		sendButton.setForeground(Color.WHITE);
 		
 		// add them all
 		mainPane.setLayout(null);
 		mainPane.add(playPane);
+		mainPane.add(topPane);
 		mainPane.add(textPane);
 		mainPane.add(scorePane);
 		mainPane.add(chatPane);
