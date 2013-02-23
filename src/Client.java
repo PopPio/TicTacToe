@@ -32,7 +32,7 @@ public class Client {
 		mainPane.setPreferredSize(new Dimension(800, 600));
 		mainPane.setBackground(new Color(0xFFFFFF));
 		
-		// Tic Tac Toe panel
+		// Tic Tac Toe panel -------------------------------------------------
 		java.net.URL img_play_URL = Client.class.getResource("img/bg_play.png");
 		BufferedImage bg_play = ImageIO.read(img_play_URL);
 		ImagePanel playPane = new ImagePanel(bg_play);
@@ -40,12 +40,12 @@ public class Client {
 		playPane.setBounds(20, 20, 430, 430);
 		
 		
-		// right text panel
+		// right text panel --------------------------------------------------
 		JPanel textPane = new JPanel();
 		textPane.setBackground(new Color(0xf3e9e9));
 		textPane.setBounds(470, 20, 310, 430);
 		
-		// score panel
+		// score panel -------------------------------------------------------
 		JPanel scorePane = new JPanel();
 		scorePane.setBackground(new Color(0xFFFFFF));
 		scorePane.setBounds(20, 470, 430, 110);
@@ -64,11 +64,13 @@ public class Client {
 			scoreXPane.setBounds(225, 0, 205, 110);
 			scorePane.add(scoreXPane);
 		
-		// chat panel
+		// chat panel -------------------------------------------------------
 		JPanel chatPane = new JPanel();
 		chatPane.setBackground(new Color(0xecedec));
-		chatPane.setBounds(470, 470, 310, 110);
+		chatPane.setBounds(470, 470, 310, 90);
 		
+		
+		// add them all
 		mainPane.setLayout(null);
 		mainPane.add(playPane);
 		mainPane.add(textPane);
