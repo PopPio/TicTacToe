@@ -15,11 +15,21 @@ import javax.swing.JPanel;
 
 
 public class Client {
+	
+	// button color
 	static final Color PINK_BASE = new Color(0xAC193D);
 	static final Color PINK_DARK = new Color(0x85132F);
 	static final Color GREY_BASE = new Color(0x929191);
 	static final Color GREY_DARK = new Color(0x312b2c);
+	static final Color BASIC_HILIGHT = new Color(0xF2F2F2);
 	
+	static final Color BTN_TEXT = Color.WHITE;
+	
+	// text color
+	static final Color TEXT_GREY = new Color(0x555555);
+	
+	// other color
+	static final Color APP_BG = Color.WHITE;
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -72,21 +82,35 @@ public class Client {
 		//-----------END TEST OXButton------------
 		
 		
-		// top bar
-		JPanel topPane = new JPanel();
-		topPane.setBackground(Color.WHITE);
-		topPane.setBounds(470, 20, 310, 25);
+		// disconnect button
+		final JButton disconnectButton = new JButton("DISCONNECT");
+		disconnectButton.setFont(new Font("Arial", Font.PLAIN, 12));
+		disconnectButton.setBorder(null);
+		disconnectButton.setBorderPainted(false);
+		disconnectButton.setBackground(APP_BG);
+		disconnectButton.setBounds(690, 20, 90, 35);
+		disconnectButton.setForeground(TEXT_GREY);
+		disconnectButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	disconnectButton.setBackground(BASIC_HILIGHT);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	disconnectButton.setBackground(APP_BG);
+		    }
+		});
+		
+		// display name
 
 		// right text panel --------------------------------------------------
 		JPanel textPane = new JPanel();
 		textPane.setBackground(new Color(0xf3e9e9));
-		textPane.setBounds(470, 45, 310, 405);
+		textPane.setBounds(470, 55, 310, 405);
 		
 		
 		
 		// score panel -------------------------------------------------------
 		JPanel scorePane = new JPanel();
-		scorePane.setBackground(new Color(0xFFFFFF));
+		scorePane.setBackground(APP_BG);
 		scorePane.setBounds(20, 470, 430, 110);
 		scorePane.setLayout(null);
 			java.net.URL img_o_URL = Client.class.getResource("img/bg_o.png");
@@ -115,7 +139,7 @@ public class Client {
 		sendButton.setBorderPainted(false);
 		sendButton.setBackground(PINK_BASE);
 		sendButton.setBounds(735, 560, 45, 20);
-		sendButton.setForeground(Color.WHITE);
+		sendButton.setForeground(BTN_TEXT);
 		sendButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	sendButton.setBackground(PINK_DARK);
@@ -131,8 +155,8 @@ public class Client {
 		resetButton.setBorder(null);
 		resetButton.setBorderPainted(false);
 		resetButton.setBackground(GREY_BASE);
-		resetButton.setBounds(470, 560, 90, 20);
-		resetButton.setForeground(Color.WHITE);
+		resetButton.setBounds(470, 560, 85, 20);
+		resetButton.setForeground(BTN_TEXT);
 		resetButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
 		    	resetButton.setBackground(GREY_DARK);
@@ -145,7 +169,7 @@ public class Client {
 		// add them all
 		mainPane.setLayout(null);
 		mainPane.add(playPane);
-		mainPane.add(topPane);
+		mainPane.add(disconnectButton);
 		mainPane.add(textPane);
 		mainPane.add(scorePane);
 		mainPane.add(chatPane);
