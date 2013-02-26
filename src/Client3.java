@@ -22,48 +22,41 @@ import javax.swing.SwingConstants;
 import org.jdesktop.xswingx.PromptSupport;
 
 // client-client UI
-public class Client extends JFrame{
+public class Client3 {
 	
 	// button color
-	final Color PINK_BASE = new Color(0xAC193D);
-	final Color PINK_DARK = new Color(0x85132F);
-	final Color GREY_BASE = new Color(0x929191);
-	final Color GREY_DARK = new Color(0x312b2c);
-	final Color BASIC_HILIGHT = new Color(0xF2F2F2);
-	final Color BTN_TEXT = Color.WHITE;
+	static final Color PINK_BASE = new Color(0xAC193D);
+	static final Color PINK_DARK = new Color(0x85132F);
+	static final Color GREY_BASE = new Color(0x929191);
+	static final Color GREY_DARK = new Color(0x312b2c);
+	static final Color BASIC_HILIGHT = new Color(0xF2F2F2);
+	static final Color BTN_TEXT = Color.WHITE;
 	// text color
-	final Color TEXT_GREY = new Color(0x555555);
+	static final Color TEXT_GREY = new Color(0x555555);
 	// other color
-	final Color APP_BG = Color.WHITE;
+	static final Color APP_BG = Color.WHITE;
 	
-	///static JFrame frame = new JFrame("Tic Tac Toe");
+	static JFrame frame = new JFrame("Tic Tac Toe temp");
 	
-	// Panels
-	JPanel transitionPane = new JPanel();
-	JPanel connectPane = new JPanel();
-	JPanel mainPane = new JPanel();
-	
-	// Connect panel shared components
-	JLabel profile;
-	JTextField login_text;
-	
-	// Play panel sharedd components
+	static JPanel mainPane = new JPanel();
+	static JPanel connectPane = new JPanel();
+	static String name;
 	
 	
-	public Client() throws IOException {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setPreferredSize(new Dimension(820, 640));
+	
+	/**
+	 * @param args
+	 * @throws IOException 
+	 */
+	public static void main(String[] args) throws IOException {
 		
-		initComponents();
-	}
-	
-	private void initComponents() throws IOException {
+		
+		
+		
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setPreferredSize(new Dimension(820, 640));
 
-		// =======================================================================================
-		// =============================== TRANSITION PAGE =======================================
-		// =======================================================================================
-		
-		
 		// =======================================================================================
 		// ================================= CONNECT PAGE ========================================
 		// =======================================================================================
@@ -79,8 +72,8 @@ public class Client extends JFrame{
 		logo.setBounds(329, 100, 143, 143);
 		
 		// name, ip address
-		login_text = new JTextField(20);
-//				TextInput login_text = new TextInput(20);
+		JTextField login_text = new JTextField(20);
+//		TextInput login_text = new TextInput(20);
 		login_text.setBounds(300, 300, 200, 25);
 		PromptSupport.setPrompt("name", login_text);
 		JTextField ip_text = new JTextField(20);
@@ -108,20 +101,18 @@ public class Client extends JFrame{
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-            	ConnectButtonPerformed(e);
+                frame.getContentPane().add(mainPane, BorderLayout.CENTER);
+        		frame.getContentPane().remove(connectPane);
+        		frame.revalidate();
+        		name = "ll";
             }
         });      
 		
-		// 
-		JTextField dummy_text = new JTextField();
-		dummy_text.setEditable(false);
 		connectPane.setLayout(null);
 		connectPane.add(logo);
-		connectPane.add(dummy_text);
 		connectPane.add(login_text);
 		connectPane.add(ip_text);
 		connectPane.add(connectButton);
-		
 		
 		// =======================================================================================
 		// ================================== MAIN PAGE ==========================================
@@ -190,17 +181,17 @@ public class Client extends JFrame{
 		BufferedImage profile_pic = ImageIO.read(profile_URL);
 		ImageIcon profileIcon = new ImageIcon(profile_pic);
 		// for server-client
-//				final JButton profileButton = new JButton("PopPio", profileIcon);
-//				profileButton.setFont(new Font("Arial", Font.BOLD, 12));
-//				profileButton.setBorder(null);
-//				profileButton.setBorderPainted(false);
-//				profileButton.setFocusPainted(false);
-//				profileButton.setBackground(APP_BG);
-//				profileButton.setBounds(470, 20, 220, 35);
-//				profileButton.setForeground(TEXT_GREY);
-//				profileButton.setHorizontalAlignment(SwingConstants.LEFT);
+//		final JButton profileButton = new JButton("PopPio", profileIcon);
+//		profileButton.setFont(new Font("Arial", Font.BOLD, 12));
+//		profileButton.setBorder(null);
+//		profileButton.setBorderPainted(false);
+//		profileButton.setFocusPainted(false);
+//		profileButton.setBackground(APP_BG);
+//		profileButton.setBounds(470, 20, 220, 35);
+//		profileButton.setForeground(TEXT_GREY);
+//		profileButton.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		profile = new JLabel("Username", profileIcon, SwingConstants.LEFT);
+		JLabel profile = new JLabel("PopPio", profileIcon, SwingConstants.LEFT);
 		profile.setBounds(470, 20, 220, 35);
 		
 		// right text panel --------------------------------------------------
@@ -218,14 +209,14 @@ public class Client extends JFrame{
 			java.net.URL img_o_URL = Client.class.getResource("img/bg_o.png");
 			BufferedImage bg_o = ImageIO.read(img_o_URL);
 			ImagePanel scoreOPane = new ImagePanel(bg_o);
-//					scoreOPane.setBackground(new Color(0xddeff0));
+//			scoreOPane.setBackground(new Color(0xddeff0));
 			scoreOPane.setBounds(0, 0, 205, 110);
 			scorePane.add(scoreOPane);
 		
 			java.net.URL img_x_URL = Client.class.getResource("img/bg_x.png");
 			BufferedImage bg_x = ImageIO.read(img_x_URL);
 			ImagePanel scoreXPane = new ImagePanel(bg_x);
-//					scoreXPane.setBackground(new Color(0xddeff0));
+//			scoreXPane.setBackground(new Color(0xddeff0));
 			scoreXPane.setBounds(225, 0, 205, 110);
 			scorePane.add(scoreXPane);
 		
@@ -282,67 +273,18 @@ public class Client extends JFrame{
 		mainPane.add(resetButton);
 		
 		
-		
-		
-		// ======================================
-		// ==========Frame set up================
-		// ======================================
-		// set icon
 		java.net.URL icon_URL = Client.class.getResource("img/logo_small.png");
 		BufferedImage frame_icon = ImageIO.read(icon_URL);
-		setIconImage(frame_icon);
-		setTitle("Awesome Tic Tac Toe");
-		getContentPane().add(connectPane, BorderLayout.CENTER);
+		frame.setIconImage(frame_icon);
 		
-		pack();
-		setLocationRelativeTo(null); // place JFrame in center of screen
-//		setVisible(true);
-	}
-	
-	
-	public void pageChangeToPlay(){
-		getContentPane().add(mainPane, BorderLayout.CENTER);
- 		getContentPane().remove(connectPane);
- 		revalidate();
-	}
-	
-	
-	// ****************************************************************************
-	private void ConnectButtonPerformed(ActionEvent evt) {
-		// change to play panel 
-		// insert form validation if have time
-		String name = login_text.getText();
- 		profile.setText(name.equalsIgnoreCase("") ? "Name" : name);
+		frame.getContentPane().add(connectPane, BorderLayout.CENTER);
 		
 		
- 		
- 		revalidate();
-	}
-	
-	private void redirectToPlatPanel() {
-		getContentPane().add(mainPane, BorderLayout.CENTER);
- 		getContentPane().remove(connectPane);
- 		
- 		revalidate();
-	}
-	/**
-	 * @param args
-	 * @throws IOException 
-	 */
-	public static void main(String[] args) throws IOException {
 		
-		java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                
-                try {
-					new Client().setVisible(true);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-        });
+		
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
 
 }
