@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -43,6 +44,9 @@ public class Client extends JFrame{
 	JPanel connectPane = new JPanel();
 	JPanel mainPane = new JPanel();
 	
+	// Transition panel shared component
+	JLabel transitionText;
+	
 	// Connect panel shared components
 	JLabel profile;
 	JTextField login_text;
@@ -62,8 +66,16 @@ public class Client extends JFrame{
 		// =======================================================================================
 		// =============================== TRANSITION PAGE =======================================
 		// =======================================================================================
+		transitionPane.setPreferredSize(new Dimension(800, 600));
+		transitionPane.setBackground(new Color(0xFFFFFF));
 		
+		transitionText = new JLabel("Loading", SwingConstants.CENTER);
+		transitionText.setBounds(300, 300, 200, 25);
+//		transitionText.setOpaque(true);
+//		transitionText.setBackground(Color.RED);
 		
+		transitionPane.setLayout(null);
+		transitionPane.add(transitionText);
 		// =======================================================================================
 		// ================================= CONNECT PAGE ========================================
 		// =======================================================================================
@@ -233,6 +245,17 @@ public class Client extends JFrame{
 		JPanel chatPane = new JPanel();
 		chatPane.setBackground(new Color(0xecedec));
 		chatPane.setBounds(470, 470, 310, 90);
+		JTextArea chatArea = new JTextArea("", 5, 27);
+		chatArea.setLineWrap(true);
+		chatArea.setWrapStyleWord(true);
+		chatArea.setBounds(0, 0, 310, 90);
+		chatArea.setOpaque(false);
+		chatArea.setBorder(null);
+		PromptSupport.setPrompt("send a message ...", chatArea);
+		PromptSupport.setForeground(GREY_BASE, chatArea);
+		JScrollPane chatAreaScroll = new JScrollPane(chatArea);
+		chatAreaScroll.setBorder(null);
+		chatPane.add(chatAreaScroll);
 		
 		// send button
 		final JButton sendButton = new JButton("send");
@@ -300,12 +323,6 @@ public class Client extends JFrame{
 	}
 	
 	
-	public void pageChangeToPlay(){
-		getContentPane().add(mainPane, BorderLayout.CENTER);
- 		getContentPane().remove(connectPane);
- 		revalidate();
-	}
-	
 	
 	// ****************************************************************************
 	private void ConnectButtonPerformed(ActionEvent evt) {
@@ -314,15 +331,23 @@ public class Client extends JFrame{
 		String name = login_text.getText();
  		profile.setText(name.equalsIgnoreCase("") ? "Name" : name);
 		
-		
  		
- 		revalidate();
+ 		// ***** temp call to play panel *****
+ 		redirectToPlayPanel();
+ 		// ***** end ******
+ 		
+ 		
+ 		// ***** real app should do this *****
+// 		getContentPane().removeAll();
+// 		getContentPane().add(transitionPane, BorderLayout.CENTER);
+// 		revalidate();
+ 		// ***** end ******
 	}
 	
-	private void redirectToPlatPanel() {
+	private void redirectToPlayPanel() {
+		getContentPane().removeAll();
 		getContentPane().add(mainPane, BorderLayout.CENTER);
- 		getContentPane().remove(connectPane);
- 		
+ 		//getContentPane().remove(connectPane);
  		revalidate();
 	}
 	/**
