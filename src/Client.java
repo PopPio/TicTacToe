@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -13,7 +15,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import org.jdesktop.xswingx.PromptSupport;
 
 // client-client UI
 public class Client {
@@ -24,27 +30,91 @@ public class Client {
 	static final Color GREY_BASE = new Color(0x929191);
 	static final Color GREY_DARK = new Color(0x312b2c);
 	static final Color BASIC_HILIGHT = new Color(0xF2F2F2);
-	
 	static final Color BTN_TEXT = Color.WHITE;
-	
 	// text color
 	static final Color TEXT_GREY = new Color(0x555555);
-	
 	// other color
 	static final Color APP_BG = Color.WHITE;
+	
+	static JFrame frame = new JFrame("Tic Tac Toe");
+	
+	static JPanel mainPane = new JPanel();
+	static JPanel connectPane = new JPanel();
+	static String name;
 	/**
 	 * @param args
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		
-		JFrame frame = new JFrame("Tic Tac Toe");
+		
+		
+		
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(820, 640));
 
-		// main content
-		JPanel mainPane = new JPanel();
+		// =======================================================================================
+		// ================================= CONNECT PAGE ========================================
+		// =======================================================================================
+		
+		connectPane.setPreferredSize(new Dimension(800, 600));
+		connectPane.setBackground(new Color(0xFFFFFF));
+		
+		// logo
+		java.net.URL logo_URL = Client.class.getResource("img/logo.png");
+		BufferedImage logo_pic = ImageIO.read(logo_URL);
+		ImageIcon logoIcon = new ImageIcon(logo_pic);
+		JLabel logo = new JLabel(logoIcon);
+		logo.setBounds(329, 100, 143, 143);
+		
+		// name, ip address
+		JTextField login_text = new JTextField(20);
+//		TextInput login_text = new TextInput(20);
+		login_text.setBounds(300, 300, 200, 25);
+		PromptSupport.setPrompt("name", login_text);
+		JTextField ip_text = new JTextField(20);
+		ip_text.setBounds(300, 340, 200, 25);
+		PromptSupport.setPrompt("ip address", ip_text);
+		
+		// connect buttons
+		final JButton connectButton = new JButton("CONNECT");
+		connectButton.setFont(new Font("Arial", Font.BOLD, 12));
+		connectButton.setBorder(null);
+		connectButton.setBorderPainted(false);
+		connectButton.setFocusPainted(false);
+		connectButton.setBackground(PINK_BASE);
+		connectButton.setBounds(300, 380, 200, 25);
+		connectButton.setForeground(BTN_TEXT);
+		connectButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	connectButton.setBackground(PINK_DARK);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	connectButton.setBackground(PINK_BASE);
+		    }
+		});
+		connectButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+                frame.getContentPane().add(mainPane, BorderLayout.CENTER);
+        		frame.getContentPane().remove(connectPane);
+        		frame.revalidate();
+        		name = "ll";
+            }
+        });      
+		
+		connectPane.setLayout(null);
+		connectPane.add(logo);
+		connectPane.add(login_text);
+		connectPane.add(ip_text);
+		connectPane.add(connectButton);
+		
+		// =======================================================================================
+		// ================================== MAIN PAGE ==========================================
+		// =======================================================================================
+		
 		mainPane.setPreferredSize(new Dimension(800, 600));
 		mainPane.setBackground(new Color(0xFFFFFF));
 		
@@ -200,10 +270,15 @@ public class Client {
 		mainPane.add(resetButton);
 		
 		
-		java.net.URL icon_URL = Client.class.getResource("img/logo_tiny.png");
+		java.net.URL icon_URL = Client.class.getResource("img/logo_small.png");
 		BufferedImage frame_icon = ImageIO.read(icon_URL);
 		frame.setIconImage(frame_icon);
-		frame.getContentPane().add(mainPane, BorderLayout.CENTER);
+		
+		frame.getContentPane().add(connectPane, BorderLayout.CENTER);
+		
+		
+		
+		
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
