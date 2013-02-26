@@ -120,7 +120,7 @@ public class Client extends JFrame{
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-            	ConnectButtonPerformed(e);
+            	connectButtonPerformed(e);
             }
         });      
 		
@@ -195,7 +195,13 @@ public class Client extends JFrame{
 		    	disconnectButton.setBackground(APP_BG);
 		    }
 		});
-		
+		disconnectButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eDisconnect)
+            {
+                //Execute when button is pressed
+            	disconnectButtonPerformed(eDisconnect);
+            }
+        });     
 		
 		// display name
 		java.net.URL profile_URL = Client.class.getResource("img/profile.png");
@@ -325,31 +331,45 @@ public class Client extends JFrame{
 	
 	
 	// ****************************************************************************
-	private void ConnectButtonPerformed(ActionEvent evt) {
+	private void connectButtonPerformed(ActionEvent evt) {
 		// change to play panel 
 		// insert form validation if have time
 		String name = login_text.getText();
  		profile.setText(name.equalsIgnoreCase("") ? "Name" : name);
 		
  		
- 		// ***** temp call to play panel *****
+ 		
+ 		// perform connection , socket bla bla
+ 		
+ 		
+ 		
  		redirectToPlayPanel();
- 		// ***** end ******
- 		
- 		
- 		// ***** real app should do this *****
-// 		getContentPane().removeAll();
-// 		getContentPane().add(transitionPane, BorderLayout.CENTER);
-// 		revalidate();
- 		// ***** end ******
 	}
 	
+	private void disconnectButtonPerformed(ActionEvent evt) {
+		// clear connection
+		// bla bla bla
+		
+		System.out.println("action");
+		redirectToConnectPanel();
+	}
+	
+	// methods used by listener
 	private void redirectToPlayPanel() {
 		getContentPane().removeAll();
 		getContentPane().add(mainPane, BorderLayout.CENTER);
  		//getContentPane().remove(connectPane);
  		revalidate();
+ 		repaint();
 	}
+	private void redirectToConnectPanel() {
+		getContentPane().removeAll();
+		getContentPane().add(connectPane, BorderLayout.CENTER);
+		
+ 		revalidate();
+ 		repaint();
+	}
+	
 	/**
 	 * @param args
 	 * @throws IOException 
