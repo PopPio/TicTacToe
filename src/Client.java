@@ -15,8 +15,10 @@ import javax.swing.JPanel;
 
 
 public class Client {
-	static Color pinkMain = new Color(0xAC193D);
-	static Color pinkDark = new Color(0x85132F);
+	static final Color PINK_BASE = new Color(0xAC193D);
+	static final Color PINK_DARK = new Color(0x85132F);
+	static final Color GREY_BASE = new Color(0x929191);
+	static final Color GREY_DARK = new Color(0x312b2c);
 	
 	/**
 	 * @param args
@@ -111,15 +113,32 @@ public class Client {
 		sendButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		sendButton.setBorder(null);
 		sendButton.setBorderPainted(false);
-		sendButton.setBackground(pinkMain);
+		sendButton.setBackground(PINK_BASE);
 		sendButton.setBounds(735, 560, 45, 20);
 		sendButton.setForeground(Color.WHITE);
 		sendButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	sendButton.setBackground(pinkDark);
+		    	sendButton.setBackground(PINK_DARK);
 		    }
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	sendButton.setBackground(pinkMain);
+		    	sendButton.setBackground(PINK_BASE);
+		    }
+		});
+		
+		// reset button
+		final JButton resetButton = new JButton("reset score");
+		resetButton.setFont(new Font("Arial", Font.PLAIN, 14));
+		resetButton.setBorder(null);
+		resetButton.setBorderPainted(false);
+		resetButton.setBackground(GREY_BASE);
+		resetButton.setBounds(470, 560, 90, 20);
+		resetButton.setForeground(Color.WHITE);
+		resetButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	resetButton.setBackground(GREY_DARK);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	resetButton.setBackground(GREY_BASE);
 		    }
 		});
 		
@@ -131,6 +150,8 @@ public class Client {
 		mainPane.add(scorePane);
 		mainPane.add(chatPane);
 		mainPane.add(sendButton);
+		mainPane.add(resetButton);
+		
 		
 		java.net.URL icon_URL = Client.class.getResource("img/logo_tiny.png");
 		BufferedImage frame_icon = ImageIO.read(icon_URL);
