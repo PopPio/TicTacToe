@@ -224,7 +224,7 @@ public class Client extends JFrame{
 		// right text panel --------------------------------------------------
 		JPanel textPane = new JPanel();
 		textPane.setBackground(new Color(0xf3e9e9));
-		textPane.setBounds(470, 55, 310, 405);
+		textPane.setBounds(470, 55, 310, 395);
 		
 		
 		
