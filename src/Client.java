@@ -52,7 +52,7 @@ public class Client extends JFrame{
 	JTextField login_text;
 	
 	// Play panel sharedd components
-	
+	JTextArea chatArea;
 	
 	public Client() throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,10 +94,10 @@ public class Client extends JFrame{
 		login_text = new JTextField(20);
 //				TextInput login_text = new TextInput(20);
 		login_text.setBounds(300, 300, 200, 25);
-		PromptSupport.setPrompt("name", login_text);
+		PromptSupport.setPrompt("Name", login_text);
 		JTextField ip_text = new JTextField(20);
 		ip_text.setBounds(300, 340, 200, 25);
-		PromptSupport.setPrompt("ip address", ip_text);
+		PromptSupport.setPrompt("IP address", ip_text);
 		
 		// connect buttons
 		final JButton connectButton = new JButton("CONNECT");
@@ -251,13 +251,13 @@ public class Client extends JFrame{
 		JPanel chatPane = new JPanel();
 		chatPane.setBackground(new Color(0xecedec));
 		chatPane.setBounds(470, 470, 310, 90);
-		JTextArea chatArea = new JTextArea("", 5, 27);
+		chatArea = new JTextArea("", 5, 27);
 		chatArea.setLineWrap(true);
 		chatArea.setWrapStyleWord(true);
 		chatArea.setBounds(0, 0, 310, 90);
 		chatArea.setOpaque(false);
 		chatArea.setBorder(null);
-		PromptSupport.setPrompt("send a message ...", chatArea);
+		PromptSupport.setPrompt("Send a message ...", chatArea);
 		PromptSupport.setForeground(GREY_BASE, chatArea);
 		JScrollPane chatAreaScroll = new JScrollPane(chatArea);
 		chatAreaScroll.setBorder(null);
@@ -359,6 +359,10 @@ public class Client extends JFrame{
 		getContentPane().removeAll();
 		getContentPane().add(mainPane, BorderLayout.CENTER);
  		//getContentPane().remove(connectPane);
+		
+		// clean up sone UI
+		chatArea.setText("");
+		
  		revalidate();
  		repaint();
 	}
