@@ -11,9 +11,11 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
-
+// client-client UI
 public class Client {
 	
 	// button color
@@ -87,6 +89,7 @@ public class Client {
 		disconnectButton.setFont(new Font("Arial", Font.PLAIN, 12));
 		disconnectButton.setBorder(null);
 		disconnectButton.setBorderPainted(false);
+		disconnectButton.setFocusPainted(false);
 		disconnectButton.setBackground(APP_BG);
 		disconnectButton.setBounds(690, 20, 90, 35);
 		disconnectButton.setForeground(TEXT_GREY);
@@ -99,8 +102,25 @@ public class Client {
 		    }
 		});
 		
+		
 		// display name
-
+		java.net.URL profile_URL = Client.class.getResource("img/profile.png");
+		BufferedImage profile_pic = ImageIO.read(profile_URL);
+		ImageIcon profileIcon = new ImageIcon(profile_pic);
+		// for server-client
+//		final JButton profileButton = new JButton("PopPio", profileIcon);
+//		profileButton.setFont(new Font("Arial", Font.BOLD, 12));
+//		profileButton.setBorder(null);
+//		profileButton.setBorderPainted(false);
+//		profileButton.setFocusPainted(false);
+//		profileButton.setBackground(APP_BG);
+//		profileButton.setBounds(470, 20, 220, 35);
+//		profileButton.setForeground(TEXT_GREY);
+//		profileButton.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		JLabel profile = new JLabel("PopPio", profileIcon, SwingConstants.LEFT);
+		profile.setBounds(470, 20, 220, 35);
+		
 		// right text panel --------------------------------------------------
 		JPanel textPane = new JPanel();
 		textPane.setBackground(new Color(0xf3e9e9));
@@ -137,6 +157,7 @@ public class Client {
 		sendButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		sendButton.setBorder(null);
 		sendButton.setBorderPainted(false);
+		sendButton.setFocusPainted(false);
 		sendButton.setBackground(PINK_BASE);
 		sendButton.setBounds(735, 560, 45, 20);
 		sendButton.setForeground(BTN_TEXT);
@@ -154,6 +175,7 @@ public class Client {
 		resetButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		resetButton.setBorder(null);
 		resetButton.setBorderPainted(false);
+		resetButton.setFocusPainted(false);
 		resetButton.setBackground(GREY_BASE);
 		resetButton.setBounds(470, 560, 85, 20);
 		resetButton.setForeground(BTN_TEXT);
@@ -170,6 +192,7 @@ public class Client {
 		mainPane.setLayout(null);
 		mainPane.add(playPane);
 		mainPane.add(disconnectButton);
+		mainPane.add(profile);
 		mainPane.add(textPane);
 		mainPane.add(scorePane);
 		mainPane.add(chatPane);
