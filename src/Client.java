@@ -43,6 +43,7 @@ public class Client extends JFrame{
 	String currentSide;
 	String playerName;
 	String opponentName;
+	String playerOName, playerXName;
 	boolean currentTurn; // true = o, false = x
 //	int playerScore;
 //	int opponentScore;
@@ -422,6 +423,7 @@ public class Client extends JFrame{
  		
  		// receive opponent name from server
  		opponentName = "Touch";
+ 		
  		// set up game
 // 		playerScore = 0;
 // 		opponentScore = 0;
@@ -529,13 +531,16 @@ public class Client extends JFrame{
 		b8.setType(side);
 		b9.setType(side);
 		currentSide = side;
-		if(currentSide.equalsIgnoreCase("x")){
-			nameX.setText(playerName+": "+scoreX);
-			nameO.setText(opponentName+": "+scoreO);
-		}else if(currentSide.equalsIgnoreCase("o")){
-			nameO.setText(playerName+": "+scoreO);
-			nameX.setText(opponentName+": "+scoreX);
+		if(currentSide.equalsIgnoreCase("o")){
+			playerXName = opponentName;
+			playerOName = playerName;
+		}else if(currentSide.equalsIgnoreCase("x")){
+			playerXName = playerName;
+			playerOName = opponentName;
 		}
+		nameX.setText(playerXName+": "+scoreX);
+		nameO.setText(playerOName+": "+scoreO);
+		
 	}
 	public void setCurrentTurn(String currentTurn) {
 		if(currentTurn.equalsIgnoreCase("o")){
@@ -572,6 +577,11 @@ public class Client extends JFrame{
 		int scoreTemp = scoreO;
 		scoreO = scoreX;
 		scoreX = scoreTemp;
+		
+		String playerNameTemp = playerOName;
+		playerOName = playerXName;
+		playerXName = playerNameTemp;
+		
 		if(currentSide.equalsIgnoreCase("o")){
 			setSide("x");
 		}else if(currentSide.equalsIgnoreCase("x")){
