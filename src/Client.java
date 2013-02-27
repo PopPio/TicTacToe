@@ -44,8 +44,10 @@ public class Client extends JFrame{
 	String playerName;
 	String opponentName;
 	boolean currentTurn; // true = o, false = x
-	int playerScore;
-	int opponentScore;
+//	int playerScore;
+//	int opponentScore;
+	// cange from playerScore and opponentScore to scoreO, scoreX to support spectator
+	int scoreO, scoreX;
 	
 	// Panels
 	JPanel transitionPane = new JPanel();
@@ -416,13 +418,15 @@ public class Client extends JFrame{
 		
  		
  		System.out.println("Connecting");
- 		// perform connection , socket bla bla
+ 		// TODO perform connection , socket bla bla
  		
- 		// recieve opponent name from server
+ 		// receive opponent name from server
  		opponentName = "Touch";
  		// set up game
- 		playerScore = 0;
- 		opponentScore = 0;
+// 		playerScore = 0;
+// 		opponentScore = 0;
+ 		scoreO = 0;
+ 		scoreX = 0;
  		// set up side
  		resetAllButton();
  		setSide("x");
@@ -437,8 +441,7 @@ public class Client extends JFrame{
  		redirectToPlayPanel();
 	}
 	private void disconnectButtonPerformed(ActionEvent evt) {
-		// clear connection
-		// bla bla bla
+		// TODO clear connection, bla bla bla
 		
 		System.out.println("Disconnected");
 		redirectToConnectPanel();
@@ -459,7 +462,6 @@ public class Client extends JFrame{
 				try {
 					win("o");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -467,11 +469,10 @@ public class Client extends JFrame{
 				try {
 					win("x");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			// send data to server
+			// TODO send data to server
 			
 		}else{
 			// click in opponent's turn, do nothing
@@ -529,11 +530,11 @@ public class Client extends JFrame{
 		b9.setType(side);
 		currentSide = side;
 		if(currentSide.equalsIgnoreCase("x")){
-			nameX.setText(playerName+": "+playerScore);
-			nameO.setText(opponentName+": "+opponentScore);
+			nameX.setText(playerName+": "+scoreX);
+			nameO.setText(opponentName+": "+scoreO);
 		}else if(currentSide.equalsIgnoreCase("o")){
-			nameO.setText(playerName+": "+playerScore);
-			nameX.setText(opponentName+": "+opponentScore);
+			nameO.setText(playerName+": "+scoreO);
+			nameX.setText(opponentName+": "+scoreX);
 		}
 	}
 	public void setCurrentTurn(String currentTurn) {
@@ -568,6 +569,9 @@ public class Client extends JFrame{
 	}
 	private void switchSide() {
 		// switch side after win
+		int scoreTemp = scoreO;
+		scoreO = scoreX;
+		scoreX = scoreTemp;
 		if(currentSide.equalsIgnoreCase("o")){
 			setSide("x");
 		}else if(currentSide.equalsIgnoreCase("x")){
@@ -593,24 +597,13 @@ public class Client extends JFrame{
 		// call this when win
 		System.out.println(side+" wins !!!");
 		if(side.equalsIgnoreCase("o")){
-			if(currentSide.equalsIgnoreCase("o")){
-				playerScore++;
-				System.out.println("11");
-			}else if(currentSide.equalsIgnoreCase("x")){
-				opponentScore++;
-				System.out.println("22");
-			}
+			scoreO++;
 		}else if(side.equalsIgnoreCase("x")){
-			if(currentSide.equalsIgnoreCase("x")){
-				playerScore++;
-				System.out.println("33");
-			}else{
-				opponentScore++;
-				System.out.println("44");
-			}
+			scoreX++;
 		}
 		switchSide();
 		resetAllButton();
+		setCurrentTurn("x");
 	}
 	/**
 	 * @param args
