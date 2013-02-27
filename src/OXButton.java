@@ -8,17 +8,19 @@ import javax.swing.JButton;
 // for O and X
 public class OXButton extends JButton {
 	private int type;
-	private int currentState;
+	public int currentState;
+	public boolean yourTurn;
+	public int position;
 	
 	// constants for type
-	final int TYPE_O = 1;
-	final int TYPE_X = 2;
-	final int TYPE_SPEC = 3;
+	final static int TYPE_O = 1;
+	final static int TYPE_X = 2;
+	final static int TYPE_SPEC = 3;
 	
 	// constants for current state
-	final int STATE_EMPTY = 0;
-	final int STATE_O = 1;
-	final int STATE_X = 2;
+	final static int STATE_EMPTY = 0;
+	final static int STATE_O = 1;
+	final static int STATE_X = 2;
 	
 	public OXButton (){
         this("spec");
@@ -32,19 +34,23 @@ public class OXButton extends JButton {
         setContentAreaFilled(false);
 //        setOpaque(false);
         
-        if(text.equalsIgnoreCase("o")) {
-        	type = TYPE_O;
-        }else if(text.equalsIgnoreCase("x")){
-        	type = TYPE_X;
-        }else{
-        	type = TYPE_SPEC;
-        }
+//        if(text.equalsIgnoreCase("o")) {
+//        	type = TYPE_O;
+//        }else if(text.equalsIgnoreCase("x")){
+//        	type = TYPE_X;
+//        }else{
+//        	type = TYPE_SPEC;
+//        }
+        type = TYPE_SPEC;
         //checked = false;
         currentState = 0;
+        yourTurn = false;
+        
+        position = Integer.parseInt(text);
         
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-            	if(currentState == 0 && type < TYPE_SPEC) {
+            	if(currentState == 0 && type < TYPE_SPEC && yourTurn) {
 	            	try {
 	            		Image img;
 	            		if(type == TYPE_O) {
@@ -59,7 +65,7 @@ public class OXButton extends JButton {
             	}
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-            	if(currentState == 0 && type < TYPE_SPEC) {
+            	if(currentState == 0 && type < TYPE_SPEC && yourTurn) {
 	            	try {
 	            		Image img = ImageIO.read(getClass().getResource("img/blank.png"));
 	            	    setIcon(new ImageIcon(img));
@@ -77,11 +83,15 @@ public class OXButton extends JButton {
 		}else if(side.equalsIgnoreCase("o")){
 			this.type = TYPE_O;
 		}else{
-			System.err.println("Invalid side type (only accept o or x)");
+			//System.err.println("Invalid side type (only accept o or x)");
+			this.type = TYPE_SPEC;
 		}
     }
-    public void reset() {
+    public void reset() throws IOException {
+    	Image img = ImageIO.read(getClass().getResource("img/blank.png"));
+	    setIcon(new ImageIcon(img));
     	currentState = STATE_EMPTY;
+    	yourTurn = false;
     }
     
     /**

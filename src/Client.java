@@ -39,6 +39,14 @@ public class Client extends JFrame{
 	
 	///static JFrame frame = new JFrame("Tic Tac Toe");
 	
+	// Global variables
+	String currentSide;
+	String playerName;
+	String opponentName;
+	boolean currentTurn; // true = o, false = x
+	int playerScore;
+	int opponentScore;
+	
 	// Panels
 	JPanel transitionPane = new JPanel();
 	JPanel connectPane = new JPanel();
@@ -54,6 +62,7 @@ public class Client extends JFrame{
 	// Play panel sharedd components
 	JTextArea chatArea;
 	OXButton b1,b2,b3,b4,b5,b6,b7,b8,b9;
+	JLabel nameO, nameX;
 	
 	
 	public Client() throws IOException {
@@ -122,7 +131,11 @@ public class Client extends JFrame{
             public void actionPerformed(ActionEvent e)
             {
                 //Execute when button is pressed
-            	connectButtonPerformed(e);
+            	try {
+					connectButtonPerformed(e);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
             }
         });      
 		
@@ -152,15 +165,69 @@ public class Client extends JFrame{
 		playPane.setBounds(20, 20, 430, 430);
 		
 		
-		b1 = new OXButton();
-		b2 = new OXButton();
-		b3 = new OXButton();
-		b4 = new OXButton();
-		b5 = new OXButton();
-		b6 = new OXButton();
-		b7 = new OXButton();
-		b8 = new OXButton();
-		b9 = new OXButton();
+		b1 = new OXButton("1");
+		b1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eOX1)
+            {
+            	if(b1.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX1);}
+            }
+        });
+		b2 = new OXButton("2");
+		b2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eOX2)
+            {
+            	if(b2.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX2);}
+            }
+        });
+		b3 = new OXButton("3");
+		b3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eOX3)
+            {
+            	if(b3.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX3);}
+            }
+        });
+		b4 = new OXButton("4");
+		b4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eOX4)
+            {
+            	if(b4.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX4);}
+            }
+        });
+		b5 = new OXButton("5");
+		b5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eOX5)
+            {
+            	if(b5.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX5);}
+            }
+        });
+		b6 = new OXButton("6");
+		b6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eOX6)
+            {
+            	if(b6.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX6);}
+            }
+        });
+		b7 = new OXButton("7");
+		b7.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eOX7)
+            {
+            	if(b7.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX7);}
+            }
+        });
+		b8 = new OXButton("8");
+		b8.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eOX8)
+            {
+            	if(b8.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX8);}
+            }
+        });
+		b9 = new OXButton("9");
+		b9.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eOX9)
+            {
+            	if(b9.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX9);}
+            }
+        });
 		
 		playPane.setLayout(new GridLayout(3,3));
 		playPane.add(b1);
@@ -233,15 +300,29 @@ public class Client extends JFrame{
 			java.net.URL img_o_URL = Client.class.getResource("img/bg_o.png");
 			BufferedImage bg_o = ImageIO.read(img_o_URL);
 			ImagePanel scoreOPane = new ImagePanel(bg_o);
-//					scoreOPane.setBackground(new Color(0xddeff0));
 			scoreOPane.setBounds(0, 0, 205, 110);
+			nameO = new JLabel();
+			nameO.setText("PopPio: 0");
+//			nameO.setOpaque(true);
+//			nameO.setBackground(Color.red);
+			nameO.setBounds(5, 0, 205, 30);
+			nameO.setFont(new Font("Arial", Font.PLAIN, 16));
+			scoreOPane.setLayout(null);
+			scoreOPane.add(nameO);
 			scorePane.add(scoreOPane);
 		
 			java.net.URL img_x_URL = Client.class.getResource("img/bg_x.png");
 			BufferedImage bg_x = ImageIO.read(img_x_URL);
 			ImagePanel scoreXPane = new ImagePanel(bg_x);
-//					scoreXPane.setBackground(new Color(0xddeff0));
 			scoreXPane.setBounds(225, 0, 205, 110);
+			nameX = new JLabel();
+			nameX.setText("PopPio: 0");
+//			nameX.setOpaque(true);
+//			nameX.setBackground(Color.red);
+			nameX.setBounds(5, 0, 205, 30);
+			nameX.setFont(new Font("Arial", Font.PLAIN, 16));
+			scoreXPane.setLayout(null);
+			scoreXPane.add(nameX);
 			scorePane.add(scoreXPane);
 		
 		// chat panel -------------------------------------------------------
@@ -327,16 +408,31 @@ public class Client extends JFrame{
 	
 	
 	// ************************ Action Events **************************
-	private void connectButtonPerformed(ActionEvent evt) {
+	private void connectButtonPerformed(ActionEvent evt) throws IOException {
 		// change to play panel 
 		// insert form validation if have time
-		String name = login_text.getText();
- 		profile.setText(name.equalsIgnoreCase("") ? "Name" : name);
+		playerName = login_text.getText().equalsIgnoreCase("") ? "Name" : login_text.getText();
+ 		profile.setText(playerName);
 		
  		
  		System.out.println("Connecting");
  		// perform connection , socket bla bla
  		
+ 		// recieve opponent name from server
+ 		opponentName = "Touch";
+ 		// set up game
+ 		playerScore = 0;
+ 		opponentScore = 0;
+ 		// set up side
+ 		resetAllButton();
+ 		setSide("x");
+ 		setCurrentTurn("x");
+ 		
+ 		
+		//-------------TEST OXButton--------------
+		b1.check();
+		b5.tickO();
+		//-----------END TEST OXButton------------
  		
  		redirectToPlayPanel();
 	}
@@ -347,9 +443,43 @@ public class Client extends JFrame{
 		System.out.println("Disconnected");
 		redirectToConnectPanel();
 	}
-	
+	private void oxButtonPerformed(ActionEvent evt) {
+		if( (currentTurn && currentSide.equalsIgnoreCase("o")) || (!currentTurn && currentSide.equalsIgnoreCase("x")) ){
+			// can click
+			switchTurn();
+			OXButton oxClick = (OXButton) evt.getSource();
+			System.out.println("press button"+oxClick.position);
+			// set button to display tick
+			if(currentSide.equalsIgnoreCase("x")){
+				oxClick.tickX();
+			}else if(currentSide.equalsIgnoreCase("o")){
+				oxClick.tickO();
+			}
+			if(oxClick.position==6){
+				try {
+					win("o");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(oxClick.position==7){
+				try {
+					win("x");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			// send data to server
+			
+		}else{
+			// click in opponent's turn, do nothing
+		}
+	}
 	// ************************ Useful Methods ************************
 	private void redirectToPlayPanel() {
+		// for connect button
 		getContentPane().removeAll();
 		getContentPane().add(mainPane, BorderLayout.CENTER);
  		//getContentPane().remove(connectPane);
@@ -357,27 +487,37 @@ public class Client extends JFrame{
 		// clean up sone UI
 		chatArea.setText("");
 		
-		// set up side
-		//-------------TEST OXButton--------------
-		setSide("x");
-		b1.check();
-		b5.tickO();
-		//-----------END TEST OXButton------------
 		
  		revalidate();
  		repaint();
 	}
 	private void redirectToConnectPanel() {
+		// for disconnect button
 		getContentPane().removeAll();
 		getContentPane().add(connectPane, BorderLayout.CENTER);
 		
  		revalidate();
  		repaint();
 	}
+	private void resetAllButton() throws IOException{
+		// for start new game
+		b1.reset();
+		b2.reset();
+		b3.reset();
+		b4.reset();
+		b5.reset();
+		b6.reset();
+		b7.reset();
+		b8.reset();
+		b9.reset();
+	}
+	
 	/**
 	 * set side of this player
+	 * @param side
 	 */
 	private void setSide(String side){
+		// set side of this player
 		b1.setType(side);
 		b2.setType(side);
 		b3.setType(side);
@@ -387,9 +527,91 @@ public class Client extends JFrame{
 		b7.setType(side);
 		b8.setType(side);
 		b9.setType(side);
+		currentSide = side;
+		if(currentSide.equalsIgnoreCase("x")){
+			nameX.setText(playerName+": "+playerScore);
+			nameO.setText(opponentName+": "+opponentScore);
+		}else if(currentSide.equalsIgnoreCase("o")){
+			nameO.setText(playerName+": "+playerScore);
+			nameX.setText(opponentName+": "+opponentScore);
+		}
 	}
-	
-	
+	public void setCurrentTurn(String currentTurn) {
+		if(currentTurn.equalsIgnoreCase("o")){
+			if(currentSide.equalsIgnoreCase("o")){
+				setTurn(true);
+			}else if(currentSide.equalsIgnoreCase("x")){
+				setTurn(false);
+			}
+			nameO.setFont(new Font("Arial", Font.BOLD, 16));
+			nameX.setFont(new Font("Arial", Font.PLAIN, 16));
+			this.currentTurn = true;
+		}else if(currentTurn.equalsIgnoreCase("x")) {
+			if(currentSide.equalsIgnoreCase("o")){
+				setTurn(false);
+			}else if(currentSide.equalsIgnoreCase("x")){
+				setTurn(true);
+			}
+			nameO.setFont(new Font("Arial", Font.PLAIN, 16));
+			nameX.setFont(new Font("Arial", Font.BOLD, 16));
+			this.currentTurn = false;
+		}
+	}
+	private void switchTurn() {
+		if(currentTurn){// o turn
+			// switch to x turn
+			setCurrentTurn("x");
+		}else{ // x turn
+			// switch to o turn
+			setCurrentTurn("o");
+		}
+	}
+	private void switchSide() {
+		// switch side after win
+		if(currentSide.equalsIgnoreCase("o")){
+			setSide("x");
+		}else if(currentSide.equalsIgnoreCase("x")){
+			setSide("o");
+		}
+	}
+	/**
+	 * set button state
+	 * @param turn
+	 */
+	private void setTurn(boolean turn) {
+		b1.yourTurn = turn;
+		b2.yourTurn = turn;
+		b3.yourTurn = turn;
+		b4.yourTurn = turn;
+		b5.yourTurn = turn;
+		b6.yourTurn = turn;
+		b7.yourTurn = turn;
+		b8.yourTurn = turn;
+		b9.yourTurn = turn;
+	}
+	public void win(String side) throws IOException {
+		// call this when win
+		System.out.println(side+" wins !!!");
+		if(side.equalsIgnoreCase("o")){
+			if(currentSide.equalsIgnoreCase("o")){
+				playerScore++;
+				System.out.println("11");
+			}else if(currentSide.equalsIgnoreCase("x")){
+				opponentScore++;
+				System.out.println("22");
+			}
+		}else if(side.equalsIgnoreCase("x")){
+			if(currentSide.equalsIgnoreCase("x")){
+				playerScore++;
+				System.out.println("33");
+			}else{
+				opponentScore++;
+				System.out.println("44");
+			}
+		}
+		switchSide();
+		resetAllButton();
+	}
 	/**
 	 * @param args
 	 * @throws IOException 
