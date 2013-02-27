@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +20,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 
 import org.jdesktop.xswingx.PromptSupport;
 
@@ -45,6 +51,8 @@ public class Client extends JFrame{
 	String opponentName;
 	String playerOName, playerXName;
 	boolean currentTurn; // true = o, false = x
+	User player,opponent;
+	
 //	int playerScore;
 //	int opponentScore;
 	// cange from playerScore and opponentScore to scoreO, scoreX to support spectator
@@ -66,6 +74,7 @@ public class Client extends JFrame{
 	JTextArea chatArea;
 	OXButton b1,b2,b3,b4,b5,b6,b7,b8,b9;
 	JLabel nameO, nameX;
+	ChatText chatText;
 	
 	
 	public Client() throws IOException {
@@ -289,11 +298,29 @@ public class Client extends JFrame{
 		profile.setBounds(470, 20, 220, 35);
 		
 		// right text panel --------------------------------------------------
-		JPanel textPane = new JPanel();
-		textPane.setBackground(new Color(0xf3e9e9));
-		textPane.setBounds(470, 55, 310, 395);
+		JPanel textPanel = new JPanel();
+		textPanel.setBackground(new Color(0xf3e9e9));
+		textPanel.setBounds(470, 55, 310, 395);
+		textPanel.setLayout(null);
+		
+		chatText = new ChatText();
+//		chatText.setPreferredSize(new Dimension(100, 30));
 		
 		
+//		textPanel.add(test4);
+		JPanel box = new JPanel();
+		box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+//		setFixedWidth(box, 300);
+		box.add(chatText);
+		
+		
+		JScrollPane textScroll = new JScrollPane(box);
+		textScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		textScroll.setBounds(0, 0, 310, 395);
+		textScroll.setOpaque(false);
+		textScroll.setBorder(null);
+		textPanel.add(textScroll);
+//		textPanel.add(box);
 		
 		// score panel -------------------------------------------------------
 		JPanel scorePane = new JPanel();
@@ -361,6 +388,13 @@ public class Client extends JFrame{
 		    	sendButton.setBackground(PINK_BASE);
 		    }
 		});
+		sendButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eSend)
+            {
+                //Execute when button is pressed
+            	sendButtonPerformed(eSend);
+            }
+        });     
 		
 		// reset button
 		final JButton resetButton = new JButton("reset score");
@@ -385,7 +419,7 @@ public class Client extends JFrame{
 		mainPane.add(playPane);
 		mainPane.add(disconnectButton);
 		mainPane.add(profile);
-		mainPane.add(textPane);
+		mainPane.add(textPanel);
 		mainPane.add(scorePane);
 		mainPane.add(chatPane);
 		mainPane.add(sendButton);
@@ -448,6 +482,17 @@ public class Client extends JFrame{
 		System.out.println("Disconnected");
 		redirectToConnectPanel();
 	}
+	private void sendButtonPerformed(ActionEvent evt) {
+		String text = chatArea.getText().trim();
+		System.out.println("Send meesage");
+		if(!text.equals("")){
+			chatText.addRow(playerName, ChatText.PLAYER1, text);
+			chatArea.setText("");
+		}
+		// TODO send text to server
+	}
+	
+	
 	private void oxButtonPerformed(ActionEvent evt) {
 		if( (currentTurn && currentSide.equalsIgnoreCase("o")) || (!currentTurn && currentSide.equalsIgnoreCase("x")) ){
 			// can click
@@ -489,7 +534,12 @@ public class Client extends JFrame{
 		
 		// clean up sone UI
 		chatArea.setText("");
-		
+		try {
+			chatText.reset();
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
  		revalidate();
  		repaint();
@@ -615,6 +665,13 @@ public class Client extends JFrame{
 		resetAllButton();
 		setCurrentTurn("x");
 	}
+	
+	public static void setFixedWidth( Component component, int width ){
+		component.setSize( new Dimension( width, Short.MAX_VALUE ) );
+		Dimension preferredSize = component.getPreferredSize();
+		component.setPreferredSize( new Dimension( width, preferredSize.height ) );
+	}
+	
 	/**
 	 * @param args
 	 * @throws IOException 
