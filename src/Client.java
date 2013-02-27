@@ -53,6 +53,8 @@ public class Client extends JFrame{
 	
 	// Play panel sharedd components
 	JTextArea chatArea;
+	OXButton b1,b2,b3,b4,b5,b6,b7,b8,b9;
+	
 	
 	public Client() throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -150,15 +152,15 @@ public class Client extends JFrame{
 		playPane.setBounds(20, 20, 430, 430);
 		
 		
-		OXButton b1 = new OXButton();
-		OXButton b2 = new OXButton();
-		OXButton b3 = new OXButton();
-		OXButton b4 = new OXButton();
-		OXButton b5 = new OXButton();
-		OXButton b6 = new OXButton();
-		OXButton b7 = new OXButton();
-		OXButton b8 = new OXButton();
-		OXButton b9 = new OXButton();
+		b1 = new OXButton();
+		b2 = new OXButton();
+		b3 = new OXButton();
+		b4 = new OXButton();
+		b5 = new OXButton();
+		b6 = new OXButton();
+		b7 = new OXButton();
+		b8 = new OXButton();
+		b9 = new OXButton();
 		
 		playPane.setLayout(new GridLayout(3,3));
 		playPane.add(b1);
@@ -171,11 +173,6 @@ public class Client extends JFrame{
 		playPane.add(b8);
 		playPane.add(b9);
 		
-		
-		//-------------TEST OXButton--------------
-		b1.check();
-		b5.setO();
-		//-----------END TEST OXButton------------
 		
 		
 		// disconnect button
@@ -312,7 +309,6 @@ public class Client extends JFrame{
 		
 		
 		
-		
 		// ======================================
 		// ==========Frame set up================
 		// ======================================
@@ -326,11 +322,11 @@ public class Client extends JFrame{
 		pack();
 		setLocationRelativeTo(null); // place JFrame in center of screen
 //		setVisible(true);
-	}
+	}// END initcomponent()
 	
 	
 	
-	// ****************************************************************************
+	// ************************ Action Events **************************
 	private void connectButtonPerformed(ActionEvent evt) {
 		// change to play panel 
 		// insert form validation if have time
@@ -338,23 +334,21 @@ public class Client extends JFrame{
  		profile.setText(name.equalsIgnoreCase("") ? "Name" : name);
 		
  		
- 		
+ 		System.out.println("Connecting");
  		// perform connection , socket bla bla
- 		
  		
  		
  		redirectToPlayPanel();
 	}
-	
 	private void disconnectButtonPerformed(ActionEvent evt) {
 		// clear connection
 		// bla bla bla
 		
-		System.out.println("action");
+		System.out.println("Disconnected");
 		redirectToConnectPanel();
 	}
 	
-	// methods used by listener
+	// ************************ Useful Methods ************************
 	private void redirectToPlayPanel() {
 		getContentPane().removeAll();
 		getContentPane().add(mainPane, BorderLayout.CENTER);
@@ -362,6 +356,13 @@ public class Client extends JFrame{
 		
 		// clean up sone UI
 		chatArea.setText("");
+		
+		// set up side
+		//-------------TEST OXButton--------------
+		setSide("x");
+		b1.check();
+		b5.tickO();
+		//-----------END TEST OXButton------------
 		
  		revalidate();
  		repaint();
@@ -373,6 +374,21 @@ public class Client extends JFrame{
  		revalidate();
  		repaint();
 	}
+	/**
+	 * set side of this player
+	 */
+	private void setSide(String side){
+		b1.setType(side);
+		b2.setType(side);
+		b3.setType(side);
+		b4.setType(side);
+		b5.setType(side);
+		b6.setType(side);
+		b7.setType(side);
+		b8.setType(side);
+		b9.setType(side);
+	}
+	
 	
 	/**
 	 * @param args
