@@ -68,7 +68,7 @@ public class Client extends JFrame{
 	
 	// Connect panel shared components
 	JLabel profile;
-	JTextField login_text;
+	JTextField login_text, ip_text, port_text;
 	
 	// Play panel sharedd components
 	JTextArea chatArea;
@@ -114,13 +114,18 @@ public class Client extends JFrame{
 		logo.setBounds(329, 100, 143, 143);
 		
 		// name, ip address
-		login_text = new JTextField(20);
+		login_text = new JTextField();
 //				TextInput login_text = new TextInput(20);
 		login_text.setBounds(300, 300, 200, 25);
 		PromptSupport.setPrompt("Name", login_text);
-		JTextField ip_text = new JTextField(20);
-		ip_text.setBounds(300, 340, 200, 25);
+		
+		ip_text = new JTextField();
+		ip_text.setBounds(300, 340, 135, 25);
 		PromptSupport.setPrompt("IP address", ip_text);
+		
+		port_text= new JTextField();
+		port_text.setBounds(450, 340, 50, 25);
+		PromptSupport.setPrompt("port", port_text);
 		
 		// connect buttons
 		final JButton connectButton = new JButton("CONNECT");
@@ -159,6 +164,7 @@ public class Client extends JFrame{
 		connectPane.add(dummy_text);
 		connectPane.add(login_text);
 		connectPane.add(ip_text);
+		connectPane.add(port_text);
 		connectPane.add(connectButton);
 		
 		
