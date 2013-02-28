@@ -153,7 +153,7 @@ public class Client3 {
 		
 		//-------------TEST OXButton--------------
 		b1.check();
-		b5.setO();
+		b5.tickO();
 		//-----------END TEST OXButton------------
 		
 		
