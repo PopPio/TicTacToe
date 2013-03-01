@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -75,7 +76,8 @@ public class Client2 extends JFrame{
 	
 	// Connect panel shared components
 	JLabel profile;
-	JTextField username_text, password_text;
+	JTextField username_text/*, password_text*/;
+	JPasswordField password_text;
 	
 	// Play panel shared a2 components
 	JTextArea chatArea;
@@ -135,7 +137,9 @@ public class Client2 extends JFrame{
 		username_text.setBounds(300, 300, 200, 25);
 		PromptSupport.setPrompt("Username", username_text);
 		
-		password_text = new JTextField();
+		password_text = new JPasswordField(10);
+		
+//		password_text = new JTextField();
 		password_text.setBounds(300, 340, 200, 25);
 		PromptSupport.setPrompt("Password", password_text);
 		
