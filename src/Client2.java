@@ -30,7 +30,7 @@ import javax.swing.text.StyleConstants;
 import org.jdesktop.xswingx.PromptSupport;
 
 // client-client UI
-public class Client extends JFrame{
+public class Client2 extends JFrame{
 	
 	// button color
 	final Color PINK_BASE = new Color(0xAC193D);
@@ -44,6 +44,8 @@ public class Client extends JFrame{
 	final Color TEXT_GREY = new Color(0x555555);
 	// other color
 	final Color APP_BG = Color.WHITE;
+	final Color RIGHT_BG = new Color(0xecedec);
+	final Color LEFT_BG = new Color(0xddeff0);
 	
 	///static JFrame frame = new JFrame("Tic Tac Toe");
 	
@@ -65,14 +67,15 @@ public class Client extends JFrame{
 	// Panels
 	JPanel transitionPane = new JPanel();
 	JPanel connectPane = new JPanel();
-	JPanel mainPane = new JPanel();
+	JPanel homePage = new JPanel();
+	JPanel playPage = new JPanel();
 	
 	// Transition panel shared component
 	JLabel transitionText;
 	
 	// Connect panel shared components
 	JLabel profile;
-	JTextField login_text, ip_text, port_text;
+	JTextField username_text, password_text;
 	
 	// Play panel shared a2 components
 	JTextArea chatArea;
@@ -81,15 +84,15 @@ public class Client extends JFrame{
 	ChatText chatText;
 	JButton oGiveup, xGiveup;
 	
-	java.net.URL img_giveup_URL = Client.class.getResource("img/giveup_normal.png");
+	java.net.URL img_giveup_URL = Client2.class.getResource("img/giveup_normal.png");
 	BufferedImage giveup_normal_image = ImageIO.read(img_giveup_URL);
 	ImageIcon giveup_icon = new ImageIcon(giveup_normal_image);
-	java.net.URL img_giveup_hover_URL = Client.class.getResource("img/giveup_hover.png");
+	java.net.URL img_giveup_hover_URL = Client2.class.getResource("img/giveup_hover.png");
 	BufferedImage giveup_hover_image = ImageIO.read(img_giveup_hover_URL);
 	ImageIcon giveup_hover_icon = new ImageIcon(giveup_hover_image);
 	
 	
-	public Client() throws IOException {
+	public Client2() throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(820, 640));
 		
@@ -121,25 +124,21 @@ public class Client extends JFrame{
 		connectPane.setBackground(new Color(0xFFFFFF));
 		
 		// logo
-		java.net.URL logo_URL = Client.class.getResource("img/logo.png");
+		java.net.URL logo_URL = Client2.class.getResource("img/logo.png");
 		BufferedImage logo_pic = ImageIO.read(logo_URL);
 		ImageIcon logoIcon = new ImageIcon(logo_pic);
 		JLabel logo = new JLabel(logoIcon);
 		logo.setBounds(329, 100, 143, 143);
 		
-		// name, ip address
-		login_text = new JTextField();
-//				TextInput login_text = new TextInput(20);
-		login_text.setBounds(300, 300, 200, 25);
-		PromptSupport.setPrompt("Name", login_text);
+		// username, password
+		username_text = new JTextField();
+		username_text.setBounds(300, 300, 200, 25);
+		PromptSupport.setPrompt("Username", username_text);
 		
-		ip_text = new JTextField();
-		ip_text.setBounds(300, 340, 135, 25);
-		PromptSupport.setPrompt("IP address", ip_text);
+		password_text = new JTextField();
+		password_text.setBounds(300, 340, 200, 25);
+		PromptSupport.setPrompt("Password", password_text);
 		
-		port_text= new JTextField();
-		port_text.setBounds(450, 340, 50, 25);
-		PromptSupport.setPrompt("port", port_text);
 		
 		// connect buttons
 		final JButton connectButton = new JButton("CONNECT");
@@ -170,28 +169,28 @@ public class Client extends JFrame{
             }
         });     
 		
-		// host button
-		final JButton hostButton = new JButton("HOST GAME");
-		hostButton.setFont(new Font("Arial", Font.BOLD, 12));
-		hostButton.setBorder(null);
-		hostButton.setBorderPainted(false);
-		hostButton.setFocusPainted(false);
-		hostButton.setBackground(GREY_BASE);
-		hostButton.setBounds(300, 420, 200, 25);
-		hostButton.setForeground(BTN_TEXT);
-		hostButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		// register button
+		final JButton registerButton = new JButton("REGISTER");
+		registerButton.setFont(new Font("Arial", Font.BOLD, 12));
+		registerButton.setBorder(null);
+		registerButton.setBorderPainted(false);
+		registerButton.setFocusPainted(false);
+		registerButton.setBackground(GREY_BASE);
+		registerButton.setBounds(300, 420, 200, 25);
+		registerButton.setForeground(BTN_TEXT);
+		registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	hostButton.setBackground(GREY_MID);
+		    	registerButton.setBackground(GREY_MID);
 		    }
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	hostButton.setBackground(GREY_BASE);
+		    	registerButton.setBackground(GREY_BASE);
 		    }
 		});
-		hostButton.addActionListener(new ActionListener() {
+		registerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eHost)
             {
                 //Execute when button is pressed
-            	hostButtonPerformed(eHost);
+            	registerButtonPerformed(eHost);
             }
         }); 
 		
@@ -201,22 +200,160 @@ public class Client extends JFrame{
 		connectPane.setLayout(null);
 		connectPane.add(logo);
 		connectPane.add(dummy_text);
-		connectPane.add(login_text);
-		connectPane.add(ip_text);
-		connectPane.add(port_text);
+		connectPane.add(username_text);
+		connectPane.add(password_text);
 		connectPane.add(connectButton);
-		connectPane.add(hostButton);
+		connectPane.add(registerButton);
 		
 		
 		// =======================================================================================
-		// ================================== MAIN PAGE ==========================================
+		// ================================== HOME PAGE ==========================================
+		// =======================================================================================
+		homePage.setPreferredSize(new Dimension(800, 600));
+		homePage.setBackground(new Color(0xFFFFFF));
+		
+		// friend panel -------------------------------------------------
+		JPanel friendsPanel = new JPanel();
+		friendsPanel.setBackground(LEFT_BG);
+		friendsPanel.setBounds(20, 20, 430, 540);
+		friendsPanel.setLayout(null);
+		
+		java.net.URL friend_URL = Client2.class.getResource("img/friend.png");
+		BufferedImage friend_pic = ImageIO.read(friend_URL);
+		ImageIcon friendIcon = new ImageIcon(friend_pic);
+		JLabel friendHead = new JLabel("Friends", friendIcon, SwingConstants.LEFT);
+		friendHead.setBounds(5, 2, 220, 25);
+		friendHead.setFont(new Font("Arial", Font.PLAIN, 14));
+		friendHead.setForeground(GREY_DARK);
+		
+		friendsPanel.add(friendHead);
+		
+		final JButton joinButton = new JButton("JOIN GAME");
+		joinButton.setFont(new Font("Arial", Font.PLAIN, 14));
+		joinButton.setBorder(null);
+		joinButton.setBorderPainted(false);
+		joinButton.setFocusPainted(false);
+		joinButton.setBackground(PINK_BASE);
+		joinButton.setBounds(360, 560, 90, 20);
+		joinButton.setForeground(BTN_TEXT);
+		joinButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	joinButton.setBackground(PINK_DARK);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	joinButton.setBackground(PINK_BASE);
+		    }
+		});
+		joinButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eSend)
+            {
+                //Execute when button is pressed
+            	joinButtonPerformed(eSend);
+            }
+        });     
+		
+		
+		// disconnect button
+		final JButton logoutButton = new JButton("LOG OUT");
+		logoutButton.setFont(new Font("Arial", Font.PLAIN, 12));
+		logoutButton.setBorder(null);
+		logoutButton.setBorderPainted(false);
+		logoutButton.setFocusPainted(false);
+		logoutButton.setBackground(APP_BG);
+		logoutButton.setBounds(710, 20, 70, 35);
+		logoutButton.setForeground(TEXT_GREY);
+		logoutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	logoutButton.setBackground(BASIC_HILIGHT);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	logoutButton.setBackground(APP_BG);
+		    }
+		});
+		logoutButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eLogout)
+            {
+                //Execute when button is pressed
+            	logoutButtonPerformed(eLogout);
+            }
+        });     
+		
+		// display name
+		java.net.URL profile_URL = Client2.class.getResource("img/profile.png");
+		BufferedImage profile_pic = ImageIO.read(profile_URL);
+		ImageIcon profileIcon = new ImageIcon(profile_pic);
+		// for server-client
+		final JButton profileButton = new JButton("John Doe", profileIcon);
+		profileButton.setFont(new Font("Arial", Font.BOLD, 12));
+		profileButton.setBorder(null);
+		profileButton.setBorderPainted(false);
+		profileButton.setFocusPainted(false);
+		profileButton.setBackground(APP_BG);
+		profileButton.setBounds(470, 20, 220, 35);
+		profileButton.setForeground(TEXT_GREY);
+		profileButton.setHorizontalAlignment(SwingConstants.LEFT);
+		
+//		profile = new JLabel("Username", profileIcon, SwingConstants.LEFT);
+//		profile.setBounds(470, 20, 220, 35);
+		
+		// user online panel --------------------------------------------
+		JPanel userOnlinePanel = new JPanel();
+		userOnlinePanel.setBackground(RIGHT_BG);
+		userOnlinePanel.setBounds(470, 55, 310, 505);
+		userOnlinePanel.setLayout(null);
+		
+		java.net.URL online_URL = Client2.class.getResource("img/online.png");
+		BufferedImage online_pic = ImageIO.read(online_URL);
+		ImageIcon onlyIcon = new ImageIcon(online_pic);
+		JLabel onlineHead = new JLabel("User online", onlyIcon, SwingConstants.LEFT);
+		onlineHead.setBounds(5, 2, 220, 25);
+		onlineHead.setFont(new Font("Arial", Font.PLAIN, 14));
+		onlineHead.setForeground(GREY_DARK);
+		
+		userOnlinePanel.add(onlineHead);
+		
+		// add friend button
+		final JButton addFriendButton = new JButton("ADD FRIEND");
+		addFriendButton.setFont(new Font("Arial", Font.PLAIN, 14));
+		addFriendButton.setBorder(null);
+		addFriendButton.setBorderPainted(false);
+		addFriendButton.setFocusPainted(false);
+		addFriendButton.setBackground(PINK_BASE);
+		addFriendButton.setBounds(680, 560, 100, 20);
+		addFriendButton.setForeground(BTN_TEXT);
+		addFriendButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	addFriendButton.setBackground(PINK_DARK);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	addFriendButton.setBackground(PINK_BASE);
+		    }
+		});
+		addFriendButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eSend)
+            {
+                //Execute when button is pressed
+            	addFriendButtonPerformed(eSend);
+            }
+        });     
+		
+		homePage.setLayout(null);
+		homePage.add(friendsPanel);
+		homePage.add(joinButton);
+		homePage.add(logoutButton);
+		homePage.add(profileButton);
+		homePage.add(userOnlinePanel);
+		homePage.add(addFriendButton);
+		
+		// =======================================================================================
+		// ================================== PLAY PAGE ==========================================
 		// =======================================================================================
 		
-		mainPane.setPreferredSize(new Dimension(800, 600));
-		mainPane.setBackground(new Color(0xFFFFFF));
+		playPage.setPreferredSize(new Dimension(800, 600));
+		playPage.setBackground(new Color(0xFFFFFF));
 		
 		// Tic Tac Toe panel -------------------------------------------------
-		java.net.URL img_play_URL = Client.class.getResource("img/bg_play.png");
+		java.net.URL img_play_URL = Client2.class.getResource("img/bg_play.png");
 		BufferedImage bg_play = ImageIO.read(img_play_URL);
 		ImagePanel playPane = new ImagePanel(bg_play);
 		playPane.setBackground(new Color(0xe2e2e2));
@@ -325,10 +462,10 @@ public class Client extends JFrame{
             }
         });     
 		
-		// display name
-		java.net.URL profile_URL = Client.class.getResource("img/profile.png");
-		BufferedImage profile_pic = ImageIO.read(profile_URL);
-		ImageIcon profileIcon = new ImageIcon(profile_pic);
+//		// display name
+//		java.net.URL profile_URL = Client2.class.getResource("img/profile.png");
+//		BufferedImage profile_pic = ImageIO.read(profile_URL);
+//		ImageIcon profileIcon = new ImageIcon(profile_pic);
 		// for server-client
 //				final JButton profileButton = new JButton("PopPio", profileIcon);
 //				profileButton.setFont(new Font("Arial", Font.BOLD, 12));
@@ -369,7 +506,7 @@ public class Client extends JFrame{
 		scorePane.setBackground(APP_BG);
 		scorePane.setBounds(20, 470, 430, 110);
 		scorePane.setLayout(null);
-			java.net.URL img_o_URL = Client.class.getResource("img/bg_o.png");
+			java.net.URL img_o_URL = Client2.class.getResource("img/bg_o.png");
 			BufferedImage bg_o = ImageIO.read(img_o_URL);
 			ImagePanel scoreOPane = new ImagePanel(bg_o);
 			scoreOPane.setBounds(0, 0, 205, 110);
@@ -418,7 +555,7 @@ public class Client extends JFrame{
 			scorePane.add(scoreOPane);
 			
 		
-			java.net.URL img_x_URL = Client.class.getResource("img/bg_x.png");
+			java.net.URL img_x_URL = Client2.class.getResource("img/bg_x.png");
 			BufferedImage bg_x = ImageIO.read(img_x_URL);
 			ImagePanel scoreXPane = new ImagePanel(bg_x);
 			scoreXPane.setBounds(225, 0, 205, 110);
@@ -484,13 +621,13 @@ public class Client extends JFrame{
 		chatPane.add(chatAreaScroll);
 		
 		// send button
-		final JButton sendButton = new JButton("SEND");
+		final JButton sendButton = new JButton("send");
 		sendButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		sendButton.setBorder(null);
 		sendButton.setBorderPainted(false);
 		sendButton.setFocusPainted(false);
 		sendButton.setBackground(PINK_BASE);
-		sendButton.setBounds(720, 560, 60, 20);
+		sendButton.setBounds(735, 560, 45, 20);
 		sendButton.setForeground(BTN_TEXT);
 		sendButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -509,13 +646,13 @@ public class Client extends JFrame{
         });     
 		
 		// reset button
-		final JButton resetButton = new JButton("RESET SCORE");
+		final JButton resetButton = new JButton("reset score");
 		resetButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		resetButton.setBorder(null);
 		resetButton.setBorderPainted(false);
 		resetButton.setFocusPainted(false);
 		resetButton.setBackground(GREY_BASE);
-		resetButton.setBounds(470, 560, 120, 20);
+		resetButton.setBounds(470, 560, 85, 20);
 		resetButton.setForeground(BTN_TEXT);
 		resetButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -527,15 +664,15 @@ public class Client extends JFrame{
 		});
 		
 		// add them all
-		mainPane.setLayout(null);
-		mainPane.add(playPane);
-		mainPane.add(disconnectButton);
-		mainPane.add(profile);
-		mainPane.add(textPanel);
-		mainPane.add(scorePane);
-		mainPane.add(chatPane);
-		mainPane.add(sendButton);
-		mainPane.add(resetButton);
+		playPage.setLayout(null);
+		playPage.add(playPane);
+		playPage.add(disconnectButton);
+		playPage.add(profile);
+		playPage.add(textPanel);
+		playPage.add(scorePane);
+		playPage.add(chatPane);
+		playPage.add(sendButton);
+		playPage.add(resetButton);
 		
 		
 		
@@ -543,10 +680,10 @@ public class Client extends JFrame{
 		// ==========Frame set up================
 		// ======================================
 		// set icon
-		java.net.URL icon_URL = Client.class.getResource("img/logo_small.png");
+		java.net.URL icon_URL = Client2.class.getResource("img/logo_small.png");
 		BufferedImage frame_icon = ImageIO.read(icon_URL);
 		setIconImage(frame_icon);
-		setTitle("Awesome Tic Tac Toe");
+		setTitle("Extreme Tic Tac Toe");
 		getContentPane().add(connectPane, BorderLayout.CENTER);
 		
 		pack();
@@ -560,73 +697,40 @@ public class Client extends JFrame{
 	private void connectButtonPerformed(ActionEvent evt) throws IOException {
 		// change to play panel 
 		// insert form validation if have time
-		playerName = login_text.getText().equalsIgnoreCase("") ? "Name" : login_text.getText();
- 		profile.setText(playerName);
+		String username = username_text.getText().equalsIgnoreCase("") ? "username" : username_text.getText();
+		String password = password_text.getText().equalsIgnoreCase("") ? "password" : password_text.getText();
+		
+		// send to server
+
+ 		// TODO perform connection , socket bla bla
+		
+		// server response
+		playerName = "PopPio"; // edit this
+		profile.setText(playerName);
 		
  		
- 		System.out.println("Connecting");
- 		// TODO perform connection , socket bla bla
- 		
- 		// receive opponent name from server
- 		opponentName = "Touch";
- 		
- 		// set up game
-// 		playerScore = 0;
-// 		opponentScore = 0;
- 		scoreO = 0;
- 		scoreX = 0;
- 		
- 		resetAllButton();
- 		
- 		// set up side
- 		// receive your side from server
- 		setSide("x");// edit this
- 		
- 		if(currentSide.equalsIgnoreCase("x")){
- 			
- 		}
- 		setCurrentTurn("x"); // fix, x always go first
- 		
- 		
-		//-------------TEST OXButton--------------
-		b1.check();
-		b5.tickO();
-		//-----------END TEST OXButton------------
- 		
- 		redirectToPlayPanel();
+ 		redirectToHomePanel();
+	}
+	private void registerButtonPerformed(ActionEvent evt) {
+		
 	}
 	
-	private void hostButtonPerformed(ActionEvent evt) {
-		playerName = login_text.getText().equalsIgnoreCase("") ? "Name" : login_text.getText();
- 		profile.setText(playerName);
- 		
- 		System.out.println("Creating game");
- 		scoreO = 0;
- 		scoreX = 0;
- 		
- 		
- 		try {
-			resetAllButton();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
- 		setSide("spec");
- 		nameO.setVisible(false);
- 		nameX.setVisible(false);
- 		
-		redirectToPlayPanel();
-		chatText.addInfo("Waiting for other player");
-		currentTurn = "pause";
-		// TODO wait for client connection
-		// call method startGame() when client connected
-		createGame();
-	}
 	
 	private void disconnectButtonPerformed(ActionEvent evt) {
 		// TODO clear connection, bla bla bla
 		
 		System.out.println("Disconnected");
 		redirectToConnectPanel();
+	}
+	private void logoutButtonPerformed(ActionEvent evt) {
+		System.out.println("Loging out");
+		redirectToHomePanel();
+	}
+	private void joinButtonPerformed(ActionEvent evt) {
+		
+	}
+	private void addFriendButtonPerformed(ActionEvent evt) {
+		
 	}
 	private void sendButtonPerformed(ActionEvent evt) {
 		String text = chatArea.getText().trim();
@@ -701,10 +805,22 @@ public class Client extends JFrame{
  		nameO.setVisible(true);
  		nameX.setVisible(true);
 	}
-	private void redirectToPlayPanel() {
+	private void redirectToHomePanel() {
 		// for connect button
 		getContentPane().removeAll();
-		getContentPane().add(mainPane, BorderLayout.CENTER);
+		getContentPane().add(homePage, BorderLayout.CENTER);
+		
+		// show list of friends
+		
+		// show list of online player
+		
+		revalidate();
+ 		repaint();
+	}
+	private void redirectToPlayPanel() {
+		
+		getContentPane().removeAll();
+		getContentPane().add(playPage, BorderLayout.CENTER);
  		//getContentPane().remove(connectPane);
 		
 		// clean up sone UI
@@ -898,7 +1014,7 @@ public class Client extends JFrame{
             public void run() {
                 
                 try {
-					new Client().setVisible(true);
+					new Client2().setVisible(true);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

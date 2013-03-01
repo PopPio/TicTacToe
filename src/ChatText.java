@@ -25,7 +25,8 @@ import javax.swing.text.Utilities;
 public class ChatText extends JPanel{
 	final static Color GREY_BASE = new Color(0x929191);
 	final static Color PLAYER1 = new Color(0x477836);
-	final static Color PLAYER2 = new Color(0x3990a9);
+	final static Color PLAYER2 = new Color(0x8a541b);
+	final static Color SPEC = new Color(0x6898A5);
 	
 	JTextPane text_panel,time_panel;
 	
