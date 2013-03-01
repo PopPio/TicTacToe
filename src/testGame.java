@@ -20,6 +20,9 @@ public class testGame {
 			p = new PassingObject();
 			p.sendChat("Touch", "hello");
 			c.sendObject(p);
+			p = new PassingObject();
+			p.leave();
+			c.sendObject(p);
 		}
 	}
 

@@ -32,7 +32,7 @@ public class GameClient extends Thread{
 					serverInput.close();
 					serverOutput.close();
 					//INVOKE UI TO GO BACK
-					break;
+					return;
 				}
 			}catch(IOException e){
 				System.out.println("IO Error");
@@ -75,6 +75,17 @@ public class GameClient extends Thread{
 	public void sendObject(PassingObject theObject){
 		try{
 			serverOutput.writeObject(theObject);
+			if(theObject.protocol == 'e'){
+				try{
+					System.out.println("trying to close stream from sendObject method");
+					serverInput.close();
+					serverOutput.close();
+					System.out.println("Stream closed from sendObject method");
+				}catch(IOException e){
+					System.out.println("Error closing stream on sendObject method");
+					e.printStackTrace();
+				}
+			}
 		}catch(IOException e){
 			System.out.println("ioerror");
 		}
