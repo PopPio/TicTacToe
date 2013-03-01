@@ -55,7 +55,7 @@ public class Client extends JFrame{
 	
 //	int playerScore;
 //	int opponentScore;
-	// cange from playerScore and opponentScore to scoreO, scoreX to support spectator
+	// change from playerScore and opponentScore to scoreO, scoreX to support spectator
 	int scoreO, scoreX;
 	
 	// Panels
@@ -70,7 +70,7 @@ public class Client extends JFrame{
 	JLabel profile;
 	JTextField login_text, ip_text, port_text;
 	
-	// Play panel sharedd components
+	// Play panel shared a2 components
 	JTextArea chatArea;
 	OXButton b1,b2,b3,b4,b5,b6,b7,b8,b9;
 	JLabel nameO, nameX;
@@ -543,7 +543,6 @@ public class Client extends JFrame{
 		try {
 			chatText.reset();
 		} catch (BadLocationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
