@@ -32,9 +32,18 @@ public class GameClient extends Thread{
 					serverInput.close();
 					serverOutput.close();
 					//INVOKE UI TO GO BACK
+					break;
 				}
 			}catch(IOException e){
 				System.out.println("IO Error");
+				try{
+					serverInput.close();
+					serverOutput.close();
+					System.out.println("Stream closed");
+				}catch(IOException err){
+					System.out.println("cannot close streams");
+				}
+				return;
 			}catch(ClassNotFoundException e){
 				System.out.println("class not found");
 			}

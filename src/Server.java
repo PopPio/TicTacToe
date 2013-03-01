@@ -43,6 +43,7 @@ public class Server extends Thread{
 		Thread myThread;
 		
 		public GameRoomHost(Socket reader, int id){
+			this.id = id;
 			System.out.println("is instantiated");
 			try{
 				System.out.println("getOutputStream");
@@ -71,21 +72,36 @@ public class Server extends Thread{
 		public void run(){
 			try{
 				while(true){
+					System.out.println("Listening to id" + id);
 					PassingObject getObject = (PassingObject)userInput[id].readObject();
-					readObject(getObject);
-					passObject(id, getObject);
-					if(getObject.protocol == 'e')
+					PassingObject passObject = readObject(getObject);
+					passObject(id, passObject);
+					if(passObject.protocol == 'e')
 						break;
 				}
 			}catch(ClassNotFoundException e){
 				System.out.println("cannot find class");
 			}catch(IOException e){
-				System.out.println("IO Error");
+				System.out.println("IO Error at id:" + id);
+				System.out.println("possible sudden close in client stream from id:" + id);
+				System.out.println("notify other player that the player left the room");
+				PassingObject passObject = new PassingObject();
+				passObject.leave();
+				passObject(id, passObject);
+				System.out.println("Trying to close stream");
+				try{
+					userInput[id].close();
+					userOutput[id].close();
+					System.out.println("stream closed");
+				}catch(IOException err){
+					System.out.println("unable to close stream");
+				}
+				return;
 			}
 		}
 	}
 	
-	public synchronized void readObject(PassingObject theObject){
+	public synchronized PassingObject readObject(PassingObject theObject){
 		if(theObject.protocol == 'g'){
 			String process = game.clicked(theObject.symbol, theObject.position);
 			if(!process.equals("c")){
@@ -108,6 +124,7 @@ public class Server extends Thread{
 			theObject.protocol = 'w';
 			theObject.symbol = winningSymbol;
 		}
+		return theObject;
 	}
 
 	public void passObject(int id, PassingObject theObject){
@@ -115,9 +132,10 @@ public class Server extends Thread{
 			if(i == id)
 				continue;
 			try{
+				System.out.println("writing to id: " + i);
 				userOutput[i].writeObject(theObject);
 			}catch(IOException e){
-				System.out.println("error writing object");
+				System.out.println("error writing object from passObject method");
 			}
 		}
 		if(theObject.protocol == 'l'){
