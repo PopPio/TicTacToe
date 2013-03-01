@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class testGame {
 
@@ -6,16 +7,20 @@ public class testGame {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		TheGame a = new TheGame();
-		System.out.println(a.clicked("x", 0));
-		System.out.println(a.clicked("o", 2));
-		System.out.println(a.clicked("x", 1));
-		System.out.println(a.clicked("o", 3));
-		System.out.println(a.clicked("x", 5));
-		System.out.println(a.clicked("o", 4));
-		System.out.println(a.clicked("x", 6));
-		System.out.println(a.clicked("o", 7));
-		System.out.println(a.clicked("X", 8));
+		Scanner sc = new Scanner(System.in);
+		Server s = new Server();
+		GameClient c = new GameClient();
+		c.Connect("127.0.0.1", 4);
+		PassingObject p = null;
+		while(true){
+			p = new PassingObject();
+			int position = sc.nextInt();
+			p.sendGame("x", position);
+			c.sendObject(p);
+			p = new PassingObject();
+			p.sendChat("Touch", "hello");
+			c.sendObject(p);
+		}
 	}
 
 }

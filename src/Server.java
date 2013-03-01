@@ -21,12 +21,13 @@ public class Server extends Thread{
 		int n = 0;
 		ServerSocket serverSocket = null;
 		try{
-			serverSocket = new ServerSocket(26);
+			serverSocket = new ServerSocket(4);
 			System.out.println("Connection Socket Created");
 			try{
 				while(n < 2){
 					System.out.println("Waiting for Connection");
 					new GameRoomHost(serverSocket.accept(), n++);
+					System.out.println("user " + n + " connected");
 				}
 				game = new TheGame();
 			}catch(IOException e){
@@ -42,19 +43,28 @@ public class Server extends Thread{
 		Thread myThread;
 		
 		public GameRoomHost(Socket reader, int id){
+			System.out.println("is instantiated");
 			try{
-				InputStream is = reader.getInputStream();
-				userInput[id] = new ObjectInputStream(is);
-			}catch(IOException e){
-				System.out.println("Error initiaing inputstream");
-			}
-			try{
+				System.out.println("getOutputStream");
 				OutputStream os = reader.getOutputStream();
 				userOutput[id] = new ObjectOutputStream(os);
 			}catch(IOException e){
 				System.out.println("Error initiaing inputstream");
 			}
+			try{
+				System.out.println("getInputStream");
+				InputStream is = reader.getInputStream();
+				System.out.println("getObjectInputStream");
+				userInput[id] = new ObjectInputStream(is);
+				System.out.println("initialized object input stream");
+			}catch(IOException e){
+				System.out.println("Error initiaing inputstream");
+			}
 			myThread = new Thread(this);
+			myThread.start();
+		}
+		
+		public void start(){
 			myThread.start();
 		}
 		

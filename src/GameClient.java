@@ -10,10 +10,10 @@ public class GameClient extends Thread{
 	public void Connect(String ip, int port){
 		try{
 			Socket serverSocket = new Socket(ip, port);
-			InputStream is = serverSocket.getInputStream();
-			serverInput = new ObjectInputStream(is);
 			OutputStream os = serverSocket.getOutputStream();
 			serverOutput = new ObjectOutputStream(os);
+			InputStream is = serverSocket.getInputStream();
+			serverInput = new ObjectInputStream(is);
 			start();
 		} catch(UnknownHostException e){
 			System.err.println("Don't know about host: " + ip);
