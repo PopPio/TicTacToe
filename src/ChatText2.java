@@ -20,6 +20,12 @@ import javax.swing.text.html.HTMLEditorKit;
 public class ChatText2 {
 	static JTextPane text_panel;
 	static JTextPane time_panel;
+	
+
+	final static Color GREY_BASE = new Color(0x929191);
+	final static Color PLAYER1 = new Color(0x477836);
+	final static Color PLAYER2 = new Color(0x3990a9);
+	
     /**
      * @param args
      * @throws IOException 
@@ -57,6 +63,14 @@ public class ChatText2 {
         failPanel.add(time_panel,BorderLayout.LINE_END);
         
         
+        addRow();
+        addRow();
+        addRow();
+        addRow();
+        addRow();
+        addRow();
+        addRow();
+        addRow();
         addRow();
         addRow();
         
@@ -102,7 +116,15 @@ public class ChatText2 {
 		}catch(Exception e) {}
     }
     
-    
+    public void addInfo(String infoText) {
+		SimpleAttributeSet text = new SimpleAttributeSet();
+		StyleConstants.setFontFamily(text, "Arial");
+		StyleConstants.setFontSize(text, 12);
+		StyleConstants.setForeground(text, GREY_BASE);
+		try{
+			text_panel.getDocument().insertString(text_panel.getDocument().getLength(), infoText+"\n", text);
+		}catch(Exception e) {}
+	}
     public static void setFixedWidth( Component component, int width )
 	{
 		component.setSize( new Dimension( width, Short.MAX_VALUE ) );

@@ -35,6 +35,7 @@ public class Client extends JFrame{
 	final Color PINK_BASE = new Color(0xAC193D);
 	final Color PINK_DARK = new Color(0x85132F);
 	final Color GREY_BASE = new Color(0x929191);
+	final Color GREY_MID = new Color(0x7F7B7B);
 	final Color GREY_DARK = new Color(0x312b2c);
 	final Color BASIC_HILIGHT = new Color(0xF2F2F2);
 	final Color BTN_TEXT = Color.WHITE;
@@ -72,9 +73,17 @@ public class Client extends JFrame{
 	
 	// Play panel shared a2 components
 	JTextArea chatArea;
-	OXButton b1,b2,b3,b4,b5,b6,b7,b8,b9;
+	OXButton b0,b1,b2,b3,b4,b5,b6,b7,b8;
 	JLabel nameO, nameX;
 	ChatText chatText;
+	JButton oGiveup, xGiveup;
+	
+	java.net.URL img_giveup_URL = Client.class.getResource("img/giveup_normal.png");
+	BufferedImage giveup_normal_image = ImageIO.read(img_giveup_URL);
+	ImageIcon giveup_icon = new ImageIcon(giveup_normal_image);
+	java.net.URL img_giveup_hover_URL = Client.class.getResource("img/giveup_hover.png");
+	BufferedImage giveup_hover_image = ImageIO.read(img_giveup_hover_URL);
+	ImageIcon giveup_hover_icon = new ImageIcon(giveup_hover_image);
 	
 	
 	public Client() throws IOException {
@@ -154,7 +163,32 @@ public class Client extends JFrame{
 					e1.printStackTrace();
 				}
             }
-        });      
+        });     
+		
+		// host button
+		final JButton hostButton = new JButton("HOST GAME");
+		hostButton.setFont(new Font("Arial", Font.BOLD, 12));
+		hostButton.setBorder(null);
+		hostButton.setBorderPainted(false);
+		hostButton.setFocusPainted(false);
+		hostButton.setBackground(GREY_BASE);
+		hostButton.setBounds(300, 420, 200, 25);
+		hostButton.setForeground(BTN_TEXT);
+		hostButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	hostButton.setBackground(GREY_MID);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	hostButton.setBackground(GREY_BASE);
+		    }
+		});
+		hostButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eHost)
+            {
+                //Execute when button is pressed
+            	hostButtonPerformed(eHost);
+            }
+        }); 
 		
 		// 
 		JTextField dummy_text = new JTextField();
@@ -166,6 +200,7 @@ public class Client extends JFrame{
 		connectPane.add(ip_text);
 		connectPane.add(port_text);
 		connectPane.add(connectButton);
+		connectPane.add(hostButton);
 		
 		
 		// =======================================================================================
@@ -183,71 +218,72 @@ public class Client extends JFrame{
 		playPane.setBounds(20, 20, 430, 430);
 		
 		
-		b1 = new OXButton("1");
-		b1.addActionListener(new ActionListener() {
+		b0 = new OXButton("0");
+		b0.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eOX1)
             {
-            	if(b1.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX1);}
+            	if(b0.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX1);}
+            }
+        });
+		b1 = new OXButton("1");
+		b1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eOX2)
+            {
+            	if(b1.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX2);}
             }
         });
 		b2 = new OXButton("2");
 		b2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent eOX2)
+            public void actionPerformed(ActionEvent eOX3)
             {
-            	if(b2.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX2);}
+            	if(b2.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX3);}
             }
         });
 		b3 = new OXButton("3");
 		b3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent eOX3)
+            public void actionPerformed(ActionEvent eOX4)
             {
-            	if(b3.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX3);}
+            	if(b3.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX4);}
             }
         });
 		b4 = new OXButton("4");
 		b4.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent eOX4)
+            public void actionPerformed(ActionEvent eOX5)
             {
-            	if(b4.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX4);}
+            	if(b4.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX5);}
             }
         });
 		b5 = new OXButton("5");
 		b5.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent eOX5)
+            public void actionPerformed(ActionEvent eOX6)
             {
-            	if(b5.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX5);}
+            	if(b5.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX6);}
             }
         });
 		b6 = new OXButton("6");
 		b6.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent eOX6)
+            public void actionPerformed(ActionEvent eOX7)
             {
-            	if(b6.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX6);}
+            	if(b6.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX7);}
             }
         });
 		b7 = new OXButton("7");
 		b7.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent eOX7)
+            public void actionPerformed(ActionEvent eOX8)
             {
-            	if(b7.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX7);}
+            	if(b7.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX8);}
             }
         });
 		b8 = new OXButton("8");
 		b8.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent eOX8)
-            {
-            	if(b8.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX8);}
-            }
-        });
-		b9 = new OXButton("9");
-		b9.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eOX9)
             {
-            	if(b9.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX9);}
+            	if(b8.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX9);}
             }
         });
 		
 		playPane.setLayout(new GridLayout(3,3));
+		playPane.add(b0);
 		playPane.add(b1);
 		playPane.add(b2);
 		playPane.add(b3);
@@ -256,7 +292,6 @@ public class Client extends JFrame{
 		playPane.add(b6);
 		playPane.add(b7);
 		playPane.add(b8);
-		playPane.add(b9);
 		
 		
 		
@@ -310,22 +345,21 @@ public class Client extends JFrame{
 		textPanel.setLayout(null);
 		
 		chatText = new ChatText();
+		chatText.setBounds(0, 0, 310, 395);
+		
 //		chatText.setPreferredSize(new Dimension(100, 30));
 		
 		
 //		textPanel.add(test4);
-		JPanel box = new JPanel();
-		box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
-//		setFixedWidth(box, 300);
-		box.add(chatText);
+//		JPanel box = new JPanel();
+//		box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+//		box.setBounds(0, 0, 310, 395);
+////		setFixedWidth(box, 300);
+//		box.add(chatText);
 		
 		
-		JScrollPane textScroll = new JScrollPane(box);
-		textScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		textScroll.setBounds(0, 0, 310, 395);
-		textScroll.setOpaque(false);
-		textScroll.setBorder(null);
-		textPanel.add(textScroll);
+		
+		textPanel.add(chatText);
 //		textPanel.add(box);
 		
 		// score panel -------------------------------------------------------
@@ -339,13 +373,48 @@ public class Client extends JFrame{
 			scoreOPane.setBounds(0, 0, 205, 110);
 			nameO = new JLabel();
 			nameO.setText("PopPio: 0");
+			nameO.setForeground(TEXT_GREY);
 //			nameO.setOpaque(true);
 //			nameO.setBackground(Color.red);
 			nameO.setBounds(5, 0, 205, 30);
 			nameO.setFont(new Font("Arial", Font.PLAIN, 16));
+			
+			oGiveup = new JButton("give up",giveup_icon);
+			oGiveup.setFont(new Font("Arial", Font.BOLD, 12));
+			oGiveup.setForeground(TEXT_GREY);
+			oGiveup.setBorder(null);
+			oGiveup.setBorderPainted(false);
+			oGiveup.setContentAreaFilled(false);
+			oGiveup.setFocusPainted(false);
+			oGiveup.setBounds(0, 80, 80, 30);
+			oGiveup.addMouseListener(new java.awt.event.MouseAdapter() {
+			    public void mouseEntered(java.awt.event.MouseEvent evt) {
+			    	oGiveup.setForeground(PINK_BASE);
+			    	oGiveup.setIcon(giveup_hover_icon);
+			    }
+			    public void mouseExited(java.awt.event.MouseEvent evt) {
+			    	oGiveup.setForeground(TEXT_GREY);
+			    	oGiveup.setIcon(giveup_icon);
+			    }
+			});
+			oGiveup.setVisible(false);
+			oGiveup.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent eDisconnect)
+	            {
+	            	try {
+	            		// TODO send give up message
+						win("x");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+	            }
+	        });
+			
 			scoreOPane.setLayout(null);
 			scoreOPane.add(nameO);
+			scoreOPane.add(oGiveup);
 			scorePane.add(scoreOPane);
+			
 		
 			java.net.URL img_x_URL = Client.class.getResource("img/bg_x.png");
 			BufferedImage bg_x = ImageIO.read(img_x_URL);
@@ -353,12 +422,47 @@ public class Client extends JFrame{
 			scoreXPane.setBounds(225, 0, 205, 110);
 			nameX = new JLabel();
 			nameX.setText("PopPio: 0");
+			nameX.setForeground(TEXT_GREY);
 //			nameX.setOpaque(true);
 //			nameX.setBackground(Color.red);
 			nameX.setBounds(5, 0, 205, 30);
 			nameX.setFont(new Font("Arial", Font.PLAIN, 16));
+			
+			xGiveup = new JButton("give up",giveup_icon);
+			xGiveup.setFont(new Font("Arial", Font.BOLD, 12));
+			xGiveup.setForeground(TEXT_GREY);
+			xGiveup.setBorder(null);
+			xGiveup.setBorderPainted(false);
+			xGiveup.setContentAreaFilled(false);
+			xGiveup.setFocusPainted(false);
+			xGiveup.setBounds(0, 80, 80, 30);
+			xGiveup.addMouseListener(new java.awt.event.MouseAdapter() {
+			    public void mouseEntered(java.awt.event.MouseEvent evt) {
+			    	xGiveup.setForeground(PINK_BASE);
+			    	xGiveup.setIcon(giveup_hover_icon);
+			    }
+			    public void mouseExited(java.awt.event.MouseEvent evt) {
+			    	xGiveup.setForeground(TEXT_GREY);
+			    	xGiveup.setIcon(giveup_icon);
+			    }
+			});
+			xGiveup.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent eDisconnect)
+	            {
+	            	try {
+	            		// TODO send give up message
+						win("o");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+	            }
+	        });
+			
+			xGiveup.setVisible(false);
+			
 			scoreXPane.setLayout(null);
 			scoreXPane.add(nameX);
+			scoreXPane.add(xGiveup);
 			scorePane.add(scoreXPane);
 		
 		// chat panel -------------------------------------------------------
@@ -469,10 +573,14 @@ public class Client extends JFrame{
 // 		opponentScore = 0;
  		scoreO = 0;
  		scoreX = 0;
- 		// set up side
+ 		
  		resetAllButton();
- 		setSide("x");
- 		setCurrentTurn("x");
+ 		
+ 		// set up side
+ 		// receive your side from server
+ 		setSide("x");// edit this
+ 		
+ 		setCurrentTurn("x"); // fix, x always go first
  		
  		
 		//-------------TEST OXButton--------------
@@ -482,6 +590,39 @@ public class Client extends JFrame{
  		
  		redirectToPlayPanel();
 	}
+	
+	private void hostButtonPerformed(ActionEvent evt) {
+		playerName = login_text.getText().equalsIgnoreCase("") ? "Name" : login_text.getText();
+ 		profile.setText(playerName);
+ 		
+ 		System.out.println("Creating game");
+ 		scoreO = 0;
+ 		scoreX = 0;
+ 		
+ 		// TODO open connection bla bla
+ 		
+ 		// accept connection
+ 		opponentName = "Touch"; //edit this
+ 		
+ 		// random side
+ 		// send to client
+ 		
+ 		try {
+			resetAllButton();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+ 		
+ 		// set your side
+ 		setSide("x"); //edit this
+ 		
+ 		setCurrentTurn("x"); // fix, x always go first
+ 		
+ 		
+		redirectToPlayPanel();
+		chatText.addInfo("Waiting for other player");
+	}
+	
 	private void disconnectButtonPerformed(ActionEvent evt) {
 		// TODO clear connection, bla bla bla
 		
@@ -545,7 +686,7 @@ public class Client extends JFrame{
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
-		
+		chatText.addInfo("Welcome, "+playerName);
  		revalidate();
  		repaint();
 	}
@@ -559,6 +700,7 @@ public class Client extends JFrame{
 	}
 	private void resetAllButton() throws IOException{
 		// for start new game
+		b0.reset();
 		b1.reset();
 		b2.reset();
 		b3.reset();
@@ -567,7 +709,7 @@ public class Client extends JFrame{
 		b6.reset();
 		b7.reset();
 		b8.reset();
-		b9.reset();
+		
 	}
 	
 	/**
@@ -576,6 +718,7 @@ public class Client extends JFrame{
 	 */
 	private void setSide(String side){
 		// set side of this player
+		b0.setType(side);
 		b1.setType(side);
 		b2.setType(side);
 		b3.setType(side);
@@ -584,14 +727,18 @@ public class Client extends JFrame{
 		b6.setType(side);
 		b7.setType(side);
 		b8.setType(side);
-		b9.setType(side);
+		
 		currentSide = side;
 		if(currentSide.equalsIgnoreCase("o")){
 			playerXName = opponentName;
 			playerOName = playerName;
+			oGiveup.setVisible(true);
+			xGiveup.setVisible(false);
 		}else if(currentSide.equalsIgnoreCase("x")){
 			playerXName = playerName;
 			playerOName = opponentName;
+			oGiveup.setVisible(false);
+			xGiveup.setVisible(true);
 		}
 		nameX.setText(playerXName+": "+scoreX);
 		nameO.setText(playerOName+": "+scoreO);
@@ -648,6 +795,7 @@ public class Client extends JFrame{
 	 * @param turn
 	 */
 	private void setTurn(boolean turn) {
+		b0.yourTurn = turn;
 		b1.yourTurn = turn;
 		b2.yourTurn = turn;
 		b3.yourTurn = turn;
@@ -656,19 +804,22 @@ public class Client extends JFrame{
 		b6.yourTurn = turn;
 		b7.yourTurn = turn;
 		b8.yourTurn = turn;
-		b9.yourTurn = turn;
+		
 	}
 	public void win(String side) throws IOException {
 		// call this when win
 		System.out.println(side+" wins !!!");
 		if(side.equalsIgnoreCase("o")){
 			scoreO++;
+			chatText.addInfo(playerOName + " wins !!!");
 		}else if(side.equalsIgnoreCase("x")){
 			scoreX++;
+			chatText.addInfo(playerXName + " wins !!!");
 		}
 		switchSide();
 		resetAllButton();
 		setCurrentTurn("x");
+		
 	}
 	
 	public static void setFixedWidth( Component component, int width ){

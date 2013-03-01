@@ -13,6 +13,7 @@ import java.text.AttributedString;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.JTextComponent;
@@ -100,25 +101,40 @@ public class ChatText extends JPanel{
 		text_panel = new JTextPane();
 		text_panel.setEditable(false);
 		text_panel.setOpaque(false);
-      
-		setFixedWidth(text_panel, 200);
+//		text_panel.setBackground(Color.red);
+		
+		setFixedWidth(this, 295);
       
 		time_panel = new JTextPane();
 		time_panel.setEditable(false);
 		time_panel.setOpaque(false);
 		
-		setLayout(new BorderLayout());
-		add(text_panel,BorderLayout.CENTER);
-		add(time_panel,BorderLayout.LINE_END);
+		//setLayout(new BorderLayout());
+//		add(text_panel,BorderLayout.CENTER);
+		//add(time_panel,BorderLayout.LINE_END);
+		//add(text_panel);
+		JScrollPane textScroll = new JScrollPane(text_panel);
+//		textScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		textScroll.setBounds(0, 0, 310, 395);
+		textScroll.setOpaque(false);
+		textScroll.setBorder(null);
+		setLayout(null);
+		add(textScroll);
 		
-//		addRow("PopPio", Color.red, "HEllo, LOL");
-//		addRow("PopPio", Color.red, "Amesome", "10:55");
-//		addRow("PopPio", Color.red, "Well, not so 1337 now, huh?", "10:55");
-//		addRow("PopPio", Color.red, "i will find you and i will kill you bla bla bla bla bla", "10:55");
-//		addRow("PopPio", Color.red, "Well, not so 1337 now, huh?", "10:55");
-		
+		addRow();
+		addRow("PopPio", Color.red, "HEllo, LOL");
+		addRow("PopPio", Color.red, "Amesome", "10:55");
+		addRow("PopPio", Color.red, "Well, not so 1337 now, huh?", "10:55");
+		addRow("PopPio", Color.red, "i will find you and i will kill you bla bla bla bla bla", "10:55");
+		addRow("PopPio", Color.red, "Well, not so 1337 now, huh?", "10:55");
+		addRow();
+		addRow();
+		addRow();
+		addRow();
 	}
-	
+	public void addRow(){
+		addInfo("Etiam aliquam pulvinar pretium. Vestibulum ultricies erat laoreet felis varius eu euismod ante tincidunt. Donec felis tortor, pharetra eu pretium eu, tincidunt vel dui. Nullam rutrum placerat velit et tincidunt.");
+	}
 	public void addRow(String nameText, Color color, String chatText){
 		addRow(nameText, color, chatText, "12:15");
 	}
@@ -139,7 +155,7 @@ public class ChatText extends JPanel{
 			text_panel.getDocument().insertString(text_panel.getDocument().getLength(), chatText+"\n", text);
 		}catch(Exception e) {}
 		
-
+		text_panel.selectAll();
 		
 //		SimpleAttributeSet time = new SimpleAttributeSet();
 //		StyleConstants.setFontFamily(time, "Arial");
@@ -149,43 +165,22 @@ public class ChatText extends JPanel{
 //			time_panel.getDocument().insertString(time_panel.getDocument().getLength(), timeText+"\n", time);
 //		}catch(Exception e) {}
 	}
+	public void addInfo(String infoText) {
+		SimpleAttributeSet text = new SimpleAttributeSet();
+		StyleConstants.setFontFamily(text, "Arial");
+		StyleConstants.setFontSize(text, 12);
+		StyleConstants.setForeground(text, GREY_BASE);
+		try{
+			text_panel.getDocument().insertString(text_panel.getDocument().getLength(), infoText+"\n", text);
+		}catch(Exception e) {}
+		text_panel.selectAll();
+	}
 	public void reset() throws BadLocationException {
 		text_panel.getDocument().remove(0, text_panel.getDocument().getLength());
 		
 	}
 	
-	 public static int getRow(int pos, JTextComponent editor) {
-	        int rn = (pos==0) ? 1 : 0;
-	        try {
-	            int offs=pos;
-	            while( offs>0) {
-	                offs=Utilities.getRowStart(editor, offs)-1;
-	                rn++;
-	            }
-	        } catch (BadLocationException e) {
-	            e.printStackTrace();
-	        }
-	        return rn;
-	    }
 	 
-	 private static int countLines(JTextComponent textArea) {
-		    AttributedString text = new AttributedString(textArea.getText());
-		    FontRenderContext frc = textArea.getFontMetrics(textArea.getFont())
-		        .getFontRenderContext();
-		    AttributedCharacterIterator charIt = text.getIterator();
-		    LineBreakMeasurer lineMeasurer = new LineBreakMeasurer(charIt, frc);
-		    float formatWidth = (float) textArea.getSize().width;
-		    lineMeasurer.setPosition(charIt.getBeginIndex());
-
-		    int noLines = 0;
-		    while (lineMeasurer.getPosition() < charIt.getEndIndex()) {
-		      lineMeasurer.nextLayout(formatWidth);
-		      noLines++;
-		    }
-
-		    return noLines;
-		  }
-	
 	public static void setFixedWidth( Component component, int width )
 	{
 		component.setSize( new Dimension( width, Short.MAX_VALUE ) );
