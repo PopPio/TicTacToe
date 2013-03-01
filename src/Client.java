@@ -357,10 +357,7 @@ public class Client extends JFrame{
 ////		setFixedWidth(box, 300);
 //		box.add(chatText);
 		
-		
-		
 		textPanel.add(chatText);
-//		textPanel.add(box);
 		
 		// score panel -------------------------------------------------------
 		JPanel scorePane = new JPanel();
@@ -711,7 +708,19 @@ public class Client extends JFrame{
 		b8.reset();
 		
 	}
-	
+	private void receiveChat(boolean chatType,String chat){
+		Color color;
+		if(chatType){
+			color = ChatText.PLAYER2;
+		}else{
+			color = ChatText.GREY_BASE;
+		}
+		chat = chat.trim();
+		System.out.println("Receive meesage");
+		if(!chat.equals("")){
+			chatText.addRow(opponentName, color, chat);
+		}
+	}
 	/**
 	 * set side of this player
 	 * @param side
