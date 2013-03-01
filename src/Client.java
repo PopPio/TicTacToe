@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
@@ -51,8 +52,9 @@ public class Client extends JFrame{
 	String playerName;
 	String opponentName;
 	String playerOName, playerXName;
-	boolean currentTurn; // true = o, false = x
+	String currentTurn; // true = o, false = x
 	User player,opponent;
+	Random random; // for random side
 	
 //	int playerScore;
 //	int opponentScore;
@@ -89,6 +91,8 @@ public class Client extends JFrame{
 	public Client() throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(820, 640));
+		
+		random = new Random();
 		
 		initComponents();
 	}
@@ -577,6 +581,9 @@ public class Client extends JFrame{
  		// receive your side from server
  		setSide("x");// edit this
  		
+ 		if(currentSide.equalsIgnoreCase("x")){
+ 			
+ 		}
  		setCurrentTurn("x"); // fix, x always go first
  		
  		
@@ -596,28 +603,22 @@ public class Client extends JFrame{
  		scoreO = 0;
  		scoreX = 0;
  		
- 		// TODO open connection bla bla
- 		
- 		// accept connection
- 		opponentName = "Touch"; //edit this
- 		
- 		// random side
- 		// send to client
  		
  		try {
 			resetAllButton();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
- 		
- 		// set your side
- 		setSide("x"); //edit this
- 		
- 		setCurrentTurn("x"); // fix, x always go first
- 		
+ 		setSide("spec");
+ 		nameO.setVisible(false);
+ 		nameX.setVisible(false);
  		
 		redirectToPlayPanel();
 		chatText.addInfo("Waiting for other player");
+		currentTurn = "pause";
+		// TODO wait for client connection
+		// call method startGame() when client connected
+		createGame();
 	}
 	
 	private void disconnectButtonPerformed(ActionEvent evt) {
@@ -638,7 +639,7 @@ public class Client extends JFrame{
 	
 	
 	private void oxButtonPerformed(ActionEvent evt) {
-		if( (currentTurn && currentSide.equalsIgnoreCase("o")) || (!currentTurn && currentSide.equalsIgnoreCase("x")) ){
+		if( (currentTurn.equalsIgnoreCase("o") && currentSide.equalsIgnoreCase("o")) || (currentTurn.equalsIgnoreCase("x") && currentSide.equalsIgnoreCase("x")) ){
 			// can click
 			switchTurn();
 			OXButton oxClick = (OXButton) evt.getSource();
@@ -670,6 +671,29 @@ public class Client extends JFrame{
 		}
 	}
 	// ************************ Useful Methods ************************
+	private void createGame() { // call this when receive connection
+		
+ 		// accept connection
+	 	opponentName = "Touch"; //edit this
+	 	
+	 	chatText.addInfo(opponentName+" connected");
+		
+		// random side
+	 	if(random.nextBoolean()){
+	 		setSide("o");
+	 		// send x to opponent
+	 	}else{
+	 		setSide("x");
+	 		// send o to opponent
+	 	}
+	 	
+		// send to client
+ 		
+ 		setCurrentTurn("x"); // fix, x always go first
+ 		
+ 		nameO.setVisible(true);
+ 		nameX.setVisible(true);
+	}
 	private void redirectToPlayPanel() {
 		// for connect button
 		getContentPane().removeAll();
@@ -762,7 +786,7 @@ public class Client extends JFrame{
 			}
 			nameO.setFont(new Font("Arial", Font.BOLD, 16));
 			nameX.setFont(new Font("Arial", Font.PLAIN, 16));
-			this.currentTurn = true;
+			this.currentTurn = "o";
 		}else if(currentTurn.equalsIgnoreCase("x")) {
 			if(currentSide.equalsIgnoreCase("o")){
 				setTurn(false);
@@ -771,16 +795,30 @@ public class Client extends JFrame{
 			}
 			nameO.setFont(new Font("Arial", Font.PLAIN, 16));
 			nameX.setFont(new Font("Arial", Font.BOLD, 16));
-			this.currentTurn = false;
+			this.currentTurn = "x";
 		}
 	}
 	private void switchTurn() {
-		if(currentTurn){// o turn
+		if(currentTurn.equalsIgnoreCase("o")){// o turn
 			// switch to x turn
-			setCurrentTurn("x");
-		}else{ // x turn
+			currentTurn = "x";
+			if(currentSide.equalsIgnoreCase("x")){
+				setTurn(true);
+			}else{
+				setTurn(false);
+			}
+			nameO.setFont(new Font("Arial", Font.PLAIN, 16));
+			nameX.setFont(new Font("Arial", Font.BOLD, 16));
+		}else if(currentTurn.equalsIgnoreCase("x")){ // x turn
 			// switch to o turn
-			setCurrentTurn("o");
+			currentTurn = "o";
+			if(currentSide.equalsIgnoreCase("o")){
+				setTurn(true);
+			}else{
+				setTurn(false);
+			}
+			nameO.setFont(new Font("Arial", Font.BOLD, 16));
+			nameX.setFont(new Font("Arial", Font.PLAIN, 16));
 		}
 	}
 	private void switchSide() {
