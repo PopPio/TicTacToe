@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Random;
 
 
 public class Server extends Thread{
@@ -30,6 +31,7 @@ public class Server extends Thread{
 					System.out.println("user " + n + " connected");
 				}
 				game = new TheGame();
+				startGame();
 			}catch(IOException e){
 				System.err.println("Accept failed.");
 			}
@@ -76,8 +78,16 @@ public class Server extends Thread{
 					PassingObject getObject = (PassingObject)userInput[id].readObject();
 					PassingObject passObject = readObject(getObject);
 					passObject(id, passObject);
-					if(passObject.protocol == 'e')
-						break;
+					if(passObject.protocol == 'e'){	
+						try{
+							System.out.println("initiate protocol 'e' in thread");
+							userInput[id].close();
+							userOutput[id].close();
+							break;
+						}catch(IOException err){
+							System.out.println("IOError in closing the stream after receving end game protocol in thread");
+						}
+					}
 				}
 			}catch(ClassNotFoundException e){
 				System.out.println("cannot find class");
@@ -129,7 +139,7 @@ public class Server extends Thread{
 
 	public void passObject(int id, PassingObject theObject){
 		for(int i = 0; i < 2; i ++){
-			if(i == id)
+			if(i == id && theObject.protocol != 'e')
 				continue;
 			try{
 				System.out.println("writing to id: " + i);
@@ -138,15 +148,28 @@ public class Server extends Thread{
 				System.out.println("error writing object from passObject method");
 			}
 		}
-		if(theObject.protocol == 'l'){
-			try{
-				for(int i = 0; i < 2; i ++){
-					userOutput[i].close();
-					userInput[i].close();
-				}
-			}catch(IOException e){
-				System.out.println("Problem closing stream");
-			}
-		}
 	}	
+	
+	public void startGame(){
+		PassingObject p = new PassingObject();
+		String first, second;
+		if((new Random()).nextBoolean()){
+			first = "x";
+			second = "o";
+		}else{
+			first = "o";
+			second = "x";
+		}
+		p.setStart(first);
+		PassingObject o = new PassingObject();
+		o.setStart(second);
+		try{
+			System.out.println("Trying to determine who start first then send info");
+			userOutput[0].writeObject(p);
+			userOutput[1].writeObject(o);
+		}catch(IOException e){
+			System.out.println("unable to write object on startGame()");
+			e.printStackTrace();
+		}
+	}
 }

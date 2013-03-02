@@ -22,6 +22,15 @@ public class GameClient extends Thread{
 		}
 	}
 	
+	//prototocl for leaving the room
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 * when press disconnect send an object of end game to server
+	 * server replies with the same packet
+	 * close both stream on inputstream to prevent error
+	 */
+	
 	public void run(){
 		while(true){
 			try{
@@ -29,8 +38,6 @@ public class GameClient extends Thread{
 				processObject(theObject);
 				if(theObject.protocol == 'e'){
 					System.out.println("end game");
-					serverInput.close();
-					serverOutput.close();
 					//INVOKE UI TO GO BACK
 					return;
 				}
@@ -56,6 +63,12 @@ public class GameClient extends Thread{
 			System.out.println("player " + theObject.symbol + " places at + " + (theObject.position+1));
 		}else if(theObject.protocol == 'e'){
 			//leave room
+			try{
+				serverInput.close();
+				serverOutput.close();
+			}catch(IOException e){
+				System.out.println("IOError on closing stream on method processObject");
+			}
 			System.out.println("user left room closed");
 		}else if(theObject.protocol == 'c'){
 			//chat
@@ -69,23 +82,14 @@ public class GameClient extends Thread{
 		}else if(theObject.protocol == 'd'){
 			//draw
 			System.out.println("draws...");
+		}else if (theObject.protocol == 'b'){
+			//notify ui will be what symbol
 		}
 	}
 	
 	public void sendObject(PassingObject theObject){
 		try{
 			serverOutput.writeObject(theObject);
-			if(theObject.protocol == 'e'){
-				try{
-					System.out.println("trying to close stream from sendObject method");
-					serverInput.close();
-					serverOutput.close();
-					System.out.println("Stream closed from sendObject method");
-				}catch(IOException e){
-					System.out.println("Error closing stream on sendObject method");
-					e.printStackTrace();
-				}
-			}
 		}catch(IOException e){
 			System.out.println("ioerror");
 		}

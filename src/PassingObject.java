@@ -43,4 +43,9 @@ public class PassingObject implements Serializable{
 	public void draw(){
 		protocol = 'd'; //draw
 	}
+	
+	public void setStart(String symbol){
+		protocol = 'b';
+		this.symbol = symbol;
+	}
 }
