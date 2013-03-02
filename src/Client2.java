@@ -85,6 +85,8 @@ public class Client2 extends JFrame{
 	JPasswordField password_text;
 	
 	// Register panel
+	JTextField regis_name, regis_username;
+	JPasswordField regis_password;
 	
 	// Home panel & profile panel
 	JPanel profilePanel,userOnlinePanel;
@@ -233,10 +235,51 @@ public class Client2 extends JFrame{
 		registerPane.setPreferredSize(new Dimension(800, 600));
 		registerPane.setBackground(new Color(0xFFFFFF));
 		
+		// username, password
+		regis_name = new JTextField();
+		regis_name.setBounds(300, 260, 200, 25);
+		PromptSupport.setPrompt("Name", regis_name);
 		
+		regis_username = new JTextField();
+		regis_username.setBounds(300, 300, 200, 25);
+		PromptSupport.setPrompt("Username", regis_username);
+		
+		regis_password = new JPasswordField(10);
+		regis_password.setBounds(300, 340, 200, 25);
+		PromptSupport.setPrompt("Password", regis_password);
+		
+		
+		// connect buttons
+		final JButton regisButton = new JButton("REGISTER");
+		regisButton.setFont(new Font("Arial", Font.BOLD, 12));
+		regisButton.setBorder(null);
+		regisButton.setBorderPainted(false);
+		regisButton.setFocusPainted(false);
+		regisButton.setBackground(PINK_BASE);
+		regisButton.setBounds(300, 380, 200, 25);
+		regisButton.setForeground(BTN_TEXT);
+		regisButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	regisButton.setBackground(PINK_DARK);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	regisButton.setBackground(PINK_BASE);
+		    }
+		});
+		regisButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                //Execute when button is pressed
+				registerUserButtonPerformed(e);
+				
+            }
+        });
 		
 		registerPane.setLayout(null);
-//		registerPane.add(logo);
+		registerPane.add(regis_name);
+		registerPane.add(regis_username);
+		registerPane.add(regis_password);
+		registerPane.add(regisButton);
 		
 		// =======================================================================================
 		// ================================== HOME PAGE ==========================================
@@ -875,6 +918,13 @@ public class Client2 extends JFrame{
  		revalidate();
  		repaint();
 	}
+	private void registerUserButtonPerformed(ActionEvent evt) {
+		// TODO send data to server
+		
+		
+		
+		redirectToHomePanel();
+	}
 	
 	private void profileButtonPerformed(ActionEvent evt) {
 		
@@ -1036,12 +1086,14 @@ public class Client2 extends JFrame{
 		// TODO show list of friends
 		int friendCount = 25; //edit this
 		setFriendCount(friendCount);
+		friendListModel.removeAllElements();
 		for(int i = 0;i<friendCount;i++){
 			addUserToList(friendListModel, new ListObject("Jane Doe"+i)); // edit this to your object, ignore my test object "ListObject"
 		}
 		// show list of online player
 		int onlineCount = 88; //edit this
 		setOnlineCount(onlineCount);
+		onlineListModel.removeAllElements();
 		for(int i = 0;i<onlineCount;i++){
 			addUserToList(onlineListModel, new ListObject("Jack Daniel"+i)); // edit this to your object too
 		}
