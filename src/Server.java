@@ -7,6 +7,7 @@ import java.util.Random;
 public class Server extends Thread{
 	ObjectInputStream userInput[];
 	ObjectOutputStream userOutput[];
+	ServerSocket serverSocket = null;
 	
 	String name0, name1;
 
@@ -25,7 +26,7 @@ public class Server extends Thread{
 	public void run() {
 		// TODO Auto-generated method stub
 		int n = 0;
-		ServerSocket serverSocket = null;
+
 		try{
 			serverSocket = new ServerSocket(port);
 			System.out.println("Connection Socket Created");
@@ -40,6 +41,7 @@ public class Server extends Thread{
 			}
 		}catch(IOException e){
 			System.err.println("Create Socket failed.");
+			e.printStackTrace();
 		}
 	}
 	
@@ -105,6 +107,7 @@ public class Server extends Thread{
 							System.out.println("initiate protocol 'e' in thread");
 							userInput[id].close();
 							userOutput[id].close();
+							serverSocket.close();
 							break;
 						}catch(IOException err){
 							System.out.println("IOError in closing the stream after receving end game protocol in thread");
@@ -127,6 +130,7 @@ public class Server extends Thread{
 					System.out.println("stream closed");
 				}catch(IOException err){
 					System.out.println("unable to close stream");
+					err.printStackTrace();
 				}
 				return;
 			}
