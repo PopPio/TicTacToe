@@ -84,6 +84,7 @@ public class GameClient extends Thread{
 			System.out.println("draws...");
 		}else if (theObject.protocol == 'b'){
 			//notify ui will be what symbol
+			System.out.println("you are " + theObject.symbol);
 		}
 	}
 	
