@@ -10,6 +10,8 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.LineBreakMeasurer;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -140,7 +142,17 @@ public class ChatText extends JPanel{
 		addRow(nameText, color, chatText, "12:15");
 	}
 	public void addRow(String nameText, Color color, String chatText, String timeText){
-    	SimpleAttributeSet name = new SimpleAttributeSet();
+		String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+		
+		SimpleAttributeSet time = new SimpleAttributeSet();
+		StyleConstants.setFontFamily(time, "Arial");
+		StyleConstants.setFontSize(time, 12);
+		StyleConstants.setForeground(time, GREY_BASE);
+		try{
+			text_panel.getDocument().insertString(text_panel.getDocument().getLength(), timeStamp+" ", time);
+		}catch(Exception e) {}
+		
+		SimpleAttributeSet name = new SimpleAttributeSet();
 		StyleConstants.setFontFamily(name, "Arial BOLD");
 		StyleConstants.setFontSize(name, 12);
 		StyleConstants.setForeground(name, color);
@@ -167,12 +179,14 @@ public class ChatText extends JPanel{
 //		}catch(Exception e) {}
 	}
 	public void addInfo(String infoText) {
+		String timeStamp = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+		
 		SimpleAttributeSet text = new SimpleAttributeSet();
 		StyleConstants.setFontFamily(text, "Arial");
 		StyleConstants.setFontSize(text, 12);
 		StyleConstants.setForeground(text, GREY_BASE);
 		try{
-			text_panel.getDocument().insertString(text_panel.getDocument().getLength(), infoText+"\n", text);
+			text_panel.getDocument().insertString(text_panel.getDocument().getLength(), timeStamp+" "+infoText+"\n", text);
 		}catch(Exception e) {}
 		text_panel.selectAll();
 	}
