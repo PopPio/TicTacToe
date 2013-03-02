@@ -35,8 +35,6 @@ public class Server extends Thread{
 					new GameRoomHost(serverSocket.accept(), n++);
 					System.out.println("user " + n + " connected");
 				}
-				game = new TheGame();
-				startGame();
 			}catch(IOException e){
 				System.err.println("Accept failed.");
 			}
@@ -82,6 +80,7 @@ public class Server extends Thread{
 					System.out.println("Listening to id" + id);
 					PassingObject getObject = (PassingObject)userInput[id].readObject();
 					if(getObject.protocol == 'n'){
+						System.out.println("get name object from id:" + id + " name :" + getObject.name);
 						if(id == 0){
 							name0 = getObject.name;
 							continue;
@@ -94,6 +93,8 @@ public class Server extends Thread{
 							p.setName(name1);
 							userOutput[0].writeObject(p);
 							p = null;
+							game = new TheGame();
+							startGame();
 							continue;
 						}		
 					}
