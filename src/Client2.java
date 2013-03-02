@@ -13,10 +13,12 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -83,8 +85,11 @@ public class Client2 extends JFrame{
 	// Home panel & profile panel
 	JPanel profilePanel,userOnlinePanel;
 	JButton addFriendButton,backToHome;
-	JLabel profileWin ,profileLoss, profileDraw;
+	JLabel profileWin ,profileLoss, profileDraw, friendHead, onlineHead;
 	JTextPane history;
+	JList friendList, onlineList;
+	DefaultListModel friendListModel, onlineListModel;
+	int friendCount,onlineCount;
 	
 	// Play panel shared a2 components
 	JTextArea chatArea;
@@ -232,12 +237,64 @@ public class Client2 extends JFrame{
 		java.net.URL friend_URL = Client2.class.getResource("img/friend.png");
 		BufferedImage friend_pic = ImageIO.read(friend_URL);
 		ImageIcon friendIcon = new ImageIcon(friend_pic);
-		JLabel friendHead = new JLabel("Friends", friendIcon, SwingConstants.LEFT);
+		friendHead = new JLabel("Friends", friendIcon, SwingConstants.LEFT);
 		friendHead.setBounds(5, 2, 220, 25);
 		friendHead.setFont(new Font("Arial", Font.PLAIN, 14));
 		friendHead.setForeground(GREY_DARK);
 		
+		friendListModel = new DefaultListModel();
+		
+		// test
+		ListObject friend1 = new ListObject("Jane Doe");
+		ListObject friend2 = new ListObject("John Smith");
+		ListObject friend3 = new ListObject("Kathy Green");
+		ListObject friend4 = new ListObject("Jack Daniel");
+		
+		friendListModel.addElement(friend1);
+		friendListModel.addElement(friend2);
+		friendListModel.addElement(friend3);
+		friendListModel.addElement(friend4);
+		friendListModel.addElement(friend1);
+		friendListModel.addElement(friend2);
+		friendListModel.addElement(friend3);
+		friendListModel.addElement(friend4);
+		friendListModel.addElement(friend1);
+		friendListModel.addElement(friend2);
+		friendListModel.addElement(friend3);
+		friendListModel.addElement(friend4);
+		friendListModel.addElement(friend1);
+		friendListModel.addElement(friend2);
+		friendListModel.addElement(friend3);
+		friendListModel.addElement(friend4);
+		friendListModel.addElement(friend1);
+		friendListModel.addElement(friend2);
+		friendListModel.addElement(friend3);
+		friendListModel.addElement(friend4);
+		friendListModel.addElement(friend1);
+		friendListModel.addElement(friend2);
+		friendListModel.addElement(friend3);
+		friendListModel.addElement(friend4);
+		friendListModel.addElement(friend3);
+		friendListModel.addElement(friend4);
+		friendListModel.addElement(friend1);
+		friendListModel.addElement(friend2);
+		friendListModel.addElement(friend3);
+		friendListModel.addElement(friend4);
+		// END test
+		
+		friendList = new JList(friendListModel);
+		friendList.setBackground(LEFT_BG);
+		friendList.setBorder(null);
+//		friendList.setLayoutOrientation(JList.VERTICAL_WRAP);
+		friendList.setVisibleRowCount(28);
+//		friendList.setFixedCellWidth(200);
+		JScrollPane listScrollPane = new JScrollPane(friendList);
+		listScrollPane.setBackground(LEFT_BG);
+		listScrollPane.setBounds(5, 30, 420, 505);
+		listScrollPane.setBorder(null);
+		
 		friendsPanel.add(friendHead);
+		friendsPanel.add(listScrollPane);
 		
 		final JButton joinButton = new JButton("JOIN GAME");
 		joinButton.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -324,7 +381,7 @@ public class Client2 extends JFrame{
 		java.net.URL online_URL = Client2.class.getResource("img/online.png");
 		BufferedImage online_pic = ImageIO.read(online_URL);
 		ImageIcon onlyIcon = new ImageIcon(online_pic);
-		JLabel onlineHead = new JLabel("User online", onlyIcon, SwingConstants.LEFT);
+		onlineHead = new JLabel("User online", onlyIcon, SwingConstants.LEFT);
 		onlineHead.setBounds(5, 2, 220, 25);
 		onlineHead.setFont(new Font("Arial", Font.PLAIN, 14));
 		onlineHead.setForeground(GREY_DARK);
@@ -933,9 +990,9 @@ public class Client2 extends JFrame{
 		getContentPane().add(homePage, BorderLayout.CENTER);
 		
 		// show list of friends
-		
+		setFriendCount(25);
 		// show list of online player
-		
+		setOnlineCount(140);
 		revalidate();
  		repaint();
 	}
@@ -975,6 +1032,14 @@ public class Client2 extends JFrame{
 		// same as
 //		addHistoryRow("win someone\nloss PopPio\ndraw John Doe");
 	}
+	private void setFriendCount(int numFriend){
+		this.friendCount = numFriend;
+		friendHead.setText("Friends: "+friendCount);
+	}
+	private void setOnlineCount(int numOnline){
+		this.onlineCount = numOnline;
+		onlineHead.setText("User online: "+numOnline);
+	}
 	private void addHistoryRow(String text){
 			SimpleAttributeSet historyAtr = new SimpleAttributeSet();
 			StyleConstants.setFontFamily(historyAtr, "Arial");
@@ -985,6 +1050,12 @@ public class Client2 extends JFrame{
 			}catch(Exception e) {}
 			
 			history.selectAll();
+	}
+	private void addToList(){
+		
+	}
+	private void removeFromList(){
+		
 	}
 	private void redirectToConnectPanel() {
 		// for disconnect button
