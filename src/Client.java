@@ -508,14 +508,32 @@ public class Client extends JFrame{
             }
         });     
 		
+		// reset score button
+		final JButton resetScoreButton = new JButton("RESET SCORE");
+		resetScoreButton.setFont(new Font("Arial", Font.PLAIN, 14));
+		resetScoreButton.setBorder(null);
+		resetScoreButton.setBorderPainted(false);
+		resetScoreButton.setFocusPainted(false);
+		resetScoreButton.setBackground(GREY_BASE);
+		resetScoreButton.setBounds(470, 560, 120, 20);
+		resetScoreButton.setForeground(BTN_TEXT);
+		resetScoreButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	resetScoreButton.setBackground(GREY_DARK);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	resetScoreButton.setBackground(GREY_BASE);
+		    }
+		});
+		
 		// reset button
-		final JButton resetButton = new JButton("RESET SCORE");
+		final JButton resetButton = new JButton("RESET");
 		resetButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		resetButton.setBorder(null);
 		resetButton.setBorderPainted(false);
 		resetButton.setFocusPainted(false);
 		resetButton.setBackground(GREY_BASE);
-		resetButton.setBounds(470, 560, 120, 20);
+		resetButton.setBounds(591, 560, 60, 20);
 		resetButton.setForeground(BTN_TEXT);
 		resetButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -535,8 +553,8 @@ public class Client extends JFrame{
 		mainPane.add(scorePane);
 		mainPane.add(chatPane);
 		mainPane.add(sendButton);
+		mainPane.add(resetScoreButton);
 		mainPane.add(resetButton);
-		
 		
 		
 		// ======================================

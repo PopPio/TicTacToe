@@ -47,6 +47,7 @@ public class Client2 extends JFrame{
 	final Color APP_BG = Color.WHITE;
 	final Color RIGHT_BG = new Color(0xecedec);
 	final Color LEFT_BG = new Color(0xddeff0);
+	final Color PROFILE_BG = new Color(0xe8ead9);
 	
 	///static JFrame frame = new JFrame("Tic Tac Toe");
 	
@@ -78,6 +79,12 @@ public class Client2 extends JFrame{
 	JLabel profile;
 	JTextField username_text/*, password_text*/;
 	JPasswordField password_text;
+	
+	// Home panel & profile panel
+	JPanel profilePanel,userOnlinePanel;
+	JButton addFriendButton,backToHome;
+	JLabel profileWin ,profileLoss, profileDraw;
+	JTextPane history;
 	
 	// Play panel shared a2 components
 	JTextArea chatArea;
@@ -293,15 +300,23 @@ public class Client2 extends JFrame{
 		profileButton.setBorderPainted(false);
 		profileButton.setFocusPainted(false);
 		profileButton.setBackground(APP_BG);
-		profileButton.setBounds(470, 20, 220, 35);
+		profileButton.setBounds(470, 20, 240, 35);
 		profileButton.setForeground(TEXT_GREY);
 		profileButton.setHorizontalAlignment(SwingConstants.LEFT);
+		profileButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eProfile)
+            {
+                //Execute when button is pressed
+            	profileButtonPerformed(eProfile);
+            }
+        });     
+		
 		
 //		profile = new JLabel("Username", profileIcon, SwingConstants.LEFT);
 //		profile.setBounds(470, 20, 220, 35);
 		
 		// user online panel --------------------------------------------
-		JPanel userOnlinePanel = new JPanel();
+		userOnlinePanel = new JPanel();
 		userOnlinePanel.setBackground(RIGHT_BG);
 		userOnlinePanel.setBounds(470, 55, 310, 505);
 		userOnlinePanel.setLayout(null);
@@ -317,7 +332,7 @@ public class Client2 extends JFrame{
 		userOnlinePanel.add(onlineHead);
 		
 		// add friend button
-		final JButton addFriendButton = new JButton("ADD FRIEND");
+		addFriendButton = new JButton("ADD FRIEND");
 		addFriendButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		addFriendButton.setBorder(null);
 		addFriendButton.setBorderPainted(false);
@@ -341,13 +356,81 @@ public class Client2 extends JFrame{
             }
         });     
 		
+		
+		// profile panel
+		profilePanel = new JPanel();
+		profilePanel.setBackground(PROFILE_BG);
+		profilePanel.setBounds(470, 55, 310, 505);
+		profilePanel.setLayout(null);
+		profilePanel.setVisible(false);
+		
+		profileWin = new JLabel("Win: 50");
+		profileWin.setBounds(10, 10, 110, 25);
+		
+		profileLoss = new JLabel("Loss: 42");
+		profileLoss.setBounds(120, 10, 110, 25);
+		
+		profileDraw = new JLabel("Draw: 42");
+		profileDraw.setBounds(230, 10, 80, 25);
+		
+		JLabel historyHead = new JLabel("History");
+		historyHead.setBounds(10, 45, 110, 25);
+		
+		history = new JTextPane();
+		history.setEditable(false);
+		history.setOpaque(true);
+		history.setBackground(PROFILE_BG);
+		JScrollPane historyScroll = new JScrollPane(history);
+		historyScroll.setBounds(10, 70, 290, 430);
+//		historyScroll.setOpaque(true);
+//		historyScroll.setBorder(null);
+//		historyScroll.setBackground(Color.red);
+		
+		historyScroll.setBorder(null);
+//		addHistoryRow("Test jjjjjjj");
+//		addHistoryRow("Test jjjjjjj");
+		
+		profilePanel.add(profileWin);
+		profilePanel.add(profileLoss);
+		profilePanel.add(profileDraw);
+		profilePanel.add(historyHead);
+		profilePanel.add(historyScroll);
+		
+		backToHome = new JButton("BACK");
+		backToHome.setFont(new Font("Arial", Font.PLAIN, 14));
+		backToHome.setBorder(null);
+		backToHome.setBorderPainted(false);
+		backToHome.setFocusPainted(false);
+		backToHome.setBackground(PINK_BASE);
+		backToHome.setBounds(720, 560, 60, 20);
+		backToHome.setForeground(BTN_TEXT);
+		backToHome.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	backToHome.setBackground(PINK_DARK);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	backToHome.setBackground(PINK_BASE);
+		    }
+		});
+		backToHome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eBack)
+            {
+                //Execute when button is pressed
+            	backHomeButtonPerformed(eBack);
+            }
+        });   
+		backToHome.setVisible(false);
+		
 		homePage.setLayout(null);
 		homePage.add(friendsPanel);
 		homePage.add(joinButton);
 		homePage.add(logoutButton);
 		homePage.add(profileButton);
 		homePage.add(userOnlinePanel);
+		homePage.add(profilePanel);
 		homePage.add(addFriendButton);
+		homePage.add(backToHome);
+		
 		
 		// =======================================================================================
 		// ================================== PLAY PAGE ==========================================
@@ -649,14 +732,32 @@ public class Client2 extends JFrame{
             }
         });     
 		
+		// reset score button
+		final JButton resetScoreButton = new JButton("RESET SCORE");
+		resetScoreButton.setFont(new Font("Arial", Font.PLAIN, 14));
+		resetScoreButton.setBorder(null);
+		resetScoreButton.setBorderPainted(false);
+		resetScoreButton.setFocusPainted(false);
+		resetScoreButton.setBackground(GREY_BASE);
+		resetScoreButton.setBounds(470, 560, 120, 20);
+		resetScoreButton.setForeground(BTN_TEXT);
+		resetScoreButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	resetScoreButton.setBackground(GREY_DARK);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	resetScoreButton.setBackground(GREY_BASE);
+		    }
+		});
+		
 		// reset button
-		final JButton resetButton = new JButton("reset score");
+		final JButton resetButton = new JButton("RESET");
 		resetButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		resetButton.setBorder(null);
 		resetButton.setBorderPainted(false);
 		resetButton.setFocusPainted(false);
 		resetButton.setBackground(GREY_BASE);
-		resetButton.setBounds(470, 560, 85, 20);
+		resetButton.setBounds(591, 560, 60, 20);
 		resetButton.setForeground(BTN_TEXT);
 		resetButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -676,6 +777,7 @@ public class Client2 extends JFrame{
 		playPage.add(scorePane);
 		playPage.add(chatPane);
 		playPage.add(sendButton);
+		playPage.add(resetScoreButton);
 		playPage.add(resetButton);
 		
 		
@@ -719,6 +821,15 @@ public class Client2 extends JFrame{
 		
 	}
 	
+	private void profileButtonPerformed(ActionEvent evt) {
+		
+		createProfiel();
+		
+		profilePanel.setVisible(true);
+		backToHome.setVisible(true);
+		userOnlinePanel.setVisible(false);
+		addFriendButton.setVisible(false);
+	}
 	
 	private void disconnectButtonPerformed(ActionEvent evt) {
 		// TODO clear connection, bla bla bla
@@ -736,6 +847,13 @@ public class Client2 extends JFrame{
 	private void addFriendButtonPerformed(ActionEvent evt) {
 		
 	}
+	private void backHomeButtonPerformed(ActionEvent evt) {
+		profilePanel.setVisible(false);
+		backToHome.setVisible(false);
+		userOnlinePanel.setVisible(true);
+		addFriendButton.setVisible(true);
+	}
+	
 	private void sendButtonPerformed(ActionEvent evt) {
 		String text = chatArea.getText().trim();
 		System.out.println("Send meesage");
@@ -837,6 +955,36 @@ public class Client2 extends JFrame{
 		chatText.addInfo("Welcome, "+playerName);
  		revalidate();
  		repaint();
+	}
+	private void createProfiel(){
+		// erase history in textpane
+		try {
+			history.getDocument().remove(0, history.getDocument().getLength());
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+		
+		profileWin.setText("Win: "+"50");
+		profileLoss.setText("Loss: "+"42");
+		profileDraw.setText("Draw: "+"88");
+		
+		
+//		addHistoryRow("win someone");
+//		addHistoryRow("loss PopPio");
+//		addHistoryRow("draw John Doe");
+		// same as
+//		addHistoryRow("win someone\nloss PopPio\ndraw John Doe");
+	}
+	private void addHistoryRow(String text){
+			SimpleAttributeSet historyAtr = new SimpleAttributeSet();
+			StyleConstants.setFontFamily(historyAtr, "Arial");
+			StyleConstants.setFontSize(historyAtr, 12);
+			StyleConstants.setForeground(historyAtr, Color.BLACK);
+			try{
+				history.getDocument().insertString(history.getDocument().getLength(), text+"\n", historyAtr);
+			}catch(Exception e) {}
+			
+			history.selectAll();
 	}
 	private void redirectToConnectPanel() {
 		// for disconnect button
