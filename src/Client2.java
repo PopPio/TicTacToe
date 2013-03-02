@@ -84,6 +84,8 @@ public class Client2 extends JFrame{
 	JTextField username_text/*, password_text*/;
 	JPasswordField password_text;
 	
+	// Register panel
+	
 	// Home panel & profile panel
 	JPanel profilePanel,userOnlinePanel;
 	JButton addFriendButton, backToHome, profileButton;
@@ -225,15 +227,16 @@ public class Client2 extends JFrame{
 		connectPane.add(registerButton);
 		
 		// =======================================================================================
-		// ================================= CONNECT PAGE ========================================
+		// ================================ REGISTER PAGE ========================================
 		// =======================================================================================
 		
 		registerPane.setPreferredSize(new Dimension(800, 600));
 		registerPane.setBackground(new Color(0xFFFFFF));
 		
 		
+		
 		registerPane.setLayout(null);
-		registerPane.add(logo);
+//		registerPane.add(logo);
 		
 		// =======================================================================================
 		// ================================== HOME PAGE ==========================================
@@ -813,6 +816,7 @@ public class Client2 extends JFrame{
 		    	resetButton.setBackground(GREY_BASE);
 		    }
 		});
+		resetButton.setVisible(false); // not need this button anymore
 		
 		// add them all
 		playPage.setLayout(null);
@@ -864,7 +868,12 @@ public class Client2 extends JFrame{
  		redirectToHomePanel();
 	}
 	private void registerButtonPerformed(ActionEvent evt) {
+		getContentPane().removeAll();
+		getContentPane().add(registerPane, BorderLayout.CENTER);
+ 		
 		
+ 		revalidate();
+ 		repaint();
 	}
 	
 	private void profileButtonPerformed(ActionEvent evt) {
@@ -881,11 +890,12 @@ public class Client2 extends JFrame{
 		// TODO clear connection, bla bla bla
 		
 		System.out.println("Disconnected");
-		redirectToConnectPanel();
+		//redirectToConnectPanel();
+		redirectToHomePanel();
 	}
 	private void logoutButtonPerformed(ActionEvent evt) {
 		System.out.println("Loging out");
-		redirectToHomePanel();
+		redirectToConnectPanel();
 	}
 	private void joinButtonPerformed(ActionEvent evt) {
 		
@@ -893,24 +903,11 @@ public class Client2 extends JFrame{
 		ListObject toPlayWith = (ListObject) friendListModel.get(index);
 		
 		// TODO connect to that player
-		
+		System.out.println("join "+toPlayWith);
 		opponentName = toPlayWith.toString();
-		
-		// change to play panel 
-		// insert form validation if have time
-		
-// 		profile.setText(playerName);
-		
- 		
- 		System.out.println("Connecting");
- 		// TODO perform connection , socket bla bla
- 		
- 		// receive opponent name from server
- 		opponentName = "Touch";
+	
  		
  		// set up game
-//		 		playerScore = 0;
-//		 		opponentScore = 0;
  		scoreO = 0;
  		scoreX = 0;
  		
@@ -924,9 +921,6 @@ public class Client2 extends JFrame{
  		// receive your side from server
  		setSide("x");// edit this
  		
- 		if(currentSide.equalsIgnoreCase("x")){
- 			
- 		}
  		setCurrentTurn("x"); // fix, x always go first
  		
  		
@@ -935,7 +929,11 @@ public class Client2 extends JFrame{
 		b5.tickO();
 		//-----------END TEST OXButton------------
  		
- 		redirectToPlayPanel();
+		redirectToPlayPanel();
+		
+		// TODO wait for client connection
+		// call method startGame() when client connected
+		//createGame();
 	}
 	private void addFriendButtonPerformed(ActionEvent evt) {
 		int index = onlineList.getSelectedIndex();

@@ -544,6 +544,7 @@ public class Client extends JFrame{
 		    	resetButton.setBackground(GREY_BASE);
 		    }
 		});
+		resetButton.setVisible(false); // not need this button anymore
 		
 		// add them all
 		mainPane.setLayout(null);
