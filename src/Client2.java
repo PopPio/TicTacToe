@@ -897,7 +897,15 @@ public class Client2 extends JFrame{
 		// change to play panel 
 		// insert form validation if have time
 		String username = username_text.getText().equalsIgnoreCase("") ? "username" : username_text.getText();
-		String password = password_text.getText().equalsIgnoreCase("") ? "password" : password_text.getText();
+		char [] temp = password_text.getPassword();
+		String password = "";
+		for (int i = 0; i < temp.length; i++) {
+			password += temp[i];
+		}
+		if(password.equalsIgnoreCase("")){
+			password = "password";
+		}
+		// no have form validation, but fuck that shit
 		
 		// send to server
 
@@ -920,8 +928,19 @@ public class Client2 extends JFrame{
 	}
 	private void registerUserButtonPerformed(ActionEvent evt) {
 		// TODO send data to server
-		
-		
+		String name = regis_name.getText().equalsIgnoreCase("") ? "John Doe" : regis_name.getText(); // Jane Doe if empty this field
+		String username = regis_username.getText().equalsIgnoreCase("") ? "username" :regis_username.getText();
+		char [] temp = regis_password.getPassword();
+		String password = "";
+		for (int i = 0; i < temp.length; i++) {
+			password += temp[i];
+		}
+		if(password.equalsIgnoreCase("")){
+			password = "password"; // password = password if empty this field
+		}
+//		System.out.println(password);
+		playerName = "PopPio"; 
+		profile.setText(playerName);
 		
 		redirectToHomePanel();
 	}
