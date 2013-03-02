@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -69,7 +70,8 @@ public class Client2 extends JFrame{
 	int scoreO, scoreX;
 	
 	// Panels
-	JPanel transitionPane = new JPanel();
+	JPanel transitionPane = new JPanel(); // not used
+	JPanel registerPane = new JPanel();
 	JPanel connectPane = new JPanel();
 	JPanel homePage = new JPanel();
 	JPanel playPage = new JPanel();
@@ -222,6 +224,16 @@ public class Client2 extends JFrame{
 		connectPane.add(connectButton);
 		connectPane.add(registerButton);
 		
+		// =======================================================================================
+		// ================================= CONNECT PAGE ========================================
+		// =======================================================================================
+		
+		registerPane.setPreferredSize(new Dimension(800, 600));
+		registerPane.setBackground(new Color(0xFFFFFF));
+		
+		
+		registerPane.setLayout(null);
+		registerPane.add(logo);
 		
 		// =======================================================================================
 		// ================================== HOME PAGE ==========================================
@@ -1253,9 +1265,17 @@ public class Client2 extends JFrame{
 		if(side.equalsIgnoreCase("o")){
 			scoreO++;
 			chatText.addInfo(playerOName + " wins !!!");
+			JOptionPane.showMessageDialog(this,
+				 	playerOName + " wins !!!",
+				    "Announcement",
+				    JOptionPane.PLAIN_MESSAGE);
 		}else if(side.equalsIgnoreCase("x")){
 			scoreX++;
 			chatText.addInfo(playerXName + " wins !!!");
+			JOptionPane.showMessageDialog(this,
+					playerXName + " wins !!!",
+				    "Announcement",
+				    JOptionPane.PLAIN_MESSAGE);
 		}
 		switchSide();
 		resetAllButton();

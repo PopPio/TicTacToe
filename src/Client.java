@@ -890,16 +890,20 @@ public class Client extends JFrame{
 		if(side.equalsIgnoreCase("o")){
 			scoreO++;
 			chatText.addInfo(playerOName + " wins !!!");
+			JOptionPane.showMessageDialog(this,
+				 	playerOName + " wins !!!",
+				    "Announcement",
+				    JOptionPane.PLAIN_MESSAGE);
 		}else if(side.equalsIgnoreCase("x")){
 			scoreX++;
 			chatText.addInfo(playerXName + " wins !!!");
+			JOptionPane.showMessageDialog(this,
+					playerXName + " wins !!!",
+				    "Announcement",
+				    JOptionPane.PLAIN_MESSAGE);
 		}
 		
-		// display pop up
-		 int n = JOptionPane.showMessageDialog(this,
-				    "Eggs are not supposed to be green.",
-				    "A plain message",
-				    JOptionPane.PLAIN_MESSAGE);
+		
 		
 		
 		switchSide();
