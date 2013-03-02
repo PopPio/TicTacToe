@@ -21,6 +21,7 @@ public class GameClient extends Thread{
 			InputStream is = serverSocket.getInputStream();
 			serverInput = new ObjectInputStream(is);
 			PassingObject p = new PassingObject();
+			System.out.println("Sending player name: " + client.playerName);
 			p.setName(client.playerName);
 			serverOutput.writeObject(p);
 			start();
