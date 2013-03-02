@@ -627,8 +627,8 @@ public class Client extends JFrame{
  		
  		
 		//-------------TEST OXButton--------------
-		b1.check();
-		b5.tickO();
+//		b1.check();
+//		b5.tickO();
 		//-----------END TEST OXButton------------
  		
  		redirectToPlayPanel();
@@ -665,9 +665,10 @@ public class Client extends JFrame{
 	
 	private void disconnectButtonPerformed(ActionEvent evt) {
 		// TODO clear connection, bla bla bla
-		
-		System.out.println("Disconnected");
-		redirectToConnectPanel();
+		PassingObject p = new PassingObject();
+		p.leave();
+		client.sendObject(p);
+		client = null;
 	}
 	private void sendButtonPerformed(ActionEvent evt) {
 		String text = chatArea.getText().trim();
@@ -759,7 +760,7 @@ public class Client extends JFrame{
  		revalidate();
  		repaint();
 	}
-	private void redirectToConnectPanel() {
+	protected void redirectToConnectPanel() {
 		// for disconnect button
 		getContentPane().removeAll();
 		getContentPane().add(connectPane, BorderLayout.CENTER);

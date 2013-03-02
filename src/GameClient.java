@@ -80,6 +80,8 @@ public class GameClient extends Thread{
 				System.out.println("IOError on closing stream on method processObject");
 			}
 			System.out.println("user left room closed");
+			System.out.println("Disconnected");
+			client.redirectToConnectPanel();
 		}else if(theObject.protocol == 'c'){
 			//chat
 			System.out.println(theObject.name + " says: " + theObject.text);
