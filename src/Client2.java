@@ -244,57 +244,19 @@ public class Client2 extends JFrame{
 		
 		friendListModel = new DefaultListModel();
 		
-		// test
-		ListObject friend1 = new ListObject("Jane Doe");
-		ListObject friend2 = new ListObject("John Smith");
-		ListObject friend3 = new ListObject("Kathy Green");
-		ListObject friend4 = new ListObject("Jack Daniel");
-		
-		friendListModel.addElement(friend1);
-		friendListModel.addElement(friend2);
-		friendListModel.addElement(friend3);
-		friendListModel.addElement(friend4);
-		friendListModel.addElement(friend1);
-		friendListModel.addElement(friend2);
-		friendListModel.addElement(friend3);
-		friendListModel.addElement(friend4);
-		friendListModel.addElement(friend1);
-		friendListModel.addElement(friend2);
-		friendListModel.addElement(friend3);
-		friendListModel.addElement(friend4);
-		friendListModel.addElement(friend1);
-		friendListModel.addElement(friend2);
-		friendListModel.addElement(friend3);
-		friendListModel.addElement(friend4);
-		friendListModel.addElement(friend1);
-		friendListModel.addElement(friend2);
-		friendListModel.addElement(friend3);
-		friendListModel.addElement(friend4);
-		friendListModel.addElement(friend1);
-		friendListModel.addElement(friend2);
-		friendListModel.addElement(friend3);
-		friendListModel.addElement(friend4);
-		friendListModel.addElement(friend3);
-		friendListModel.addElement(friend4);
-		friendListModel.addElement(friend1);
-		friendListModel.addElement(friend2);
-		friendListModel.addElement(friend3);
-		friendListModel.addElement(friend4);
-		// END test
-		
 		friendList = new JList(friendListModel);
 		friendList.setBackground(LEFT_BG);
 		friendList.setBorder(null);
 //		friendList.setLayoutOrientation(JList.VERTICAL_WRAP);
 		friendList.setVisibleRowCount(28);
 //		friendList.setFixedCellWidth(200);
-		JScrollPane listScrollPane = new JScrollPane(friendList);
-		listScrollPane.setBackground(LEFT_BG);
-		listScrollPane.setBounds(5, 30, 420, 505);
-		listScrollPane.setBorder(null);
+		JScrollPane friendScrollPane = new JScrollPane(friendList);
+		friendScrollPane.setBackground(LEFT_BG);
+		friendScrollPane.setBounds(5, 30, 420, 505);
+		friendScrollPane.setBorder(null);
 		
 		friendsPanel.add(friendHead);
-		friendsPanel.add(listScrollPane);
+		friendsPanel.add(friendScrollPane);
 		
 		final JButton joinButton = new JButton("JOIN GAME");
 		joinButton.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -386,7 +348,21 @@ public class Client2 extends JFrame{
 		onlineHead.setFont(new Font("Arial", Font.PLAIN, 14));
 		onlineHead.setForeground(GREY_DARK);
 		
+		onlineListModel = new DefaultListModel();
+		
+		friendList = new JList(onlineListModel);
+		friendList.setBackground(RIGHT_BG);
+		friendList.setBorder(null);
+//		friendList.setLayoutOrientation(JList.VERTICAL_WRAP);
+		friendList.setVisibleRowCount(28);
+//		friendList.setFixedCellWidth(200);
+		JScrollPane onlineScrollPane = new JScrollPane(friendList);
+		onlineScrollPane.setBackground(RIGHT_BG);
+		onlineScrollPane.setBounds(5, 30, 300, 470);
+		onlineScrollPane.setBorder(null);
+		
 		userOnlinePanel.add(onlineHead);
+		userOnlinePanel.add(onlineScrollPane);
 		
 		// add friend button
 		addFriendButton = new JButton("ADD FRIEND");
@@ -989,10 +965,19 @@ public class Client2 extends JFrame{
 		getContentPane().removeAll();
 		getContentPane().add(homePage, BorderLayout.CENTER);
 		
-		// show list of friends
-		setFriendCount(25);
+		// TODO show list of friends
+		int friendCount = 25; //edit this
+		setFriendCount(friendCount);
+		for(int i = 0;i<friendCount;i++){
+			addUserToList(friendListModel, new ListObject("Jane Doe"+i)); // edit this to your object, ignore my test object "ListObject"
+		}
 		// show list of online player
-		setOnlineCount(140);
+		int onlineCount = 88; //edit this
+		setOnlineCount(onlineCount);
+		for(int i = 0;i<onlineCount;i++){
+			addUserToList(onlineListModel, new ListObject("Jack Daniel"+i)); // edit this to your object too
+		}
+		
 		revalidate();
  		repaint();
 	}
@@ -1051,10 +1036,10 @@ public class Client2 extends JFrame{
 			
 			history.selectAll();
 	}
-	private void addToList(){
-		
+	private void addUserToList(DefaultListModel listModel,Object user){
+		listModel.addElement(user);
 	}
-	private void removeFromList(){
+	private void removeUserFromList(){
 		
 	}
 	private void redirectToConnectPanel() {
