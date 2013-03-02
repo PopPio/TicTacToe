@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -893,9 +894,19 @@ public class Client extends JFrame{
 			scoreX++;
 			chatText.addInfo(playerXName + " wins !!!");
 		}
+		
+		// display pop up
+		 int n = JOptionPane.showMessageDialog(this,
+				    "Eggs are not supposed to be green.",
+				    "A plain message",
+				    JOptionPane.PLAIN_MESSAGE);
+		
+		
 		switchSide();
 		resetAllButton();
 		setCurrentTurn("x");
+		
+		
 		
 	}
 	

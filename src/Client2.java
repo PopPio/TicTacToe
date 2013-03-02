@@ -84,12 +84,13 @@ public class Client2 extends JFrame{
 	
 	// Home panel & profile panel
 	JPanel profilePanel,userOnlinePanel;
-	JButton addFriendButton,backToHome;
+	JButton addFriendButton, backToHome, profileButton;
 	JLabel profileWin ,profileLoss, profileDraw, friendHead, onlineHead;
 	JTextPane history;
 	JList friendList, onlineList;
 	DefaultListModel friendListModel, onlineListModel;
 	int friendCount,onlineCount;
+	
 	
 	// Play panel shared a2 components
 	JTextArea chatArea;
@@ -313,7 +314,7 @@ public class Client2 extends JFrame{
 		BufferedImage profile_pic = ImageIO.read(profile_URL);
 		ImageIcon profileIcon = new ImageIcon(profile_pic);
 		// for server-client
-		final JButton profileButton = new JButton("John Doe", profileIcon);
+		profileButton = new JButton("John Doe", profileIcon);
 		profileButton.setFont(new Font("Arial", Font.BOLD, 12));
 		profileButton.setBorder(null);
 		profileButton.setBorderPainted(false);
@@ -350,13 +351,13 @@ public class Client2 extends JFrame{
 		
 		onlineListModel = new DefaultListModel();
 		
-		friendList = new JList(onlineListModel);
-		friendList.setBackground(RIGHT_BG);
-		friendList.setBorder(null);
+		onlineList = new JList(onlineListModel);
+		onlineList.setBackground(RIGHT_BG);
+		onlineList.setBorder(null);
 //		friendList.setLayoutOrientation(JList.VERTICAL_WRAP);
-		friendList.setVisibleRowCount(28);
+		onlineList.setVisibleRowCount(28);
 //		friendList.setFixedCellWidth(200);
-		JScrollPane onlineScrollPane = new JScrollPane(friendList);
+		JScrollPane onlineScrollPane = new JScrollPane(onlineList);
 		onlineScrollPane.setBackground(RIGHT_BG);
 		onlineScrollPane.setBounds(5, 30, 300, 470);
 		onlineScrollPane.setBorder(null);
@@ -876,8 +877,62 @@ public class Client2 extends JFrame{
 	}
 	private void joinButtonPerformed(ActionEvent evt) {
 		
+		int index = friendList.getSelectedIndex();
+		ListObject toPlayWith = (ListObject) friendListModel.get(index);
+		
+		// TODO connect to that player
+		
+		opponentName = toPlayWith.toString();
+		
+		// change to play panel 
+		// insert form validation if have time
+		
+// 		profile.setText(playerName);
+		
+ 		
+ 		System.out.println("Connecting");
+ 		// TODO perform connection , socket bla bla
+ 		
+ 		// receive opponent name from server
+ 		opponentName = "Touch";
+ 		
+ 		// set up game
+//		 		playerScore = 0;
+//		 		opponentScore = 0;
+ 		scoreO = 0;
+ 		scoreX = 0;
+ 		
+ 		try {
+			resetAllButton();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+ 		
+ 		// set up side
+ 		// receive your side from server
+ 		setSide("x");// edit this
+ 		
+ 		if(currentSide.equalsIgnoreCase("x")){
+ 			
+ 		}
+ 		setCurrentTurn("x"); // fix, x always go first
+ 		
+ 		
+		//-------------TEST OXButton--------------
+		b1.check();
+		b5.tickO();
+		//-----------END TEST OXButton------------
+ 		
+ 		redirectToPlayPanel();
 	}
 	private void addFriendButtonPerformed(ActionEvent evt) {
+		int index = onlineList.getSelectedIndex();
+		ListObject toBeFriend = (ListObject) onlineListModel.get(index); // TODO edit ListObject to your user object
+		onlineListModel.remove(index);
+		
+		// TODO send info to other client
+		
+		addUserToList(friendListModel, toBeFriend);
 		
 	}
 	private void backHomeButtonPerformed(ActionEvent evt) {
@@ -964,6 +1019,9 @@ public class Client2 extends JFrame{
 		// for connect button
 		getContentPane().removeAll();
 		getContentPane().add(homePage, BorderLayout.CENTER);
+		
+		// set your name
+		profileButton.setText(playerName);
 		
 		// TODO show list of friends
 		int friendCount = 25; //edit this
