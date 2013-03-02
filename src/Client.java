@@ -36,6 +36,7 @@ public class Client extends JFrame{
 	GameClient client = null;
 	Server server = null;
 	boolean isHost = false;
+	String ourSide;
 	
 	// button color
 	final Color PINK_BASE = new Color(0xAC193D);
@@ -410,6 +411,9 @@ public class Client extends JFrame{
 	            {
 	            	try {
 	            		// TODO send give up message
+	            		PassingObject p = new PassingObject();
+	            		p.surender("o");
+	            		client.sendObject(p);
 						win("x");
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -458,6 +462,9 @@ public class Client extends JFrame{
 	            {
 	            	try {
 	            		// TODO send give up message
+	            		PassingObject p = new PassingObject();
+	            		p.surender("x");
+	            		client.sendObject(p);
 						win("o");
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -684,6 +691,9 @@ public class Client extends JFrame{
 			chatArea.setText("");
 		}
 		// TODO send text to server
+		PassingObject p = new PassingObject();
+		p.sendChat(playerName, text);
+		client.sendObject(p);
 	}
 	
 	
@@ -699,22 +709,24 @@ public class Client extends JFrame{
 			}else if(currentSide.equalsIgnoreCase("o")){
 				oxClick.tickO();
 			}
-			if(oxClick.position==6){
-				try {
-					win("o");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if(oxClick.position==7){
-				try {
-					win("x");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+//			if(oxClick.position==6){
+//				try {
+//					win("o");
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if(oxClick.position==7){
+//				try {
+//					win("x");
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
 			// TODO send data to server
-			
+			PassingObject p = new PassingObject();
+			p.sendGame(ourSide, oxClick.position);
+			client.sendObject(p);
 		}else{
 			// click in opponent's turn, do nothing
 		}
@@ -781,7 +793,7 @@ public class Client extends JFrame{
 		b8.reset();
 		
 	}
-	private void receiveChat(int chatType,String chat){ //chatType: 1=from opponent, 2=from spec, 3=from player1 and you are spec;
+	protected void receiveChat(int chatType,String chat){ //chatType: 1=from opponent, 2=from spec, 3=from player1 and you are spec;
 		Color color;
 		if(chatType == 1){
 			color = ChatText.PLAYER2;

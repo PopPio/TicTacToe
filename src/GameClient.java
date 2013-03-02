@@ -81,12 +81,19 @@ public class GameClient extends Thread{
 		}else if(theObject.protocol == 'c'){
 			//chat
 			System.out.println(theObject.name + " says: " + theObject.text);
+			client.receiveChat(1, theObject.text);
 		}else if(theObject.protocol == 'r'){
 			//reset score
 			System.out.println("reset score");
 		}else if(theObject.protocol == 'w'){
 			//win
 			System.out.println(theObject.symbol + " wins!");
+			try{
+				client.win(theObject.symbol);
+			}catch(IOException e){
+				System.out.println("error in calling win method");
+				e.printStackTrace();
+			}
 		}else if(theObject.protocol == 'd'){
 			//draw
 			System.out.println("draws...");
@@ -94,6 +101,7 @@ public class GameClient extends Thread{
 			//notify ui will be what symbol
 			System.out.println("you are " + theObject.symbol);
 			client.setSide(theObject.symbol);
+			client.ourSide = theObject.symbol;
 			if(!client.isHost)
 				client.initializeScreen();
 			else
