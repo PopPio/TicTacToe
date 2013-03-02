@@ -7,10 +7,15 @@ import java.util.Random;
 public class Server extends Thread{
 	ObjectInputStream userInput[];
 	ObjectOutputStream userOutput[];
+	
+	String name0, name1;
 
 	TheGame game = null;
 	
-	public Server(){
+	int port;
+	
+	public Server(int port){
+		this.port = port;
 		userInput = new ObjectInputStream[2];
 		userOutput = new ObjectOutputStream[2];
 		start();
@@ -22,7 +27,7 @@ public class Server extends Thread{
 		int n = 0;
 		ServerSocket serverSocket = null;
 		try{
-			serverSocket = new ServerSocket(4);
+			serverSocket = new ServerSocket(port);
 			System.out.println("Connection Socket Created");
 			try{
 				while(n < 2){
@@ -76,6 +81,22 @@ public class Server extends Thread{
 				while(true){
 					System.out.println("Listening to id" + id);
 					PassingObject getObject = (PassingObject)userInput[id].readObject();
+					if(getObject.protocol == 'n'){
+						if(id == 0){
+							name0 = getObject.name;
+							continue;
+						}else{
+							name1 = getObject.name;
+							PassingObject p = new PassingObject();
+							p.setName(name0);
+							userOutput[1].writeObject(p);
+							p = new PassingObject();
+							p.setName(name1);
+							userOutput[0].writeObject(p);
+							p = null;
+							continue;
+						}		
+					}
 					PassingObject passObject = readObject(getObject);
 					passObject(id, passObject);
 					if(passObject.protocol == 'e'){	
@@ -139,7 +160,7 @@ public class Server extends Thread{
 
 	public void passObject(int id, PassingObject theObject){
 		for(int i = 0; i < 2; i ++){
-			if(i == id && theObject.protocol != 'e')
+			if((i == id && theObject.protocol != 'e'))
 				continue;
 			try{
 				System.out.println("writing to id: " + i);

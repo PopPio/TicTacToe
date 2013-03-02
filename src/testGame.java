@@ -8,21 +8,21 @@ public class testGame {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-		Server s = new Server();
+//		Server s = new Server();
 		GameClient c = new GameClient();
-		c.Connect("127.0.0.1", 4);
+		c.Connect("192.168.1.35", 4);
 		PassingObject p = null;
 		while(true){
 			p = new PassingObject();
 			int position = sc.nextInt();
-			p.sendGame("x", position);
+			p.sendGame("o", position);
 			c.sendObject(p);
 			p = new PassingObject();
-			p.sendChat("Touch", "hello");
+			p.sendChat("Touchooooo", "hello");
 			c.sendObject(p);
-			p = new PassingObject();
-			p.leave();
-			c.sendObject(p);
+//			p = new PassingObject();
+//			p.leave();
+//			c.sendObject(p);
 		}
 	}
 

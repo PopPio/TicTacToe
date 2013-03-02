@@ -32,6 +32,10 @@ import org.jdesktop.xswingx.PromptSupport;
 
 // client-client UI
 public class Client extends JFrame{
+	// client server
+	GameClient client = null;
+	Server server = null;
+	boolean isHost = false;
 	
 	// button color
 	final Color PINK_BASE = new Color(0xAC193D);
@@ -583,24 +587,38 @@ public class Client extends JFrame{
 		playerName = login_text.getText().equalsIgnoreCase("") ? "Name" : login_text.getText();
  		profile.setText(playerName);
 		
- 		
+ 		isHost = false;
  		System.out.println("Connecting");
  		// TODO perform connection , socket bla bla
- 		
+ 		client = new GameClient(this);
+ 		client.Connect(ip_text.getText(), Integer.parseInt(port_text.getText()));
  		// receive opponent name from server
- 		opponentName = "Touch";
+ 		
+	}
+	
+	/*
+	 * Problem with sequencing the algorithm need to split the method and make
+	 * client connection be the one who invoke what to do next after all the data 
+	 * are transferred to the application
+	 */
+	
+	public void initializeScreen(){
+//		opponentName = "Touch";
  		
  		// set up game
 // 		playerScore = 0;
 // 		opponentScore = 0;
  		scoreO = 0;
  		scoreX = 0;
- 		
- 		resetAllButton();
- 		
+ 		try{
+ 			resetAllButton();
+ 		}catch(IOException e){
+ 			System.out.println("IOException in initializeScreen()");
+ 			e.printStackTrace();
+ 		}
  		// set up side
  		// receive your side from server
- 		setSide("x");// edit this
+// 		setSide("x");// edit this
  		
  		if(currentSide.equalsIgnoreCase("x")){
  			
@@ -637,9 +655,12 @@ public class Client extends JFrame{
 		redirectToPlayPanel();
 		chatText.addInfo("Waiting for other player");
 		currentTurn = "pause";
+		isHost = true;
 		// TODO wait for client connection
+		server = new Server(Integer.parseInt(port_text.getText()));
+		client = new GameClient(this);
+		client.Connect("127.0.0.1", Integer.parseInt(port_text.getText()));
 		// call method startGame() when client connected
-		createGame();
 	}
 	
 	private void disconnectButtonPerformed(ActionEvent evt) {
@@ -698,21 +719,21 @@ public class Client extends JFrame{
 		}
 	}
 	// ************************ Useful Methods ************************
-	private void createGame() { // call this when receive connection
+	protected void createGame() { // call this when receive connection
 		
  		// accept connection
-	 	opponentName = "Touch"; //edit this
+//	 	opponentName = "Touch"; //edit this
 	 	
 	 	chatText.addInfo(opponentName+" connected");
 		
 		// random side
-	 	if(random.nextBoolean()){
-	 		setSide("o");
-	 		// send x to opponent
-	 	}else{
-	 		setSide("x");
-	 		// send o to opponent
-	 	}
+//	 	if(random.nextBoolean()){
+//	 		setSide("o");
+//	 		// send x to opponent
+//	 	}else{
+//	 		setSide("x");
+//	 		// send o to opponent
+//	 	}
 	 	
 		// send to client
  		
@@ -778,7 +799,7 @@ public class Client extends JFrame{
 	 * set side of this player
 	 * @param side
 	 */
-	private void setSide(String side){
+	protected void setSide(String side){
 		// set side of this player
 		b0.setType(side);
 		b1.setType(side);

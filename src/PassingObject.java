@@ -48,4 +48,9 @@ public class PassingObject implements Serializable{
 		protocol = 'b';
 		this.symbol = symbol;
 	}
+	
+	public void setName(String name){
+		protocol = 'n';
+		this.name = name;
+	}
 }

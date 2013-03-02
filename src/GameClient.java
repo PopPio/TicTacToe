@@ -7,6 +7,12 @@ public class GameClient extends Thread{
 	ObjectInputStream serverInput;
 	ObjectOutputStream serverOutput;
 	
+	Client client;
+	
+	public GameClient(Client client){
+		this.client = client;
+	}
+	
 	public void Connect(String ip, int port){
 		try{
 			Socket serverSocket = new Socket(ip, port);
@@ -14,6 +20,9 @@ public class GameClient extends Thread{
 			serverOutput = new ObjectOutputStream(os);
 			InputStream is = serverSocket.getInputStream();
 			serverInput = new ObjectInputStream(is);
+			PassingObject p = new PassingObject();
+			p.setName(client.playerName);
+			serverOutput.writeObject(p);
 			start();
 		} catch(UnknownHostException e){
 			System.err.println("Don't know about host: " + ip);
@@ -85,6 +94,14 @@ public class GameClient extends Thread{
 		}else if (theObject.protocol == 'b'){
 			//notify ui will be what symbol
 			System.out.println("you are " + theObject.symbol);
+			client.setSide(theObject.symbol);
+			if(!client.isHost)
+				client.initializeScreen();
+			else
+				client.createGame();
+		}else if (theObject.protocol == 'n'){
+			//name
+			client.opponentName = theObject.name;
 		}
 	}
 	
