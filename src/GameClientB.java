@@ -17,6 +17,7 @@ public class GameClientB extends Thread{
 	
 	public void Connect(String ip){
 		try{
+			System.out.println("joining at ip: " + ip);
 			Socket serverSocket = new Socket(ip, port);
 			OutputStream os = serverSocket.getOutputStream();
 			serverOutput = new ObjectOutputStream(os);
@@ -31,6 +32,7 @@ public class GameClientB extends Thread{
 			System.err.println("Don't know about host: " + ip);
 		} catch(IOException e){
 			System.err.println("Couldn't get I/O for " + "the connection to work");
+			e.printStackTrace();
 		}
 	}
 	
