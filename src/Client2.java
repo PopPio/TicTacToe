@@ -989,6 +989,36 @@ public class Client2 extends JFrame{
  		
  		redirectToHomePanel();
 	}
+	public void initializeScreen(){
+//		opponentName = "Touch";
+ 		
+ 		// set up game
+// 		playerScore = 0;
+// 		opponentScore = 0;
+ 		
+ 		try{
+ 			resetAllButton();
+ 		}catch(IOException e){
+ 			System.out.println("IOException in initializeScreen()");
+ 			e.printStackTrace();
+ 		}
+ 		// set up side
+ 		// receive your side from server
+// 		setSide("x");// edit this
+ 		
+ 		if(currentSide.equalsIgnoreCase("x")){
+ 			
+ 		}
+ 		setCurrentTurn("x"); // fix, x always go first
+ 		
+ 		
+		//-------------TEST OXButton--------------
+//		b1.check();
+//		b5.tickO();
+		//-----------END TEST OXButton------------
+ 		
+ 		redirectToPlayPanel();
+	}
 	private void registerButtonPerformed(ActionEvent evt) {
 		getContentPane().removeAll();
 		getContentPane().add(registerPane, BorderLayout.CENTER);
