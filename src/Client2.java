@@ -36,6 +36,11 @@ import org.jdesktop.xswingx.PromptSupport;
 
 // client-client UI
 public class Client2 extends JFrame{
+	
+	// just new shit i need to declare
+	String uid;
+	CentralClient centralClient = null;
+	
 	// client server
 	GameClient client = null;
 	Server server = null;
@@ -129,7 +134,9 @@ public class Client2 extends JFrame{
 	}
 	
 	private void initComponents() throws IOException {
-
+		// instantiate CentralClient
+		centralClient = new CentralClient(this);
+		
 		// =======================================================================================
 		// =============================== TRANSITION PAGE =======================================
 		// =======================================================================================
@@ -1007,6 +1014,10 @@ public class Client2 extends JFrame{
 		if(password.equalsIgnoreCase("")){
 			password = "password";
 		}
+
+		if(!centralClient.logIn(username, password))
+			return;
+		
 		// no have form validation, but fuck that shit :D
 		
 		// send to server
@@ -1014,11 +1025,11 @@ public class Client2 extends JFrame{
  		// TODO perform connection , socket bla bla
 		
 		// server response
-		playerName = "PopPio"; // edit this
-		profile.setText(playerName);
+//		playerName = "PopPio"; // edit this
+//		profile.setText(playerName);
 		
  		
- 		redirectToHomePanel();
+// 		redirectToHomePanel();
 	}
 	public void initializeScreen(){
 //		opponentName = "Touch";
@@ -1297,7 +1308,7 @@ public class Client2 extends JFrame{
  		nameO.setVisible(true);
  		nameX.setVisible(true);
 	}
-	private void redirectToHomePanel() {
+	protected void redirectToHomePanel() {
 		// for connect button
 		getContentPane().removeAll();
 		getContentPane().add(homePage, BorderLayout.CENTER);

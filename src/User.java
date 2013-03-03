@@ -14,6 +14,35 @@ public class User {
 	int draw;
 	String history;
 	LinkedList <User>friend;
+	int streamid;
+	
+	public User(String name, String uid, String password, String ip){
+		this.name = name;
+		this.uid = uid;
+		this.password = password;
+		this.ip = ip;
+		inGameip = "";
+		win = 0;
+		lose = 0;
+		draw = 0;
+		history = "";
+		friend = new LinkedList<User>();
+	}
+	
+	public User(User cloneUser){
+		name = cloneUser.name;
+		uid = cloneUser.uid;
+		password = cloneUser.password;
+		status = cloneUser.status;
+		gameStatus = cloneUser.gameStatus;
+		ip = cloneUser.ip;
+		inGameip = cloneUser.inGameip;
+		win = cloneUser.win;
+		lose = cloneUser.lose;
+		draw = cloneUser.draw;
+		history = cloneUser.history;
+		friend = cloneUser.friend;
+	}
 	
 	public void setOnline(){
 		status = "[Online]";
