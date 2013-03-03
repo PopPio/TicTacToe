@@ -823,12 +823,15 @@ public class Client2 extends JFrame{
 			xGiveup.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent eDisconnect)
 	            {
-	            	try {
+//	            	try {
 	            		// TODO send give up message
-						win("o");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+	            		PassingObject p = new PassingObject();
+	            		p.surender("x");
+	            		client.sendObject(p);
+//						win("o");
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
 	            }
 	        });
 			
@@ -856,13 +859,13 @@ public class Client2 extends JFrame{
 		chatPane.add(chatAreaScroll);
 		
 		// send button
-		final JButton sendButton = new JButton("send");
+		final JButton sendButton = new JButton("SEND");
 		sendButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		sendButton.setBorder(null);
 		sendButton.setBorderPainted(false);
 		sendButton.setFocusPainted(false);
 		sendButton.setBackground(PINK_BASE);
-		sendButton.setBounds(735, 560, 45, 20);
+		sendButton.setBounds(720, 560, 60, 20);
 		sendButton.setForeground(BTN_TEXT);
 		sendButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -960,6 +963,8 @@ public class Client2 extends JFrame{
 	
 	// ************************ Action Events **************************
 	private void connectButtonPerformed(ActionEvent evt) throws IOException {
+		scoreO = 0;
+ 		scoreX = 0;
 		// change to play panel 
 		// insert form validation if have time
 		String username = username_text.getText().equalsIgnoreCase("") ? "username" : username_text.getText();
@@ -1040,7 +1045,7 @@ public class Client2 extends JFrame{
 		// TODO connect to that player
 		System.out.println("join "+toPlayWith);
 		opponentName = toPlayWith.toString();
-	
+		
  		
  		// set up game
  		scoreO = 0;
@@ -1167,17 +1172,24 @@ public class Client2 extends JFrame{
 		}
 	}
 	private void resetScoreButtonPerformed(ActionEvent evt) throws IOException {
+		PassingObject p = new PassingObject();
+		p.resetScore();
+		client.sendObject(p);
+		resetScoreRequest();
+	}
+	
+	public void resetScoreRequest(){
+		scoreX=0;
+		scoreO=0;
+		chatText.addInfo("RESET SCORE !!!");
+		switchSide();
 		try {
-			scoreX=0;
-			scoreO=0;
-			chatText.addInfo(" RESET SCORE !!!");
-			switchSide();
 			resetAllButton();
-			setCurrentTurn("x");
-		} catch (IOException e){
+		} catch (IOException e) {
+			System.out.println("error in calling resetAllButton method in resetScoreRequest()");
 			e.printStackTrace();
 		}
-		
+		setCurrentTurn("x");
 	}
 	// ************************ Useful Methods ************************
 	private void createGame() { // call this when receive connection
@@ -1264,6 +1276,8 @@ public class Client2 extends JFrame{
 		
 		// clean up sone UI
 		chatArea.setText("");
+		scoreX=0;
+		scoreO=0;
 		try {
 			chatText.reset();
 		} catch (BadLocationException e) {

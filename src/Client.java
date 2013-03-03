@@ -747,10 +747,10 @@ public class Client extends JFrame{
 		}
 	}
 	private void resetScoreButtonPerformed(ActionEvent evt) throws IOException {
-			PassingObject p = new PassingObject();
-			p.resetScore();
-			client.sendObject(p);
-			resetScoreRequest();
+		PassingObject p = new PassingObject();
+		p.resetScore();
+		client.sendObject(p);
+		resetScoreRequest();
 	}
 	
 	public void resetScoreRequest(){
