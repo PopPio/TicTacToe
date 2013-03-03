@@ -1480,6 +1480,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	public void createProfiel(int win, int lose, int draw, String textHistory){
 		// erase history in textpane
 		addHistoryRow(textHistory);
+		System.out.println("value of textHistory: " + textHistory);
 		try {
 			history.getDocument().remove(0, history.getDocument().getLength());
 		} catch (BadLocationException e) {
