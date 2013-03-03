@@ -69,42 +69,30 @@ public class User implements Serializable{
 		inGameip = "";
 	}
 	
-	public void win(String uid){
-		for(int i = 0; i < friend.size(); i ++){
-			if(uid.equals(friend.get(i).uid)){
-				history += "[win] " + friend.get(i).name + "\n";
+	public void win(String name){
+				history += "[win] " + name + "\n";
 				win++;
 				System.out.println(win);
 				System.out.println(history);
 				return;
-			}
-		}
 	}
 	
-	public void lose(String uid){
-		for(int i = 0; i < friend.size(); i ++){
-			if(uid.equals(friend.get(i).uid)){
-				history += "[lose] " + friend.get(i).name + "\n";
+	public void lose(String name){
+				history += "[lose] " + name + "\n";
 				lose++;
 
 				System.out.println(lose);
 				System.out.println(history);
 				return;
-			}
-		}
 	}
 	
-	public void draw(String uid){
-		for(int i = 0; i < friend.size(); i++){
-			if(uid.equals(friend.get(i).uid)){
-				history += "[draw] " + friend.get(i).name + "\n";
+	public void draw(String name){
+				history += "[draw] " + name + "\n";
 				draw++;
 
 				System.out.println(draw);
 				System.out.println(history);
 				return;
-			}
-		}
 	}
 	
 	public void addFriend(User newFriend){
