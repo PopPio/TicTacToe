@@ -511,7 +511,7 @@ public class Client2 extends JFrame{
 	        public void actionPerformed(ActionEvent eSend)
 	        {
 	            //Execute when button is pressed
-	        	addFriendButtonPerformed(eSend);
+	        	joinButtonPerformed(eSend);
 	        }
 	    });     
 		
