@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -1126,6 +1127,8 @@ public class Client2 extends JFrame{
 		profileButton.setText(playerName);
 		
 		// TODO show list of friends
+		
+		// ----- FOR TEST ONLY -----
 		int friendCount = 25; //edit this
 		setFriendCount(friendCount);
 		friendListModel.removeAllElements();
@@ -1139,9 +1142,34 @@ public class Client2 extends JFrame{
 		for(int i = 0;i<onlineCount;i++){
 			addUserToList(onlineListModel, new ListObject("Jack Daniel"+i)); // edit this to your object too
 		}
+		// ----- END TEST -----
+		
+		// real methods
+//		updateFriendList(friend_list);
+//		updateOnlineList(online_list);
 		
 		revalidate();
  		repaint();
+	}
+	protected void updateFriendList(LinkedList list) {
+		int friendCount = list.size(); 
+		setFriendCount(friendCount);
+		friendListModel.removeAllElements();
+		for(int i = 0;i<friendCount;i++){
+			//addUserToList(friendListModel, new ListObject("Jane Doe"+i)); // edit this to your object, ignore my test object "ListObject"
+			addUserToList(friendListModel, list.get(i));
+		}
+		
+	}
+	protected void updateOnlineList(LinkedList list) {
+		// show list of online player
+		int onlineCount = list.size(); 
+		setOnlineCount(onlineCount);
+		onlineListModel.removeAllElements();
+		for(int i = 0;i<onlineCount;i++){
+			//addUserToList(onlineListModel, new ListObject("Jack Daniel"+i)); // edit this to your object too
+			addUserToList(onlineListModel, list.get(i));
+		}
 	}
 	private void redirectToPlayPanel() {
 		
