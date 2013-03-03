@@ -233,7 +233,11 @@ public class CentralServer extends Thread{
 								userInput[streamid].close();
 								userOutput[streamid].close();
 								userData.get(id).setOffline();
+								System.out.println("online size before log out: " + onlineUser.size());
 								onlineUser.remove(onlineid);
+								System.out.println("position: " + onlineid + " removed");
+								System.out.println("new online size: " + onlineUser.size());
+								broadcast(onlineid);
 								return;
 							}catch(IOException err){
 								System.out.println("IOError in closing the stream after receving log out protocol in thread");
