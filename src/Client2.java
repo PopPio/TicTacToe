@@ -1168,8 +1168,12 @@ public class Client2 extends JFrame{
 		p.leave();
 		client.sendObject(p);
 		client = null;
-		centralClient.exitRoom();
+		exit();
 //		redirectToHomePanel();
+	}
+	
+	public void exit(){
+		centralClient.exitRoom();
 	}
 	private void logoutButtonPerformed(ActionEvent evt) {
 		System.out.println("Loging out");
@@ -1266,7 +1270,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	private void hostButtonPerformed(ActionEvent evt) {
 		//playerName = login_text.getText().equalsIgnoreCase("") ? "Name" : login_text.getText();
  		profile.setText(playerName);
- 		
+		isHost = true;
  		System.out.println("Creating game");
  		scoreO = 0;
  		scoreX = 0;
@@ -1286,7 +1290,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 		redirectToPlayPanel();
 		chatText.addInfo("Waiting for other player");
 		currentTurn = "pause";
-		isHost = true;
+
 		// TODO wait for client connection
 		centralClient.createRoom();
 		server = new GameServerB();
@@ -1767,7 +1771,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 			if(currentSide.equals("o") && !isHost){
 				System.out.println("sending win result with opponentuid: " + opponentuid);
 				centralClient.endGame('w', opponentuid);
-			}else{
+			}else if(!isHost){
 				centralClient.endGame('l', opponentuid);
 			}
 			scoreO++;
@@ -1780,7 +1784,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 			if(currentSide.equals("x") && !isHost){
 				System.out.println("sending win result with opponentuid: " + opponentuid);
 				centralClient.endGame('w', opponentuid);
-			}else{
+			}else if(!isHost){
 				centralClient.endGame('l', opponentuid);
 			}
 			scoreX++;

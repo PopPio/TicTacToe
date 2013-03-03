@@ -189,6 +189,7 @@ public class CentralClient extends Thread{
 	}
 	
 	public void requestProfile(){
+		System.out.println("sending requestProfile object");
 		PassingObjectCentral passObject = new PassingObjectCentral();
 		passObject.requestProfile();
 		try{
@@ -244,6 +245,8 @@ public class CentralClient extends Thread{
 				}else if(getObject.protocol == 'p'){
 					//get a profile reply from server
 					//TODO invoke UI Change
+					System.out.println("received profile object");
+					System.out.println("win: " + getObject.userInfo.win);
 					client.createProfiel(getObject.userInfo.win, getObject.userInfo.lose, getObject.userInfo.draw, getObject.userInfo.history);
 					client.switchProfile();
 				}else if(getObject.protocol == 'u'){

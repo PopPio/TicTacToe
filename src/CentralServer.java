@@ -276,12 +276,15 @@ public class CentralServer extends Thread{
 								if(userData.get(i).uid.equals(getObject.uid)){
 									System.out.println("found");
 									if(getObject.winLoseDraw == 'w'){
+										System.out.println("is win");
 										userData.get(id).win(getObject.uid);
 										userData.get(i).lose(userData.get(id).uid);
 									}else if(getObject.winLoseDraw == 'l'){
+										System.out.println("is lose");
 										userData.get(id).lose(getObject.uid);
 										userData.get(i).win(userData.get(id).uid);
 									}else if(getObject.winLoseDraw == 'd'){
+										System.out.println("is draw");
 										userData.get(id).draw(getObject.uid);
 										userData.get(i).draw(userData.get(id).uid);
 									}

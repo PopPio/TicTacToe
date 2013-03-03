@@ -58,6 +58,7 @@ public class GameClientB extends Thread{
 				PassingObjectB p = new PassingObjectB();
 				p.leave();
 				processObject(p);
+				client.exit();
 				return;
 			}catch(ClassNotFoundException e){
 				System.out.println("class not found");
