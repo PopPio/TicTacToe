@@ -269,13 +269,21 @@ public class CentralServer extends Thread{
 							continue;
 						}else if(getObject.protocol == 'w'){
 							//update history and win lose draw counts
-							if(getObject.winLoseDraw == 'w'){
-								userData.get(id).win(getObject.uid);
-							}else if(getObject.winLoseDraw == 'l'){
-								userData.get(id).lose(getObject.uid);
-							}else if(getObject.winLoseDraw == 'd'){
-								userData.get(id).draw(getObject.uid);
+							for(int i = 0; i < userData.size(); i ++){
+								if(userData.get(i).uid.equals(getObject.uid)){
+									if(getObject.winLoseDraw == 'w'){
+										userData.get(id).win(getObject.uid);
+										userData.get(i).lose(userData.get(id).uid);
+									}else if(getObject.winLoseDraw == 'l'){
+										userData.get(id).lose(getObject.uid);
+										userData.get(i).win(userData.get(id).uid);
+									}else if(getObject.winLoseDraw == 'd'){
+										userData.get(id).draw(getObject.uid);
+										userData.get(i).draw(userData.get(id).uid);
+									}
+								}
 							}
+							
 							continue;
 						}
 						readObject(getObject, id);

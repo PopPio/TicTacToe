@@ -1181,18 +1181,23 @@ public class Client2 extends JFrame{
 		
 		int index = friendList.getSelectedIndex();
 		UserProfile toPlayWith = (UserProfile) friendListModel.get(index);
-		
+		isHost = false;
 		// TODO connect to that player
 		System.out.println("join "+toPlayWith);
 		opponentName = toPlayWith.name;
 		
 		opponentuid = toPlayWith.uid;
+		String ip;
+		if(toPlayWith.gameStatus.equals("[In Game]")){
+			ip = toPlayWith.inGameip;
+		}else
+			ip = toPlayWith.ip;
 		
- 		centralClient.joinGame(toPlayWith.ip);
+ 		centralClient.joinGame(ip);
 		
 		client = new GameClientB(this);
  		
- 		client.Connect(toPlayWith.ip);
+ 		client.Connect(ip);
  		
  		// set up game
 // 		scoreO = 0;
@@ -1758,7 +1763,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 		// call this when win
 		System.out.println(side+" wins !!!");
 		if(side.equalsIgnoreCase("o")){
-			if(currentSide.equals("o") && !currentSide.equals("spec")){
+			if(currentSide.equals("o") && !currentSide.equals("spec") && isHost){
 				centralClient.endGame('w', opponentuid);
 			}else{
 				centralClient.endGame('l', opponentuid);
@@ -1770,7 +1775,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 				    "Announcement",
 				    JOptionPane.PLAIN_MESSAGE);
 		}else if(side.equalsIgnoreCase("x")){
-			if(currentSide.equals("x") && !currentSide.equals("spec")){
+			if(currentSide.equals("x") && !currentSide.equals("spec") && isHost){
 				centralClient.endGame('w', opponentuid);
 			}else{
 				centralClient.endGame('l', opponentuid);
@@ -1789,7 +1794,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	}
 	
 	public void draw() throws IOException {
-		if(!currentSide.equals("spec"))
+		if(!currentSide.equals("spec") && isHost)
 			centralClient.endGame('d', opponentuid);
 		chatText.addInfo("draws !!!");
 		JOptionPane.showMessageDialog(this,
