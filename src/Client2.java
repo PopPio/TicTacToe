@@ -92,7 +92,7 @@ public class Client2 extends JFrame{
 	
 	// Register panel
 	JTextField regis_name, regis_username;
-	JPasswordField regis_password;
+	JPasswordField regis_password,regis_password_retype;
 	
 	// Home panel & profile panel
 	JPanel profilePanel,userOnlinePanel;
@@ -243,16 +243,20 @@ public class Client2 extends JFrame{
 		
 		// username, password
 		regis_name = new JTextField();
-		regis_name.setBounds(300, 260, 200, 25);
+		regis_name.setBounds(300, 220, 200, 25);
 		PromptSupport.setPrompt("Name", regis_name);
 		
 		regis_username = new JTextField();
-		regis_username.setBounds(300, 300, 200, 25);
+		regis_username.setBounds(300, 260, 200, 25);
 		PromptSupport.setPrompt("Username", regis_username);
 		
 		regis_password = new JPasswordField(10);
-		regis_password.setBounds(300, 340, 200, 25);
+		regis_password.setBounds(300, 300, 200, 25);
 		PromptSupport.setPrompt("Password", regis_password);
+		
+		regis_password_retype = new JPasswordField(10);
+		regis_password_retype.setBounds(300, 340, 200, 25);
+		PromptSupport.setPrompt("Re-enter password", regis_password_retype);
 		
 		
 		// connect buttons
@@ -309,6 +313,7 @@ public class Client2 extends JFrame{
 		registerPane.add(regis_name);
 		registerPane.add(regis_username);
 		registerPane.add(regis_password);
+		registerPane.add(regis_password_retype);
 		registerPane.add(regisButton);
 		registerPane.add(cancelButton);
 		
@@ -1055,21 +1060,40 @@ public class Client2 extends JFrame{
 	}
 	private void registerUserButtonPerformed(ActionEvent evt) {
 		// TODO send data to server
-		String name = regis_name.getText().equalsIgnoreCase("") ? "John Doe" : regis_name.getText(); // Jane Doe if empty this field
-		String username = regis_username.getText().equalsIgnoreCase("") ? "username" :regis_username.getText();
-		char [] temp = regis_password.getPassword();
 		String password = "";
+		String password_reenter = "";
+		char [] temp = regis_password.getPassword();
+		char [] temp2 = regis_password_retype.getPassword();
 		for (int i = 0; i < temp.length; i++) {
 			password += temp[i];
 		}
-		if(password.equalsIgnoreCase("")){
-			password = "password"; // password = password if empty this field
+		for (int i = 0; i < temp2.length; i++) {
+			password_reenter += temp2[i];
 		}
-//		System.out.println(password);
-		playerName = "PopPio"; 
-		profile.setText(playerName);
+		if(password.equals(password_reenter)){
+			// same password
+			String name = regis_name.getText().equalsIgnoreCase("") ? "John Doe" : regis_name.getText(); // Jane Doe if empty this field
+			String username = regis_username.getText().equalsIgnoreCase("") ? "username" :regis_username.getText();
+			
+			
+			if(password.equalsIgnoreCase("")){
+				password = "password"; // password = password if empty this field
+			}
+//			System.out.println(password);
+			playerName = "PopPio"; 
+			profile.setText(playerName);
+			
+			redirectToHomePanel();
+		}else{
+			// difference password
+			JOptionPane.showMessageDialog(this,
+				    "Please enter the same password in both password fields.",
+				    "Error",
+				    JOptionPane.ERROR_MESSAGE);
+			regis_password.setText("");
+			regis_password_retype.setText("");
+		}
 		
-		redirectToHomePanel();
 	}
 	
 	private void profileButtonPerformed(ActionEvent evt) {
