@@ -234,7 +234,10 @@ public class CentralServer extends Thread{
 								userOutput[streamid].close();
 								userData.get(id).setOffline();
 								System.out.println("online size before log out: " + onlineUser.size());
-								onlineUser.remove(onlineid);
+								for(int i = 0; i < onlineUser.size(); i ++){
+									if(userData.get(id).uid.equals(onlineUser.get(i).uid))
+										onlineUser.remove(i);
+								}
 								System.out.println("position: " + onlineid + " removed");
 								System.out.println("new online size: " + onlineUser.size());
 								broadcast(onlineid);
@@ -283,7 +286,10 @@ public class CentralServer extends Thread{
 					System.out.println("IO Error at id:" + id);
 					System.out.println("change status of user to offline then broadcast");
 					userData.get(id).setOffline();
-					onlineUser.remove(onlineid);
+					for(int i = 0; i < onlineUser.size(); i ++){
+						if(userData.get(id).uid.equals(onlineUser.get(i).uid))
+							onlineUser.remove(i);
+					}
 					System.out.println("try to close stream");
 					try{
 						userInput[id].close();
