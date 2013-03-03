@@ -55,7 +55,7 @@ public class CentralServer extends Thread{
 		ObjectOutputStream userOutput = null;
 		ObjectInputStream userInput = null;
 		String userIP = reader.getInetAddress().toString();
-		System.out.println("connecting ip: " + userIP);
+		System.out.println("connecting ip: " + userIP.substring(1));
 		
 		try{
 			System.out.println("getOutputStream");
@@ -87,7 +87,7 @@ public class CentralServer extends Thread{
 				if(userData.get(i).uid.equals(firstPacket.uid) && userData.get(i).password.equals(firstPacket.password)){
 					//correct Log in reply then start passing requried information
 					userData.get(i).setOnline();
-					userData.get(i).ip = userIP;
+					userData.get(i).ip = userIP.substring(1);
 
 					onlineUser.add(userData.get(i));
 					PassingObjectCentral firstReply = new PassingObjectCentral();
@@ -130,7 +130,7 @@ public class CentralServer extends Thread{
 			}
 		}else if(firstPacket.protocol == 'r'){
 			//register new user
-			User newUser = new User(firstPacket.name, firstPacket.uid, firstPacket.password, userIP);
+			User newUser = new User(firstPacket.name, firstPacket.uid, firstPacket.password, userIP.substring(1));
 			newUser.setOnline();
 			userData.add(newUser);
 			onlineUser.add(newUser);
