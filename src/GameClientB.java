@@ -9,6 +9,8 @@ public class GameClientB extends Thread{
 	
 	Client2 client;
 	
+	int zCounter = 0;
+	
 	final int port = 8;
 	
 	public GameClientB(Client2 client){
@@ -112,7 +114,7 @@ public class GameClientB extends Thread{
 			System.out.println("you are " + theObject.symbol);
 			client.setSide(theObject.symbol);
 			client.ourSide = theObject.symbol;
-			if(!client.isHost)
+			if(!client.isHost && !theObject.symbol.equals("spec"))
 				client.initializeScreen();
 			else
 				client.createGame();
@@ -127,9 +129,13 @@ public class GameClientB extends Thread{
 			p.replySymbol(client.currentSide);
 			sendObject(p);
 		}else if(theObject.protocol == 'z'){
+			zCounter++;
 			System.out.println("get name: " + theObject.name);
 			System.out.println("get symbol " + theObject.symbol);
 			client.specSeting(theObject.name, theObject.symbol);
+			if(zCounter == 2){
+				client.initializeScreen();
+			}
 		}
 	}
 	
