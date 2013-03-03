@@ -1111,8 +1111,11 @@ public class Client2 extends JFrame{
 	
 	private void profileButtonPerformed(ActionEvent evt) {
 		
-		createProfiel();
+		centralClient.requestProfile();
 		
+	}
+	
+	public void switchProfile(){
 		profilePanel.setVisible(true);
 		backToHome.setVisible(true);
 		userOnlinePanel.setVisible(false);
@@ -1427,17 +1430,18 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
  		revalidate();
  		repaint();
 	}
-	private void createProfiel(){
+	public void createProfiel(int win, int lose, int draw, String textHistory){
 		// erase history in textpane
+		addHistoryRow(textHistory);
 		try {
 			history.getDocument().remove(0, history.getDocument().getLength());
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
 		
-		profileWin.setText("Win: "+"50");
-		profileLoss.setText("Loss: "+"42");
-		profileDraw.setText("Draw: "+"88");
+		profileWin.setText("Win: "+ win);
+		profileLoss.setText("Loss: "+ lose);
+		profileDraw.setText("Draw: "+ draw);
 		
 		
 //		addHistoryRow("win someone");

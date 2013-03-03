@@ -84,7 +84,7 @@ public class GameClientB extends Thread{
 		}else if(theObject.protocol == 'c'){
 			//chat
 			System.out.println(theObject.name + " says: " + theObject.text);
-			client.receiveChat(1, theObject.text, theObject.name);
+			client.receiveChat(theObject.isSpec?2:1, theObject.text, theObject.name);
 		}else if(theObject.protocol == 'r'){
 			//reset score
 			System.out.println("reset score");

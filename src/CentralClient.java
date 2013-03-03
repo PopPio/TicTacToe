@@ -232,6 +232,8 @@ public class CentralClient extends Thread{
 				}else if(getObject.protocol == 'p'){
 					//get a profile reply from server
 					//TODO invoke UI Change
+					client.createProfiel(getObject.userInfo.win, getObject.userInfo.lose, getObject.userInfo.draw, getObject.userInfo.history);
+					client.switchProfile();
 				}else if(getObject.protocol == 'u'){
 					//get update online list and frist list from server
 					client.updateFriendList(getObject.friendList);
