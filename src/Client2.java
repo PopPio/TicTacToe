@@ -1245,7 +1245,7 @@ public class Client2 extends JFrame{
 		}
 		// TODO send text to server
 		PassingObjectB p = new PassingObjectB();
-		p.sendChat(playerName, text);
+		p.sendChat(playerName, text, currentSide.equals("spec")?true:false);
 		client.sendObject(p);
 	}
 	
