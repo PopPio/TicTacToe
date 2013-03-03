@@ -22,7 +22,7 @@ public class GameClientB extends Thread{
 			serverOutput = new ObjectOutputStream(os);
 			InputStream is = serverSocket.getInputStream();
 			serverInput = new ObjectInputStream(is);
-			PassingObject p = new PassingObject();
+			PassingObjectB p = new PassingObjectB();
 			System.out.println("Sending player name: " + client.playerName);
 			p.setName(client.playerName);
 			serverOutput.writeObject(p);
@@ -46,7 +46,7 @@ public class GameClientB extends Thread{
 	public void run(){
 		while(true){
 			try{
-				PassingObject theObject = (PassingObject)serverInput.readObject();
+				PassingObjectB theObject = (PassingObjectB)serverInput.readObject();
 				processObject(theObject);
 				if(theObject.protocol == 'e'){
 					System.out.println("end game");
@@ -55,7 +55,7 @@ public class GameClientB extends Thread{
 				}
 			}catch(IOException e){
 				System.out.println("IO Error");
-				PassingObject p = new PassingObject();
+				PassingObjectB p = new PassingObjectB();
 				p.leave();
 				processObject(p);
 				return;
@@ -65,7 +65,7 @@ public class GameClientB extends Thread{
 		}
 	}
 	
-	public synchronized void processObject(PassingObject theObject){
+	public synchronized void processObject(PassingObjectB theObject){
 		if(theObject.protocol == 'g'){
 			//game info
 			System.out.println("player " + theObject.symbol + " places at + " + (theObject.position+1));
@@ -80,11 +80,11 @@ public class GameClientB extends Thread{
 			}
 			System.out.println("user left room closed");
 			System.out.println("Disconnected");
-			client.redirectToConnectPanel();
+			client.redirectToHomePanel();
 		}else if(theObject.protocol == 'c'){
 			//chat
 			System.out.println(theObject.name + " says: " + theObject.text);
-			client.receiveChat(1, theObject.text);
+			client.receiveChat(1, theObject.text, theObject.name);
 		}else if(theObject.protocol == 'r'){
 			//reset score
 			System.out.println("reset score");
@@ -122,7 +122,7 @@ public class GameClientB extends Thread{
 		}
 	}
 	
-	public void sendObject(PassingObject theObject){
+	public void sendObject(PassingObjectB theObject){
 		try{
 			serverOutput.writeObject(theObject);
 		}catch(IOException e){

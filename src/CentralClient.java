@@ -143,6 +143,17 @@ public class CentralClient extends Thread{
 		}
 	}
 	
+	public void exitRoom(){
+		PassingObjectCentral passObject = new PassingObjectCentral();
+		passObject.exitRoom();
+		try{
+			serverOutput.writeObject(passObject);
+		}catch(IOException e){
+			System.out.println("unable to pass joinroom object");
+			e.printStackTrace();
+		}
+	}
+	
 	public void joinGame(String inGameIP){
 		PassingObjectCentral passObject = new PassingObjectCentral();
 		passObject.joinGame(inGameIP);

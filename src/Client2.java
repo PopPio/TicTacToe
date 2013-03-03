@@ -42,8 +42,8 @@ public class Client2 extends JFrame{
 	CentralClient centralClient = null;
 	
 	// client server
-	GameClient client = null;
-	Server server = null;
+	GameClientB client = null;
+	GameServerB server = null;
 	boolean isHost = false;
 	String ourSide;
 	
@@ -813,12 +813,15 @@ public class Client2 extends JFrame{
 			oGiveup.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent eDisconnect)
 	            {
-	            	try {
+//	            	try {
 	            		// TODO send give up message
-						win("x");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+	            		PassingObjectB p = new PassingObjectB();
+	            		p.surender("o");
+	            		client.sendObject(p);
+//						win("x");
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
 	            }
 	        });
 			
@@ -863,7 +866,7 @@ public class Client2 extends JFrame{
 	            {
 //	            	try {
 	            		// TODO send give up message
-	            		PassingObject p = new PassingObject();
+	            		PassingObjectB p = new PassingObjectB();
 	            		p.surender("x");
 	            		client.sendObject(p);
 //						win("o");
@@ -1016,7 +1019,7 @@ public class Client2 extends JFrame{
 		}
 
 		if(!centralClient.logIn(username, password))
-			return;
+			loginFail();
 		
 		// no have form validation, but fuck that shit :D
 		
@@ -1091,10 +1094,9 @@ public class Client2 extends JFrame{
 				password = "password"; // password = password if empty this field
 			}
 //			System.out.println(password);
-			playerName = "PopPio"; 
-			profile.setText(playerName);
+			centralClient.register(name, username, password);
 			
-			redirectToHomePanel();
+			
 		}else{
 			// difference password
 			JOptionPane.showMessageDialog(this,
@@ -1123,7 +1125,12 @@ public class Client2 extends JFrame{
 		
 		System.out.println("Disconnected");
 		//redirectToConnectPanel();
-		redirectToHomePanel();
+		PassingObjectB p = new PassingObjectB();
+		p.leave();
+		client.sendObject(p);
+		client = null;
+		centralClient.exitRoom();
+//		redirectToHomePanel();
 	}
 	private void logoutButtonPerformed(ActionEvent evt) {
 		System.out.println("Loging out");
@@ -1132,36 +1139,41 @@ public class Client2 extends JFrame{
 	private void joinButtonPerformed(ActionEvent evt) {
 		
 		int index = friendList.getSelectedIndex();
-		ListObject toPlayWith = (ListObject) friendListModel.get(index);
+		UserProfile toPlayWith = (UserProfile) friendListModel.get(index);
 		
 		// TODO connect to that player
 		System.out.println("join "+toPlayWith);
-		opponentName = toPlayWith.toString();
+		opponentName = toPlayWith.name;
 		
+ 		centralClient.joinGame(toPlayWith.ip);
+		
+		client = new GameClientB(this);
+ 		
+ 		client.Connect(toPlayWith.ip);
  		
  		// set up game
- 		scoreO = 0;
- 		scoreX = 0;
- 		
- 		try {
-			resetAllButton();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
- 		
- 		// set up side
- 		// receive your side from server
- 		setSide("x");// edit this
- 		
- 		setCurrentTurn("x"); // fix, x always go first
- 		
- 		
-		//-------------TEST OXButton--------------
-		b1.check();
-		b5.tickO();
-		//-----------END TEST OXButton------------
- 		
-		redirectToPlayPanel();
+// 		scoreO = 0;
+// 		scoreX = 0;
+// 		
+// 		try {
+//			resetAllButton();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+// 		
+// 		// set up side
+// 		// receive your side from server
+// 		setSide("x");// edit this
+// 		
+// 		setCurrentTurn("x"); // fix, x always go first
+// 		
+// 		
+//		//-------------TEST OXButton--------------
+//		b1.check();
+//		b5.tickO();
+//		//-----------END TEST OXButton------------
+// 		
+//		redirectToPlayPanel();
 		
 		// TODO wait for client connection
 		// call method startGame() when client connected
@@ -1169,12 +1181,14 @@ public class Client2 extends JFrame{
 	}
 	private void addFriendButtonPerformed(ActionEvent evt) {
 		int index = onlineList.getSelectedIndex();
-		ListObject toBeFriend = (ListObject) onlineListModel.get(index); // TODO edit ListObject to your user object
+		UserProfile toBeFriend = (UserProfile) onlineListModel.get(index); // TODO edit ListObject to your user object
 		onlineListModel.remove(index);
 		
 		// TODO send info to other client
 		
 		addUserToList(friendListModel, toBeFriend);
+		
+		centralClient.addFriend(toBeFriend.uid);
 		
 	}
 	private void hostButtonPerformed(ActionEvent evt) {
@@ -1202,9 +1216,10 @@ public class Client2 extends JFrame{
 		currentTurn = "pause";
 		isHost = true;
 		// TODO wait for client connection
-//		server = new Server(Integer.parseInt(port_text.getText()));
-//		client = new GameClient(this);
-//		client.Connect("127.0.0.1", Integer.parseInt(port_text.getText()));
+		centralClient.createRoom();
+		server = new GameServerB();
+		client = new GameClientB(this);
+		client.Connect("127.0.0.1");
 		// call method startGame() when client connected
 	}
 	private void backHomeButtonPerformed(ActionEvent evt) {
@@ -1229,6 +1244,9 @@ public class Client2 extends JFrame{
 			chatArea.setText("");
 		}
 		// TODO send text to server
+		PassingObjectB p = new PassingObjectB();
+		p.sendChat(playerName, text);
+		client.sendObject(p);
 	}
 	
 	
@@ -1244,28 +1262,30 @@ public class Client2 extends JFrame{
 			}else if(currentSide.equalsIgnoreCase("o")){
 				oxClick.tickO();
 			}
-			if(oxClick.position==6){
-				try {
-					win("o");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			if(oxClick.position==7){
-				try {
-					win("x");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+//			if(oxClick.position==6){
+//				try {
+//					win("o");
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if(oxClick.position==7){
+//				try {
+//					win("x");
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
 			// TODO send data to server
-			
+			PassingObjectB p = new PassingObjectB();
+			p.sendGame(currentSide, oxClick.position);
+			client.sendObject(p);
 		}else{
 			// click in opponent's turn, do nothing
 		}
 	}
 	private void resetScoreButtonPerformed(ActionEvent evt) throws IOException {
-		PassingObject p = new PassingObject();
+		PassingObjectB p = new PassingObjectB();
 		p.resetScore();
 		client.sendObject(p);
 		resetScoreRequest();
@@ -1285,7 +1305,7 @@ public class Client2 extends JFrame{
 		setCurrentTurn("x");
 	}
 	// ************************ Useful Methods ************************
-	private void createGame() { // call this when receive connection
+	protected void createGame() { // call this when receive connection
 		
  		// accept connection
 	 	opponentName = "Touch"; //edit this
@@ -1319,19 +1339,19 @@ public class Client2 extends JFrame{
 		// TODO show list of friends
 		
 		// ----- FOR TEST ONLY -----
-		int friendCount = 25; //edit this
-		setFriendCount(friendCount);
-		friendListModel.removeAllElements();
-		for(int i = 0;i<friendCount;i++){
-			addUserToList(friendListModel, new ListObject("Jane Doe"+i)); // edit this to your object, ignore my test object "ListObject"
-		}
-		// show list of online player
-		int onlineCount = 88; //edit this
-		setOnlineCount(onlineCount);
-		onlineListModel.removeAllElements();
-		for(int i = 0;i<onlineCount;i++){
-			addUserToList(onlineListModel, new ListObject("Jack Daniel"+i)); // edit this to your object too
-		}
+//		int friendCount = 25; //edit this
+//		setFriendCount(friendCount);
+//		friendListModel.removeAllElements();
+//		for(int i = 0;i<friendCount;i++){
+//			addUserToList(friendListModel, new ListObject("Jane Doe"+i)); // edit this to your object, ignore my test object "ListObject"
+//		}
+//		// show list of online player
+//		int onlineCount = 88; //edit this
+//		setOnlineCount(onlineCount);
+//		onlineListModel.removeAllElements();
+//		for(int i = 0;i<onlineCount;i++){
+//			addUserToList(onlineListModel, new ListObject("Jack Daniel"+i)); // edit this to your object too
+//		}
 		// ----- END TEST -----
 		
 		// real methods
@@ -1432,7 +1452,7 @@ public class Client2 extends JFrame{
 	private void removeUserFromList(){
 		
 	}
-	private void redirectToConnectPanel() {
+	protected void redirectToConnectPanel() {
 		// for disconnect button
 		getContentPane().removeAll();
 		getContentPane().add(connectPane, BorderLayout.CENTER);
@@ -1453,7 +1473,7 @@ public class Client2 extends JFrame{
 		b8.reset();
 		
 	}
-	private void receiveChat(int chatType,String chat, String name){ //chatType: 1=from opponent, 2=from spec, 3=from player1 and you are spec;
+	protected void receiveChat(int chatType,String chat, String name){ //chatType: 1=from opponent, 2=from spec, 3=from player1 and you are spec;
 		Color color;
 		if(chatType == 1){
 			color = ChatText.PLAYER2;
@@ -1472,7 +1492,7 @@ public class Client2 extends JFrame{
 	 * set side of this player
 	 * @param side
 	 */
-	private void setSide(String side){
+	protected void setSide(String side){
 		// set side of this player
 		b0.setType(side);
 		b1.setType(side);

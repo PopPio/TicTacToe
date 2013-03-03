@@ -86,7 +86,7 @@ public class GameServerB extends Thread{
 			try{
 				while(true){
 					System.out.println("Listening to id" + id);
-					PassingObject getObject = (PassingObject)userInput[id].readObject();
+					PassingObjectB getObject = (PassingObjectB)userInput[id].readObject();
 					if(getObject.protocol == 'n'){
 						System.out.println("get name object from id:" + id + " name :" + getObject.name);
 						if(id == 0){
@@ -94,19 +94,25 @@ public class GameServerB extends Thread{
 							continue;
 						}else if(id == 1){
 							name1 = getObject.name;
-							PassingObject p = new PassingObject();
+							PassingObjectB p = new PassingObjectB();
 							p.setName(name0);
 							userOutput[1].writeObject(p);
-							p = new PassingObject();
+							p = new PassingObjectB();
 							p.setName(name1);
 							userOutput[0].writeObject(p);
 							p = null;
 							game = new TheGame();
 							startGame();
 							continue;
-						}		
+						}else if(id > 1){
+							//reply as a spec
+							PassingObjectB p = new PassingObjectB();
+							p.setStart("spec");
+							userOutput[id].writeObject(p);
+							continue;
+						}
 					}
-					PassingObject passObject = readObject(getObject, id);
+					PassingObjectB passObject = readObject(getObject, id);
 					passObject(id, passObject);
 					if(passObject.protocol == 'e'){	
 						try{
@@ -128,7 +134,7 @@ public class GameServerB extends Thread{
 				System.out.println("possible sudden close in client stream from id:" + id);
 				System.out.println("notify other player that the player left the room if id < 2");
 				if(id < 2){
-					PassingObject passObject = new PassingObject();
+					PassingObjectB passObject = new PassingObjectB();
 					passObject.leave();
 					passObject(id, passObject);
 				}
@@ -146,19 +152,19 @@ public class GameServerB extends Thread{
 		}
 	}
 	
-	public synchronized PassingObject readObject(PassingObject theObject, int id){
+	public synchronized PassingObjectB readObject(PassingObjectB theObject, int id){
 		if(theObject.protocol == 'g'){
 			String process = game.clicked(theObject.symbol, theObject.position);
 			if(!process.equals("c")){
 				passObject(id, theObject);
 				if(process.equals("x")){
-					theObject = new PassingObject();
+					theObject = new PassingObjectB();
 					theObject.win("x");
 				}else if(process.equals("o")){
-					theObject = new PassingObject();
+					theObject = new PassingObjectB();
 					theObject.win("o");
 				}else if(process.equals("d")){
-					theObject = new PassingObject();
+					theObject = new PassingObjectB();
 					theObject.draw();
 				}
 				game.newGame();
@@ -166,14 +172,14 @@ public class GameServerB extends Thread{
 		}else if(theObject.protocol == 's'){
 			game.newGame();
 			String winningSymbol = theObject.symbol.equals("x")?"o":"x";
-			theObject = new PassingObject();
+			theObject = new PassingObjectB();
 			theObject.protocol = 'w';
 			theObject.symbol = winningSymbol;
 		}
 		return theObject;
 	}			
 
-	public void passObject(int id, PassingObject theObject){
+	public void passObject(int id, PassingObjectB theObject){
 		for(int i = 0; i < userOutput.length; i ++){
 			if((i == id && theObject.protocol != 'e' && theObject.protocol != 'w' && theObject.protocol != 'd'))
 				continue;
@@ -190,7 +196,7 @@ public class GameServerB extends Thread{
 	}	
 	
 	public void startGame(){
-		PassingObject p = new PassingObject();
+		PassingObjectB p = new PassingObjectB();
 		String first, second;
 		if((new Random()).nextBoolean()){
 			first = "x";
@@ -200,7 +206,7 @@ public class GameServerB extends Thread{
 			second = "x";
 		}
 		p.setStart(first);
-		PassingObject o = new PassingObject();
+		PassingObjectB o = new PassingObjectB();
 		o.setStart(second);
 		try{
 			System.out.println("Trying to determine who start first then send info");

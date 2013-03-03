@@ -88,4 +88,8 @@ public class PassingObjectCentral implements Serializable{
 		this.uid = uid;
 		this.newName = newName;
 	}
+	
+	public void exitRoom(){
+		protocol = 'e';
+	}
 }

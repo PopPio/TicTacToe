@@ -9,6 +9,7 @@ public class PassingObjectB implements Serializable{
 	String name;
 	String text;
 	int id;
+	boolean isSpec;
 	
 	public void sendGame(String symbol, int position){
 		protocol = 'g'; //game
@@ -16,10 +17,11 @@ public class PassingObjectB implements Serializable{
 		this.position = position;
 	}
 	
-	public void sendChat(String name, String text){
+	public void sendChat(String name, String text, boolean isSpec){
 		protocol = 'c'; //chat
 		this.name = name;
 		this.text = text;
+		this.isSpec = isSpec;
 	}
 	
 	public void leave(){
