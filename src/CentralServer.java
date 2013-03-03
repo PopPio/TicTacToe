@@ -21,6 +21,8 @@ public class CentralServer extends Thread{
 	}
 	
 	public CentralServer(){
+		userData = new LinkedList<User>();
+		onlineUser = new LinkedList<User>();
 		userInput = new ObjectInputStream[0];
 		userOutput = new ObjectOutputStream[0];
 		start();

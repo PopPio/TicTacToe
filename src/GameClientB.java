@@ -119,6 +119,13 @@ public class GameClientB extends Thread{
 		}else if (theObject.protocol == 'n'){
 			//name
 			client.opponentName = theObject.name;
+		}else if(theObject.protocol == 'x'){
+			//request symbol
+			PassingObjectB p = new PassingObjectB();
+			p.replySymbol(client.currentSide);
+			sendObject(p);
+		}else if(theObject.protocol == 'z'){
+			client.specSeting(theObject.name, theObject.symbol);
 		}
 	}
 	

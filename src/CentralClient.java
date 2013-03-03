@@ -9,7 +9,7 @@ import java.net.Socket;
 public class CentralClient extends Thread{
 	ObjectInputStream serverInput;
 	ObjectOutputStream serverOutput;
-	final String ip = "";
+	final String ip = "171.101.177.155";
 	final int port = 4;
 	Client2 client;
 	
