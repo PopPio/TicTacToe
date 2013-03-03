@@ -19,6 +19,6 @@ public class UserProfile implements Serializable{
 	}
 
 	public String toString(){
-		return name + status + gameStatus;
+		return name + status + (gameStatus == null?"":gameStatus);
 	}
 }
