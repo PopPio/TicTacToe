@@ -1134,6 +1134,7 @@ public class Client2 extends JFrame{
 	}
 	private void logoutButtonPerformed(ActionEvent evt) {
 		System.out.println("Loging out");
+		centralClient.logout();
 		redirectToConnectPanel();
 	}
 	private void joinButtonPerformed(ActionEvent evt) {

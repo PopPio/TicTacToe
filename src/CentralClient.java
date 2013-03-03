@@ -198,6 +198,17 @@ public class CentralClient extends Thread{
 		}
 	}
 	
+	public void logout(){
+		PassingObjectCentral passObject = new PassingObjectCentral();
+		passObject.logOut();
+		try{
+			serverOutput.writeObject(passObject);
+		}catch(IOException e){
+			System.out.println("unable to pass addfriend object");
+			e.printStackTrace();
+		}
+	}
+	
 	public void run(){
 		while(true){
 			try{

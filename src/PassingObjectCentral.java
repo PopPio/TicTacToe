@@ -92,4 +92,5 @@ public class PassingObjectCentral implements Serializable{
 	public void exitRoom(){
 		protocol = 'e';
 	}
+	
 }
