@@ -1443,7 +1443,6 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 		profileLoss.setText("Loss: "+ lose);
 		profileDraw.setText("Draw: "+ draw);
 		
-		
 //		addHistoryRow("win someone");
 //		addHistoryRow("loss PopPio");
 //		addHistoryRow("draw John Doe");
@@ -1638,7 +1637,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	protected void specSeting(String name, String side){
 		if(side.equalsIgnoreCase("o")){
 			playerOName = name;
-		}else if(side.equalsIgnoreCase("o")){
+		}else if(side.equalsIgnoreCase("x")){
 			playerXName = name;
 		}
 	}

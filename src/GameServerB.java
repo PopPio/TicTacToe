@@ -100,12 +100,14 @@ public class GameServerB extends Thread{
 			p.specName(symbol0.equals("o")?"x":"o", name1);
 			for(int i = 2; i < userInput.length; i ++){	
 				try {
+					System.out.println("trying to write name :" + name0);
 					userOutput[i].writeObject(p);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
+					System.out.println("trying to write name:" + name1);
 					userOutput[i].writeObject(q);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -136,7 +138,8 @@ public class GameServerB extends Thread{
 							game = new TheGame();
 							startGame();
 							continue;
-						}
+						}else
+							continue;
 					}else if(getObject.protocol == 'x'){
 						System.out.println("get symbol: " + getObject.symbol);
 						symbol0 = getObject.symbol;
