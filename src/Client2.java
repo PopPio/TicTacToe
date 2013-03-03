@@ -963,8 +963,8 @@ public class Client2 extends JFrame{
 	
 	// ************************ Action Events **************************
 	private void connectButtonPerformed(ActionEvent evt) throws IOException {
-		scoreO = 0;
- 		scoreX = 0;
+//		scoreO = 0;
+// 		scoreX = 0;
 		// change to play panel 
 		// insert form validation if have time
 		String username = username_text.getText().equalsIgnoreCase("") ? "username" : username_text.getText();
@@ -1277,6 +1277,14 @@ public class Client2 extends JFrame{
 		
 		revalidate();
  		repaint();
+	}
+	protected void loginFail(){
+		JOptionPane.showMessageDialog(this,
+			    "Incorrect username/password",
+			    "Error",
+			    JOptionPane.ERROR_MESSAGE);
+		username_text.setText("");
+		password_text.setText("");
 	}
 	protected void updateFriendList(LinkedList list) {
 		int friendCount = list.size(); 
