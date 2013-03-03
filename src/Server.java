@@ -100,10 +100,7 @@ public class Server extends Thread{
 							continue;
 						}		
 					}
-					if(getObject.protocol == 'g'){
-						passObject(id, getObject);
-					}
-					PassingObject passObject = readObject(getObject);
+					PassingObject passObject = readObject(getObject, id);
 					passObject(id, passObject);
 					if(passObject.protocol == 'e'){	
 						try{
@@ -140,10 +137,11 @@ public class Server extends Thread{
 		}
 	}
 	
-	public synchronized PassingObject readObject(PassingObject theObject){
+	public synchronized PassingObject readObject(PassingObject theObject, int id){
 		if(theObject.protocol == 'g'){
 			String process = game.clicked(theObject.symbol, theObject.position);
 			if(!process.equals("c")){
+				passObject(id, theObject);
 				if(process.equals("x")){
 					theObject = new PassingObject();
 					theObject.win("x");
