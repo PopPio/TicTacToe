@@ -74,6 +74,8 @@ public class User implements Serializable{
 			if(uid.equals(friend.get(i).uid)){
 				history += "[win] " + friend.get(i).name + "\n";
 				win++;
+				System.out.println(win);
+				System.out.println(history);
 				return;
 			}
 		}
@@ -84,6 +86,9 @@ public class User implements Serializable{
 			if(uid.equals(friend.get(i).uid)){
 				history += "[lose] " + friend.get(i).name + "\n";
 				lose++;
+
+				System.out.println(lose);
+				System.out.println(history);
 				return;
 			}
 		}
@@ -94,6 +99,9 @@ public class User implements Serializable{
 			if(uid.equals(friend.get(i).uid)){
 				history += "[draw] " + friend.get(i).name + "\n";
 				draw++;
+
+				System.out.println(draw);
+				System.out.println(history);
 				return;
 			}
 		}

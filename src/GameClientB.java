@@ -58,7 +58,6 @@ public class GameClientB extends Thread{
 				PassingObjectB p = new PassingObjectB();
 				p.leave();
 				processObject(p);
-				client.exit();
 				return;
 			}catch(ClassNotFoundException e){
 				System.out.println("class not found");
@@ -81,6 +80,7 @@ public class GameClientB extends Thread{
 			}
 			System.out.println("user left room closed");
 			System.out.println("Disconnected");
+			client.exit();
 			client.redirectToHomePanel();
 		}else if(theObject.protocol == 'c'){
 			//chat
