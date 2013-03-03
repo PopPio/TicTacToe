@@ -1470,6 +1470,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
  		revalidate();
  		repaint();
 	}
+	
 	public void createProfiel(int win, int lose, int draw, String textHistory){
 		// erase history in textpane
 		addHistoryRow(textHistory);
@@ -1677,7 +1678,10 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	protected void specSeting(String nameO, String nameX){
 			playerOName = nameO;
 			playerXName = nameX;
+			this.nameX.setText(playerXName+": "+scoreX);
+			this.nameO.setText(playerOName+": "+scoreO);
 	}
+	
 	public void receiveTick(int position,String side) { // manual tick
 		switchTurn();
 		System.out.println("receive tick from player:"+position);
