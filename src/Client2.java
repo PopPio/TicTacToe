@@ -378,7 +378,7 @@ public class Client2 extends JFrame{
 		hostButton.setBorderPainted(false);
 		hostButton.setFocusPainted(false);
 		hostButton.setBackground(GREY_BASE);
-		hostButton.setBounds(20, 560, 90, 20);
+		hostButton.setBounds(20, 560, 100, 20);
 		hostButton.setForeground(BTN_TEXT);
 		hostButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -504,13 +504,13 @@ public class Client2 extends JFrame{
 	    });     
 		
 		// add friend button
-		addFriendButton = new JButton("ADD FRIEND");
+		addFriendButton = new JButton("FOLLOW");
 		addFriendButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		addFriendButton.setBorder(null);
 		addFriendButton.setBorderPainted(false);
 		addFriendButton.setFocusPainted(false);
 		addFriendButton.setBackground(GREY_BASE);
-		addFriendButton.setBounds(470, 560, 100, 20);
+		addFriendButton.setBounds(470, 560, 80, 20);
 		addFriendButton.setForeground(BTN_TEXT);
 		addFriendButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
