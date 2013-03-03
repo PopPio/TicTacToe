@@ -1047,6 +1047,10 @@ public class Client extends JFrame{
 	
 	public void draw() throws IOException {
 		chatText.addInfo("draws !!!");
+		JOptionPane.showMessageDialog(this,
+				"DRAW !!!",
+			    "Announcement",
+			    JOptionPane.PLAIN_MESSAGE);
 		switchSide();
 		resetAllButton();
 		setCurrentTurn("x");
