@@ -597,7 +597,7 @@ public class Client2 extends JFrame{
 		history.setOpaque(true);
 		history.setBackground(PROFILE_BG);
 		JScrollPane historyScroll = new JScrollPane(history);
-		historyScroll.setBounds(10, 70, 290, 430);
+		historyScroll.setBounds(10, 90, 270, 430);
 //		historyScroll.setOpaque(true);
 //		historyScroll.setBorder(null);
 //		historyScroll.setBackground(Color.red);
