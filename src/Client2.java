@@ -1771,10 +1771,10 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 		// call this when win
 		System.out.println(side+" wins !!!");
 		if(side.equalsIgnoreCase("o")){
-			if(currentSide.equals("o") && !isHost){
+			if(currentSide.equals("o") && !isHost && !currentSide.equals("spec")){
 				System.out.println("sending win result with opponentuid: " + opponentuid);
 				centralClient.endGame('w', opponentuid);
-			}else if(!isHost){
+			}else if(!isHost && !currentSide.equals("spec")){
 				centralClient.endGame('l', opponentuid);
 			}
 			scoreO++;
@@ -1784,10 +1784,10 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 				    "Announcement",
 				    JOptionPane.PLAIN_MESSAGE);
 		}else if(side.equalsIgnoreCase("x")){
-			if(currentSide.equals("x") && !isHost){
+			if(currentSide.equals("x") && !isHost && !currentSide.equals("spec")){
 				System.out.println("sending win result with opponentuid: " + opponentuid);
 				centralClient.endGame('w', opponentuid);
-			}else if(!isHost){
+			}else if(!isHost && !currentSide.equals("spec")){
 				centralClient.endGame('l', opponentuid);
 			}
 			scoreX++;
