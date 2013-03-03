@@ -15,10 +15,9 @@ public class GameServerB extends Thread{
 
 	TheGame game = null;
 	
-	int port;
+	final int port = 8;
 	
-	public GameServerB(int port){
-		this.port = port;
+	public GameServerB(){
 		userInput = new ObjectInputStream[0];
 		userOutput = new ObjectOutputStream[0];
 		isOnGoing = true;

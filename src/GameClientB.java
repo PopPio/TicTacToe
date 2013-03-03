@@ -9,11 +9,13 @@ public class GameClientB extends Thread{
 	
 	Client2 client;
 	
+	final int port = 8;
+	
 	public GameClientB(Client2 client){
 		this.client = client;
 	}
 	
-	public void Connect(String ip, int port){
+	public void Connect(String ip){
 		try{
 			Socket serverSocket = new Socket(ip, port);
 			OutputStream os = serverSocket.getOutputStream();
