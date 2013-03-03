@@ -36,6 +36,11 @@ import org.jdesktop.xswingx.PromptSupport;
 
 // client-client UI
 public class Client2 extends JFrame{
+	// client server
+	GameClient client = null;
+	Server server = null;
+	boolean isHost = false;
+	String ourSide;
 	
 	// button color
 	final Color PINK_BASE = new Color(0xAC193D);
@@ -362,7 +367,7 @@ public class Client2 extends JFrame{
             public void actionPerformed(ActionEvent eSend)
             {
                 //Execute when button is pressed
-            	joinButtonPerformed(eSend);
+            hostButtonPerformed(eSend);
             }
         });     
 		
@@ -541,6 +546,7 @@ public class Client2 extends JFrame{
 		homePage.setLayout(null);
 		homePage.add(friendsPanel);
 		homePage.add(joinButton);
+		homePage.add(hostButton);
 		homePage.add(logoutButton);
 		homePage.add(profileButton);
 		homePage.add(userOnlinePanel);
@@ -1048,6 +1054,36 @@ public class Client2 extends JFrame{
 		
 		addUserToList(friendListModel, toBeFriend);
 		
+	}
+	private void hostButtonPerformed(ActionEvent evt) {
+		//playerName = login_text.getText().equalsIgnoreCase("") ? "Name" : login_text.getText();
+ 		profile.setText(playerName);
+ 		
+ 		System.out.println("Creating game");
+ 		scoreO = 0;
+ 		scoreX = 0;
+ 		
+ 		
+ 		try {
+			resetAllButton();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+ 		setSide("spec");
+ 		nameO.setVisible(false);
+ 		nameX.setVisible(false);
+ 		oGiveup.setVisible(false);
+ 		xGiveup.setVisible(false);
+ 		
+		redirectToPlayPanel();
+		chatText.addInfo("Waiting for other player");
+		currentTurn = "pause";
+		isHost = true;
+		// TODO wait for client connection
+//		server = new Server(Integer.parseInt(port_text.getText()));
+//		client = new GameClient(this);
+//		client.Connect("127.0.0.1", Integer.parseInt(port_text.getText()));
+		// call method startGame() when client connected
 	}
 	private void backHomeButtonPerformed(ActionEvent evt) {
 		profilePanel.setVisible(false);
