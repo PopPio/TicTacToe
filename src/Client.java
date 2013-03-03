@@ -599,6 +599,9 @@ public class Client extends JFrame{
 	
 	// ************************ Action Events **************************
 	private void connectButtonPerformed(ActionEvent evt) throws IOException {
+		scoreO = 0;
+ 		scoreX = 0;
+		
 		// change to play panel 
 		// insert form validation if have time
 		playerName = login_text.getText().equalsIgnoreCase("") ? "Name" : login_text.getText();
@@ -610,8 +613,7 @@ public class Client extends JFrame{
  		client = new GameClient(this);
  		client.Connect(ip_text.getText(), Integer.parseInt(port_text.getText()));
  		// receive opponent name from server
- 		scoreO = 0;
- 		scoreX = 0;
+ 		
 	}
 	
 	/*
