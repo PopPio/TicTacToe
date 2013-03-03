@@ -1,7 +1,9 @@
+import java.io.Serializable;
 import java.util.LinkedList;
 
 
-public class User {
+public class User implements Serializable{
+	private static final long serialVersionUID = 7526472295622776147L;
 	String name;
 	String uid;
 	String password;

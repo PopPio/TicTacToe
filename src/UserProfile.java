@@ -1,5 +1,8 @@
+import java.io.Serializable;
 
-public class UserProfile {
+
+public class UserProfile implements Serializable{
+	private static final long serialVersionUID = 7526472295622776147L;
 	String name;
 	String uid;
 	String ip;
