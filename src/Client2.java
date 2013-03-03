@@ -1606,6 +1606,8 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 			setSide("x");
 		}else if(currentSide.equalsIgnoreCase("x")){
 			setSide("o");
+		}else{
+			setSide("spec");
 		}
 	}
 	/**
