@@ -67,6 +67,7 @@ public class GameClient extends Thread{
 		if(theObject.protocol == 'g'){
 			//game info
 			System.out.println("player " + theObject.symbol + " places at + " + (theObject.position+1));
+			client.receiveTick(theObject.position);
 		}else if(theObject.protocol == 'e'){
 			//leave room
 			try{
