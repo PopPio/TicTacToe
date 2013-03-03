@@ -511,7 +511,7 @@ public class Client2 extends JFrame{
 	        public void actionPerformed(ActionEvent eSend)
 	        {
 	            //Execute when button is pressed
-	        	joinButtonPerformed(eSend);
+	        	joinOnlineButtonPerformed(eSend);
 	        }
 	    });     
 		
@@ -1180,6 +1180,23 @@ public class Client2 extends JFrame{
 		// TODO wait for client connection
 		// call method startGame() when client connected
 		//createGame();
+	}
+private void joinOnlineButtonPerformed(ActionEvent evt) {
+		
+		int index = friendList.getSelectedIndex();
+		UserProfile toPlayWith = (UserProfile) onlineListModel.get(index);
+		
+		// TODO connect to that player
+		System.out.println("join "+toPlayWith);
+		opponentName = toPlayWith.name;
+		
+ 		centralClient.joinGame(toPlayWith.ip);
+		
+		client = new GameClientB(this);
+ 		
+ 		client.Connect(toPlayWith.ip);
+ 		
+ 	
 	}
 	private void addFriendButtonPerformed(ActionEvent evt) {
 		int index = onlineList.getSelectedIndex();
