@@ -668,6 +668,8 @@ public class Client extends JFrame{
  		setSide("spec");
  		nameO.setVisible(false);
  		nameX.setVisible(false);
+ 		oGiveup.setVisible(false);
+ 		xGiveup.setVisible(false);
  		
 		redirectToPlayPanel();
 		chatText.addInfo("Waiting for other player");
