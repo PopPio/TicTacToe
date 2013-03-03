@@ -1398,27 +1398,11 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 		// set your name
 		profileButton.setText(playerName);
 		
-		// TODO show list of friends
-		
-		// ----- FOR TEST ONLY -----
-//		int friendCount = 25; //edit this
-//		setFriendCount(friendCount);
-//		friendListModel.removeAllElements();
-//		for(int i = 0;i<friendCount;i++){
-//			addUserToList(friendListModel, new ListObject("Jane Doe"+i)); // edit this to your object, ignore my test object "ListObject"
-//		}
-//		// show list of online player
-//		int onlineCount = 88; //edit this
-//		setOnlineCount(onlineCount);
-//		onlineListModel.removeAllElements();
-//		for(int i = 0;i<onlineCount;i++){
-//			addUserToList(onlineListModel, new ListObject("Jack Daniel"+i)); // edit this to your object too
-//		}
-		// ----- END TEST -----
-		
-		// real methods
-//		updateFriendList(friend_list);
-//		updateOnlineList(online_list);
+		profilePanel.setVisible(false);
+		backToHome.setVisible(false);
+		userOnlinePanel.setVisible(true);
+		addFriendButton.setVisible(true);
+		joinOnlineButton.setVisible(true);
 		
 		revalidate();
  		repaint();
