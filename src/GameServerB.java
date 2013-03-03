@@ -95,20 +95,11 @@ public class GameServerB extends Thread{
 		public void setsymbol0(){
 
 			PassingObjectB p = new PassingObjectB();
-			p.specName(symbol0, name0);
-			PassingObjectB q = new PassingObjectB();
-			p.specName(symbol0.equals("o")?"x":"o", name1);
+			p.specName(symbol0.equals("o")?name0:name1, symbol0.equals("o")?name1:name0);
 			for(int i = 2; i < userInput.length; i ++){	
 				try {
-					System.out.println("trying to write name :" + name0);
+					System.out.println("trying to write name :" + name0 + "for symbol : " + symbol0);
 					userOutput[i].writeObject(p);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					System.out.println("trying to write name:" + name1);
-					userOutput[i].writeObject(q);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

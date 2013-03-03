@@ -10,6 +10,8 @@ public class PassingObjectB implements Serializable{
 	String text;
 	int id;
 	boolean isSpec;
+	String name0;
+	String name1;
 	
 	public void sendGame(String symbol, int position){
 		protocol = 'g'; //game
@@ -56,10 +58,11 @@ public class PassingObjectB implements Serializable{
 		this.name = name;
 	}
 	
-	public void specName(String symbol, String name){
+	public void specName(String name0, String name1){
 		protocol = 'z';
 		this.symbol = symbol;
-		this.name = name;
+		this.name0 = name0;
+		this.name1 = name1;
 	}
 	
 	public void whatSymbol(){
