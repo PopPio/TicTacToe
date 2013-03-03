@@ -281,11 +281,36 @@ public class Client2 extends JFrame{
             }
         });
 		
+		final JButton cancelButton = new JButton("CANCEL");
+		cancelButton.setFont(new Font("Arial", Font.BOLD, 12));
+		cancelButton.setBorder(null);
+		cancelButton.setBorderPainted(false);
+		cancelButton.setFocusPainted(false);
+		cancelButton.setBackground(GREY_BASE);
+		cancelButton.setBounds(300, 420, 200, 25);
+		cancelButton.setForeground(BTN_TEXT);
+		cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	cancelButton.setBackground(GREY_MID);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	cancelButton.setBackground(GREY_BASE);
+		    }
+		});
+		cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eHost)
+            {
+                //Execute when button is pressed
+            	redirectToConnectPanel();
+            }
+        }); 
+		
 		registerPane.setLayout(null);
 		registerPane.add(regis_name);
 		registerPane.add(regis_username);
 		registerPane.add(regis_password);
 		registerPane.add(regisButton);
+		registerPane.add(cancelButton);
 		
 		// =======================================================================================
 		// ================================== HOME PAGE ==========================================
