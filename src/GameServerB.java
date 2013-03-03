@@ -109,18 +109,31 @@ public class GameServerB extends Thread{
 					}
 					PassingObject passObject = readObject(getObject, id);
 					passObject(id, passObject);
-					//TODO e protocol
+					if(passObject.protocol == 'e'){	
+						try{
+							System.out.println("initiate protocol 'e' in thread");
+							userInput[id].close();
+							userOutput[id].close();
+							if(id < 2)
+								serverSocket.close();
+							break;
+						}catch(IOException err){
+							System.out.println("IOError in closing the stream after receving end game protocol in thread");
+						}
+					}
 				}
 			}catch(ClassNotFoundException e){
 				System.out.println("cannot find class");
 			}catch(IOException e){
 				System.out.println("IO Error at id:" + id);
 				System.out.println("possible sudden close in client stream from id:" + id);
-				System.out.println("notify other player that the player left the room");
-				PassingObject passObject = new PassingObject();
-				passObject.leave();
-				passObject(id, passObject);
-				System.out.println("Trying to close stream");
+				System.out.println("notify other player that the player left the room if id < 2");
+				if(id < 2){
+					PassingObject passObject = new PassingObject();
+					passObject.leave();
+					passObject(id, passObject);
+				}
+				System.out.println("Trying to close stream for");
 				try{
 					userInput[id].close();
 					userOutput[id].close();
