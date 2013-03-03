@@ -1468,9 +1468,9 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	private void addUserToList(DefaultListModel listModel,Object user){
 		listModel.addElement(user);
 	}
-	private void removeUserFromList(){
-		
-	}
+//	private void removeUserFromList(){
+//		
+//	}
 	protected void redirectToConnectPanel() {
 		// for disconnect button
 		getContentPane().removeAll();
