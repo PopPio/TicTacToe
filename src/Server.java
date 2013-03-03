@@ -168,7 +168,7 @@ public class Server extends Thread{
 			if((i == id && theObject.protocol != 'e' && theObject.protocol != 'w' && theObject.protocol != 'd'))
 				continue;
 			try{
-				System.out.println("writing to id: " + i);
+				System.out.println("writing to id: " + i + " with protocol: " + theObject.protocol);
 				userOutput[i].writeObject(theObject);
 			}catch(IOException e){
 				System.out.println("error writing object from passObject method");
