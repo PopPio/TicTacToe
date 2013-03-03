@@ -40,6 +40,7 @@ public class Client2 extends JFrame{
 	// just new shit i need to declare
 	String uid;
 	CentralClient centralClient = null;
+	String opponentuid = "";
 	
 	// client server
 	GameClientB client = null;
@@ -1185,6 +1186,8 @@ public class Client2 extends JFrame{
 		System.out.println("join "+toPlayWith);
 		opponentName = toPlayWith.name;
 		
+		opponentuid = toPlayWith.uid;
+		
  		centralClient.joinGame(toPlayWith.ip);
 		
 		client = new GameClientB(this);
@@ -1365,6 +1368,9 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	private void editNameButtonPerformed(ActionEvent evt){
 		String newName = edit_name.getText();
 		// TODO SEnd to server
+		centralClient.changeName(newName);
+		playerName = newName;
+		profileButton.setText(newName);
 	}
 	// ************************ Useful Methods ************************
 	protected void createGame() { // call this when receive connection
@@ -1746,6 +1752,11 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 		// call this when win
 		System.out.println(side+" wins !!!");
 		if(side.equalsIgnoreCase("o")){
+			if(currentSide.equals("o")){
+				centralClient.endGame('w', opponentuid);
+			}else{
+				centralClient.endGame('l', opponentuid);
+			}
 			scoreO++;
 			chatText.addInfo(playerOName + " wins !!!");
 			JOptionPane.showMessageDialog(this,
@@ -1753,6 +1764,11 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 				    "Announcement",
 				    JOptionPane.PLAIN_MESSAGE);
 		}else if(side.equalsIgnoreCase("x")){
+			if(currentSide.equals("x")){
+				centralClient.endGame('w', opponentuid);
+			}else{
+				centralClient.endGame('l', opponentuid);
+			}
 			scoreX++;
 			chatText.addInfo(playerXName + " wins !!!");
 			JOptionPane.showMessageDialog(this,
@@ -1767,6 +1783,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	}
 	
 	public void draw() throws IOException {
+		centralClient.endGame('d', opponentuid);
 		chatText.addInfo("draws !!!");
 		JOptionPane.showMessageDialog(this,
 				"DRAW !!!",
