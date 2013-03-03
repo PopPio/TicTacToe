@@ -23,11 +23,11 @@ public class OXButton extends JButton {
 	final static int STATE_X = 2;
 	
 	public OXButton (){
-        this("spec");
+        this(-1);
         // default is spec
     }
 	
-    public OXButton (String text){
+    public OXButton (int text){
     	super("");
         setBorder(null);
         setBorderPainted(false);
@@ -46,8 +46,8 @@ public class OXButton extends JButton {
         currentState = 0;
         yourTurn = false;
         
-        position = Integer.parseInt(text);
-        
+//        position = Integer.parseInt(text);
+        position = text;
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
             	if(currentState == 0 && type < TYPE_SPEC && yourTurn) {

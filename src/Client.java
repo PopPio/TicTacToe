@@ -229,63 +229,63 @@ public class Client extends JFrame{
 		playPane.setBounds(20, 20, 430, 430);
 		
 		
-		b0 = new OXButton("0");
+		b0 = new OXButton(0);
 		b0.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eOX1)
             {
             	if(b0.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX1);}
             }
         });
-		b1 = new OXButton("1");
+		b1 = new OXButton(1);
 		b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eOX2)
             {
             	if(b1.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX2);}
             }
         });
-		b2 = new OXButton("2");
+		b2 = new OXButton(2);
 		b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eOX3)
             {
             	if(b2.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX3);}
             }
         });
-		b3 = new OXButton("3");
+		b3 = new OXButton(3);
 		b3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eOX4)
             {
             	if(b3.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX4);}
             }
         });
-		b4 = new OXButton("4");
+		b4 = new OXButton(4);
 		b4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eOX5)
             {
             	if(b4.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX5);}
             }
         });
-		b5 = new OXButton("5");
+		b5 = new OXButton(5);
 		b5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eOX6)
             {
             	if(b5.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX6);}
             }
         });
-		b6 = new OXButton("6");
+		b6 = new OXButton(6);
 		b6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eOX7)
             {
             	if(b6.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX7);}
             }
         });
-		b7 = new OXButton("7");
+		b7 = new OXButton(7);
 		b7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eOX8)
             {
             	if(b7.currentState == OXButton.STATE_EMPTY){oxButtonPerformed(eOX8);}
             }
         });
-		b8 = new OXButton("8");
+		b8 = new OXButton(8);
 		b8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent eOX9)
             {
