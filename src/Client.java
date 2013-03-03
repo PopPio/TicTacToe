@@ -610,7 +610,8 @@ public class Client extends JFrame{
  		client = new GameClient(this);
  		client.Connect(ip_text.getText(), Integer.parseInt(port_text.getText()));
  		// receive opponent name from server
- 		
+ 		scoreO = 0;
+ 		scoreX = 0;
 	}
 	
 	/*
@@ -625,8 +626,7 @@ public class Client extends JFrame{
  		// set up game
 // 		playerScore = 0;
 // 		opponentScore = 0;
- 		scoreO = 0;
- 		scoreX = 0;
+ 		
  		try{
  			resetAllButton();
  		}catch(IOException e){
@@ -754,7 +754,7 @@ public class Client extends JFrame{
 	public void resetScoreRequest(){
 		scoreX=0;
 		scoreO=0;
-		chatText.addInfo(" RESET SCORE !!!");
+		chatText.addInfo("RESET SCORE !!!");
 		switchSide();
 		try {
 			resetAllButton();
@@ -796,6 +796,8 @@ public class Client extends JFrame{
 		
 		// clean up sone UI
 		chatArea.setText("");
+		scoreX=0;
+		scoreO=0;
 		try {
 			chatText.reset();
 		} catch (BadLocationException e) {
