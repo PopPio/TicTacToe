@@ -718,7 +718,8 @@ public class Client extends JFrame{
 //			}
 //			if(oxClick.position==7){
 //				try {
-//					win("x");
+//					//win("x");
+//					draw();
 //				} catch (IOException e) {
 //					e.printStackTrace();
 //				}
@@ -938,15 +939,17 @@ public class Client extends JFrame{
 				    JOptionPane.PLAIN_MESSAGE);
 		}
 		
-		
-		
-		
 		switchSide();
 		resetAllButton();
 		setCurrentTurn("x");
 		
-		
-		
+	}
+	
+	public void draw() throws IOException {
+		chatText.addInfo("draws !!!");
+		switchSide();
+		resetAllButton();
+		setCurrentTurn("x");
 	}
 	
 	public static void setFixedWidth( Component component, int width ){
