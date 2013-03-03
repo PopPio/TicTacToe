@@ -69,7 +69,7 @@ public class GameClientB extends Thread{
 		if(theObject.protocol == 'g'){
 			//game info
 			System.out.println("player " + theObject.symbol + " places at + " + (theObject.position+1));
-			client.receiveTick(theObject.position);
+			client.receiveTick(theObject.position, theObject.symbol);
 		}else if(theObject.protocol == 'e'){
 			//leave room
 			try{
@@ -127,6 +127,8 @@ public class GameClientB extends Thread{
 			p.replySymbol(client.currentSide);
 			sendObject(p);
 		}else if(theObject.protocol == 'z'){
+			System.out.println("get name: " + theObject.name);
+			System.out.println("get symbol " + theObject.symbol);
 			client.specSeting(theObject.name, theObject.symbol);
 		}
 	}
