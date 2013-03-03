@@ -1674,12 +1674,9 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	 * @param name
 	 * @param side
 	 */
-	protected void specSeting(String name, String side){
-		if(side.equalsIgnoreCase("o")){
-			playerOName = name;
-		}else if(side.equalsIgnoreCase("x")){
-			playerXName = name;
-		}
+	protected void specSeting(String nameO, String nameX){
+			playerOName = nameO;
+			playerXName = nameX;
 	}
 	public void receiveTick(int position,String side) { // manual tick
 		switchTurn();
