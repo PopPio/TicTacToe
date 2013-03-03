@@ -409,15 +409,15 @@ public class Client extends JFrame{
 			oGiveup.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent eDisconnect)
 	            {
-	            	try {
+//	            	try {
 	            		// TODO send give up message
 	            		PassingObject p = new PassingObject();
 	            		p.surender("o");
 	            		client.sendObject(p);
-						win("x");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+//						win("x");
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
 	            }
 	        });
 			
@@ -460,15 +460,15 @@ public class Client extends JFrame{
 			xGiveup.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent eDisconnect)
 	            {
-	            	try {
+//	            	try {
 	            		// TODO send give up message
 	            		PassingObject p = new PassingObject();
 	            		p.surender("x");
 	            		client.sendObject(p);
-						win("o");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+//						win("o");
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
 	            }
 	        });
 			
