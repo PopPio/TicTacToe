@@ -107,6 +107,7 @@ public class Client2 extends JFrame{
 	JList friendList, onlineList;
 	DefaultListModel friendListModel, onlineListModel;
 	int friendCount,onlineCount;
+	JTextField edit_name;
 	
 	
 	// Play panel shared a2 components
@@ -548,17 +549,48 @@ public class Client2 extends JFrame{
 		profilePanel.setLayout(null);
 		profilePanel.setVisible(false);
 		
+		JLabel editNameLabel = new JLabel("Edit name:");
+		editNameLabel.setBounds(10, 10, 80, 25);
+		
+		edit_name = new JTextField();
+		edit_name.setText(playerName);
+		edit_name.setBounds(80, 10, 160, 25);
+		
+		final JButton editname = new JButton("EDIT");
+		editname.setFont(new Font("Arial", Font.PLAIN, 14));
+		editname.setBorder(null);
+		editname.setBorderPainted(false);
+		editname.setFocusPainted(false);
+		editname.setBackground(GREY_BASE);
+		editname.setBounds(250, 10, 50, 25);
+		editname.setForeground(BTN_TEXT);
+		editname.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	editname.setBackground(GREY_MID);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	editname.setBackground(GREY_BASE);
+		    }
+		});
+		editname.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eBack)
+            {
+                //Execute when button is pressed
+            	editNameButtonPerformed(eBack);
+            }
+        });   
+		
 		profileWin = new JLabel("Win: 50");
-		profileWin.setBounds(10, 10, 110, 25);
+		profileWin.setBounds(10, 40, 110, 25);
 		
 		profileLoss = new JLabel("Loss: 42");
-		profileLoss.setBounds(120, 10, 110, 25);
+		profileLoss.setBounds(120, 40, 110, 25);
 		
 		profileDraw = new JLabel("Draw: 42");
-		profileDraw.setBounds(230, 10, 80, 25);
+		profileDraw.setBounds(230, 40, 80, 25);
 		
 		JLabel historyHead = new JLabel("History");
-		historyHead.setBounds(10, 45, 110, 25);
+		historyHead.setBounds(10, 70, 110, 25);
 		
 		history = new JTextPane();
 		history.setEditable(false);
@@ -574,6 +606,9 @@ public class Client2 extends JFrame{
 //		addHistoryRow("Test jjjjjjj");
 //		addHistoryRow("Test jjjjjjj");
 		
+		profilePanel.add(editname);
+		profilePanel.add(editNameLabel);
+		profilePanel.add(edit_name);
 		profilePanel.add(profileWin);
 		profilePanel.add(profileLoss);
 		profilePanel.add(profileDraw);
@@ -1325,6 +1360,11 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 			e.printStackTrace();
 		}
 		setCurrentTurn("x");
+	}
+	
+	private void editNameButtonPerformed(ActionEvent evt){
+		String newName = edit_name.getText();
+		// TODO SEnd to server
 	}
 	// ************************ Useful Methods ************************
 	protected void createGame() { // call this when receive connection
