@@ -92,7 +92,6 @@ public class Client2 extends JFrame{
 	JLabel transitionText;
 	
 	// Connect panel shared components
-	JLabel profile;
 	JTextField username_text/*, password_text*/;
 	JPasswordField password_text;
 	
@@ -114,7 +113,7 @@ public class Client2 extends JFrame{
 	// Play panel shared a2 components
 	JTextArea chatArea;
 	OXButton b0,b1,b2,b3,b4,b5,b6,b7,b8;
-	JLabel nameO, nameX;
+	JLabel nameO, nameX, profile;;
 	ChatText chatText;
 	JButton oGiveup, xGiveup;
 	
@@ -1044,6 +1043,7 @@ public class Client2 extends JFrame{
 // 		scoreX = 0;
 		// change to play panel 
 		// insert form validation if have time
+		
 		String username = username_text.getText().equalsIgnoreCase("") ? "username" : username_text.getText();
 		char [] temp = password_text.getPassword();
 		String password = "";
@@ -1178,6 +1178,7 @@ public class Client2 extends JFrame{
 		redirectToConnectPanel();
 	}
 	private void joinButtonPerformed(ActionEvent evt) {
+		profile.setText(playerName);
 		
 		int index = friendList.getSelectedIndex();
 		UserProfile toPlayWith = (UserProfile) friendListModel.get(index);
@@ -1223,20 +1224,26 @@ public class Client2 extends JFrame{
 		//createGame();
 	}
 private void joinOnlineButtonPerformed(ActionEvent evt) {
-		
+		profile.setText(playerName);
+	
 		int index = onlineList.getSelectedIndex();
 		UserProfile toPlayWith = (UserProfile) onlineListModel.get(index);
 		
-		// TODO connect to that player
+		// old
+//		// TODO connect to that player
+//		System.out.println("join "+toPlayWith);
+//		opponentName = toPlayWith.name;
+// 		centralClient.joinGame(toPlayWith.ip);
+//		client = new GameClientB(this);
+// 		client.Connect(toPlayWith.ip);
+ 		
+ 		// TODO connect to that player
 		System.out.println("join "+toPlayWith);
 		opponentName = toPlayWith.name;
-		
+		opponentuid = toPlayWith.uid;
  		centralClient.joinGame(toPlayWith.ip);
-		
 		client = new GameClientB(this);
- 		
  		client.Connect(toPlayWith.ip);
- 		
  	
 	}
 	private void addFriendButtonPerformed(ActionEvent evt) {
