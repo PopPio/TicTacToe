@@ -121,6 +121,8 @@ public class GameClientB extends Thread{
 			client.opponentName = theObject.name;
 		}else if(theObject.protocol == 'x'){
 			//request symbol
+			System.out.println("Receive protocol x");
+			System.out.println("Current side is :" + client.currentSide);
 			PassingObjectB p = new PassingObjectB();
 			p.replySymbol(client.currentSide);
 			sendObject(p);

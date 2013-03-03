@@ -68,5 +68,6 @@ public class PassingObjectB implements Serializable{
 	
 	public void replySymbol(String symbol){
 		protocol = 'x';
+		this.symbol = symbol;
 	}
 }

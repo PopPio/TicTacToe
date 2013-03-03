@@ -138,6 +138,7 @@ public class GameServerB extends Thread{
 							continue;
 						}
 					}else if(getObject.protocol == 'x'){
+						System.out.println("get symbol: " + getObject.symbol);
 						symbol0 = getObject.symbol;
 						setsymbol0();
 						continue;

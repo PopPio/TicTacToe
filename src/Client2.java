@@ -1327,18 +1327,18 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	protected void createGame() { // call this when receive connection
 		
  		// accept connection
-	 	opponentName = "Touch"; //edit this
+//	 	opponentName = "Touch"; //edit this
 	 	
 	 	chatText.addInfo(opponentName+" connected");
 		
-		// random side
-	 	if(random.nextBoolean()){
-	 		setSide("o");
-	 		// send x to opponent
-	 	}else{
-	 		setSide("x");
-	 		// send o to opponent
-	 	}
+//		// random side
+//	 	if(random.nextBoolean()){
+//	 		setSide("o");
+//	 		// send x to opponent
+//	 	}else{
+//	 		setSide("x");
+//	 		// send o to opponent
+//	 	}
 	 	
 		// send to client
  		
