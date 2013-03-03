@@ -1183,7 +1183,8 @@ public class Client2 extends JFrame{
 	}
 	private void joinButtonPerformed(ActionEvent evt) {
 		profile.setText(playerName);
-		
+		scoreO = 0;
+ 		scoreX = 0;
 		int index = friendList.getSelectedIndex();
 		UserProfile toPlayWith = (UserProfile) friendListModel.get(index);
 		isHost = false;
@@ -1234,7 +1235,8 @@ public class Client2 extends JFrame{
 	}
 private void joinOnlineButtonPerformed(ActionEvent evt) {
 		profile.setText(playerName);
-	
+		scoreO = 0;
+ 		scoreX = 0;
 		int index = onlineList.getSelectedIndex();
 		UserProfile toPlayWith = (UserProfile) onlineListModel.get(index);
 		
