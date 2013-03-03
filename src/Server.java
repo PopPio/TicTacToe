@@ -155,11 +155,13 @@ public class Server extends Thread{
 				game.newGame();
 			}
 		}else if(theObject.protocol == 's'){
-			game.newGame();
 			String winningSymbol = theObject.symbol.equals("x")?"o":"x";
 			theObject = new PassingObject();
 			theObject.protocol = 'w';
 			theObject.symbol = winningSymbol;
+			game.newGame();
+		}else if(theObject.protocol == 'r'){
+			game.newGame();
 		}
 		return theObject;
 	}			
