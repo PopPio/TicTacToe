@@ -1183,7 +1183,7 @@ public class Client2 extends JFrame{
 	}
 private void joinOnlineButtonPerformed(ActionEvent evt) {
 		
-		int index = friendList.getSelectedIndex();
+		int index = onlineList.getSelectedIndex();
 		UserProfile toPlayWith = (UserProfile) onlineListModel.get(index);
 		
 		// TODO connect to that player
