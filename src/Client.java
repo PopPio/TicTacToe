@@ -537,6 +537,16 @@ public class Client extends JFrame{
 		    	resetScoreButton.setBackground(GREY_BASE);
 		    }
 		});
+		resetScoreButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eReset)
+            {
+            	try {
+					resetScoreButtonPerformed(eReset);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+            }
+        });     
 		
 		// reset button
 		final JButton resetButton = new JButton("RESET");
@@ -731,6 +741,19 @@ public class Client extends JFrame{
 		}else{
 			// click in opponent's turn, do nothing
 		}
+	}
+	private void resetScoreButtonPerformed(ActionEvent evt) throws IOException {
+		try {
+			scoreX=0;
+			scoreO=0;
+			chatText.addInfo(" RESET SCORE !!!");
+			switchSide();
+			resetAllButton();
+			setCurrentTurn("x");
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+		
 	}
 	// ************************ Useful Methods ************************
 	protected void createGame() { // call this when receive connection
