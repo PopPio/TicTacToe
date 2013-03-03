@@ -1201,7 +1201,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	private void addFriendButtonPerformed(ActionEvent evt) {
 		int index = onlineList.getSelectedIndex();
 		UserProfile toBeFriend = (UserProfile) onlineListModel.get(index); // TODO edit ListObject to your user object
-		onlineListModel.remove(index);
+		//onlineListModel.remove(index);
 		
 		// TODO send info to other client
 		
