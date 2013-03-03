@@ -1599,7 +1599,18 @@ public class Client2 extends JFrame{
 		b8.yourTurn = turn;
 		
 	}
-	
+	/**
+	 * Set up scoreboard for spectator mode
+	 * @param name
+	 * @param side
+	 */
+	protected void specSeting(String name, String side){
+		if(side.equalsIgnoreCase("o")){
+			playerOName = name;
+		}else if(side.equalsIgnoreCase("o")){
+			playerXName = name;
+		}
+	}
 	public void receiveTick(int position,String side) { // manual tick
 		switchTurn();
 		System.out.println("receive tick from player:"+position);
