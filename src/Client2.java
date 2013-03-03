@@ -1752,7 +1752,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 		// call this when win
 		System.out.println(side+" wins !!!");
 		if(side.equalsIgnoreCase("o")){
-			if(currentSide.equals("o")){
+			if(currentSide.equals("o") && !currentSide.equals("spec")){
 				centralClient.endGame('w', opponentuid);
 			}else{
 				centralClient.endGame('l', opponentuid);
@@ -1764,7 +1764,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 				    "Announcement",
 				    JOptionPane.PLAIN_MESSAGE);
 		}else if(side.equalsIgnoreCase("x")){
-			if(currentSide.equals("x")){
+			if(currentSide.equals("x") && !currentSide.equals("spec")){
 				centralClient.endGame('w', opponentuid);
 			}else{
 				centralClient.endGame('l', opponentuid);
@@ -1783,7 +1783,8 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	}
 	
 	public void draw() throws IOException {
-		centralClient.endGame('d', opponentuid);
+		if(!currentSide.equals("spec"))
+			centralClient.endGame('d', opponentuid);
 		chatText.addInfo("draws !!!");
 		JOptionPane.showMessageDialog(this,
 				"DRAW !!!",
