@@ -16,6 +16,10 @@ public class CentralServer extends Thread{
 	
 	ServerSocket serverSocket = null;
 	
+	public static void main(String[] args){
+		new CentralServer();
+	}
+	
 	public CentralServer(){
 		userInput = new ObjectInputStream[0];
 		userOutput = new ObjectOutputStream[0];

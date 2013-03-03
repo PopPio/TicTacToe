@@ -55,4 +55,18 @@ public class PassingObjectB implements Serializable{
 		protocol = 'n';
 		this.name = name;
 	}
+	
+	public void specName(String symbol, String name){
+		protocol = 'z';
+		this.symbol = symbol;
+		this.name = name;
+	}
+	
+	public void whatSymbol(){
+		protocol = 'x';
+	}
+	
+	public void replySymbol(String symbol){
+		protocol = 'x';
+	}
 }

@@ -50,6 +50,7 @@ public class GameServerB extends Thread{
 	class GameRoomHost implements Runnable{
 		int id;
 		Thread myThread;
+		String symbol0;
 		
 		public GameRoomHost(Socket reader, int id){
 			this.id = id;
@@ -69,6 +70,15 @@ public class GameServerB extends Thread{
 				userInput = java.util.Arrays.copyOf(userInput, userInput.length + 1);
 				userInput[id] = new ObjectInputStream(is);
 				System.out.println("initialized object input stream");
+				if(id > 1){
+					//reply as a spec
+					PassingObjectB p = new PassingObjectB();
+					p.setStart("spec");
+					userOutput[id].writeObject(p);
+					p = new PassingObjectB();
+					p.whatSymbol();
+					userOutput[0].writeObject(p);
+				}
 			}catch(IOException e){
 				System.out.println("Error initiaing inputstream");
 			}
@@ -81,6 +91,28 @@ public class GameServerB extends Thread{
 		}
 		
 		// TODO passingobject for question b requires user status: player/spectator
+		
+		public void setsymbol0(){
+
+			PassingObjectB p = new PassingObjectB();
+			p.specName(symbol0, name0);
+			PassingObjectB q = new PassingObjectB();
+			p.specName(symbol0.equals("o")?"x":"o", name1);
+			for(int i = 2; i < userInput.length; i ++){	
+				try {
+					userOutput[i].writeObject(p);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					userOutput[i].writeObject(q);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 		
 		public void run(){
 			try{
@@ -104,13 +136,11 @@ public class GameServerB extends Thread{
 							game = new TheGame();
 							startGame();
 							continue;
-						}else if(id > 1){
-							//reply as a spec
-							PassingObjectB p = new PassingObjectB();
-							p.setStart("spec");
-							userOutput[id].writeObject(p);
-							continue;
 						}
+					}else if(getObject.protocol == 'x'){
+						symbol0 = getObject.symbol;
+						setsymbol0();
+						continue;
 					}
 					PassingObjectB passObject = readObject(getObject, id);
 					passObject(id, passObject);
