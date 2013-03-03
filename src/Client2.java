@@ -1478,7 +1478,7 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
-		
+		edit_name.setText(playerName);
 		profileWin.setText("Win: "+ win);
 		profileLoss.setText("Loss: "+ lose);
 		profileDraw.setText("Draw: "+ draw);
