@@ -269,8 +269,12 @@ public class CentralServer extends Thread{
 							continue;
 						}else if(getObject.protocol == 'w'){
 							//update history and win lose draw counts
+							System.out.println("protocol w invoked");
+							System.out.println("received uid: " + getObject.uid);
 							for(int i = 0; i < userData.size(); i ++){
+								System.out.println("current uid: " + userData.get(i).uid);
 								if(userData.get(i).uid.equals(getObject.uid)){
+									System.out.println("found");
 									if(getObject.winLoseDraw == 'w'){
 										userData.get(id).win(getObject.uid);
 										userData.get(i).lose(userData.get(id).uid);

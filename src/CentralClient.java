@@ -166,12 +166,13 @@ public class CentralClient extends Thread{
 	}
 	
 	public void endGame(char winLoseDraw, String targetuid){
+		System.out.println("writing endgame object");
 		PassingObjectCentral passObject = new PassingObjectCentral();
 		passObject.updateScore(winLoseDraw, targetuid);
 		try{
 			serverOutput.writeObject(passObject);
 		}catch(IOException e){
-			System.out.println("unable to pass addfriend object");
+			System.out.println("unable to pass updateProfile object");
 			e.printStackTrace();
 		}
 	}
