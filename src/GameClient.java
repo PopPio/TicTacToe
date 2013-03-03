@@ -98,6 +98,12 @@ public class GameClient extends Thread{
 		}else if(theObject.protocol == 'd'){
 			//draw
 			System.out.println("draws...");
+			try{
+				client.draw();
+			}catch(IOException e){
+				System.out.println("error in calling draw method");
+				e.printStackTrace();
+			}
 		}else if (theObject.protocol == 'b'){
 			//notify ui will be what symbol
 			System.out.println("you are " + theObject.symbol);

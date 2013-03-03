@@ -165,7 +165,7 @@ public class Server extends Thread{
 
 	public void passObject(int id, PassingObject theObject){
 		for(int i = 0; i < 2; i ++){
-			if((i == id && theObject.protocol != 'e'))
+			if((i == id && theObject.protocol != 'e' && theObject.protocol != 'w' && theObject.protocol != 'd'))
 				continue;
 			try{
 				System.out.println("writing to id: " + i);
