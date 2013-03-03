@@ -1178,6 +1178,7 @@ public class Client2 extends JFrame{
 		redirectToConnectPanel();
 	}
 	private void joinButtonPerformed(ActionEvent evt) {
+		profile.setText(playerName);
 		
 		int index = friendList.getSelectedIndex();
 		UserProfile toPlayWith = (UserProfile) friendListModel.get(index);
