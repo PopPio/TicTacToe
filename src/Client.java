@@ -738,7 +738,7 @@ public class Client extends JFrame{
 //			}
 			// TODO send data to server
 			PassingObject p = new PassingObject();
-			p.sendGame(ourSide, oxClick.position);
+			p.sendGame(currentSide, oxClick.position);
 			client.sendObject(p);
 		}else{
 			// click in opponent's turn, do nothing

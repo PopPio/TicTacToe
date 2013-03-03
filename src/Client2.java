@@ -946,7 +946,7 @@ public class Client2 extends JFrame{
 		if(password.equalsIgnoreCase("")){
 			password = "password";
 		}
-		// no have form validation, but fuck that shit
+		// no have form validation, but fuck that shit :D
 		
 		// send to server
 
@@ -1313,7 +1313,7 @@ public class Client2 extends JFrame{
 		b8.reset();
 		
 	}
-	private void receiveChat(int chatType,String chat){ //chatType: 1=from opponent, 2=from spec, 3=from player1 and you are spec;
+	private void receiveChat(int chatType,String chat, String name){ //chatType: 1=from opponent, 2=from spec, 3=from player1 and you are spec;
 		Color color;
 		if(chatType == 1){
 			color = ChatText.PLAYER2;
@@ -1325,7 +1325,7 @@ public class Client2 extends JFrame{
 		chat = chat.trim();
 		//System.out.println("Receive meesage");
 		if(!chat.equals("")){
-			chatText.addRow(opponentName, color, chat);
+			chatText.addRow(name, color, chat);
 		}
 	}
 	/**

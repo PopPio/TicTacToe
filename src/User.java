@@ -1,26 +1,77 @@
+import java.util.LinkedList;
+
 
 public class User {
 	String name;
-	int score;
-	int type;
+	String uid;
+	String password;
+	String status;
+	String gameStatus;
+	String ip;
+	String inGameip;
+	int win;
+	int lose;
+	int draw;
+	String history;
+	LinkedList <User>friend;
 	
-	final static int TYPE_O = 1;
-	final static int TYPE_X = 2;
-	final static int TYPE_SPEC = 3;
+	public void setOnline(){
+		status = "[Online]";
+	}
 	
-	public User(){
-		this("John Doe", TYPE_SPEC); // default
+	public void setOffline(){
+		status = "[Offline]";
 	}
-	public User(String name, int type){
-		this.name = name;
-		this.type = type;
-		this.score = 0;
+	
+	public void setHosting(){
+		gameStatus = "[Hosting a Game]";
+		inGameip = ip;
 	}
-	public User(String name, int type, int score){
-		this.name = name;
-		this.type = type;
-		this.score = score;
+	
+	public void setInGame(String inGameIP){
+		gameStatus = "[In Game]";
+		inGameip = inGameIP;
 	}
+	
+	public void setNotInRoom(){
+		gameStatus = "";
+		inGameip = "";
+	}
+	
+	public void win(String uid){
+		for(int i = 0; i < friend.size(); i ++){
+			if(uid.equals(friend.get(i).uid)){
+				history += "[win] " + friend.get(i).name + "\n";
+				win++;
+				return;
+			}
+		}
+	}
+	
+	public void lose(String uid){
+		for(int i = 0; i < friend.size(); i ++){
+			if(uid.equals(friend.get(i).uid)){
+				history += "[lose] " + friend.get(i).name + "\n";
+				lose++;
+				return;
+			}
+		}
+	}
+	
+	public void draw(String uid){
+		for(int i = 0; i < friend.size(); i++){
+			if(uid.equals(friend.get(i).uid)){
+				history += "[draw] " + friend.get(i).name + "\n";
+				draw++;
+				return;
+			}
+		}
+	}
+	
+	public void addFriend(User newFriend){
+		friend.add(newFriend);
+	}
+	
 	
 	
 }
