@@ -86,6 +86,7 @@ public class GameClient extends Thread{
 		}else if(theObject.protocol == 'r'){
 			//reset score
 			System.out.println("reset score");
+			client.resetScoreRequest();
 		}else if(theObject.protocol == 'w'){
 			//win
 			System.out.println(theObject.symbol + " wins!");

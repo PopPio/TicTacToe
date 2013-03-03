@@ -100,6 +100,9 @@ public class Server extends Thread{
 							continue;
 						}		
 					}
+					if(getObject.protocol == 'g'){
+						passObject(id, getObject);
+					}
 					PassingObject passObject = readObject(getObject);
 					passObject(id, passObject);
 					if(passObject.protocol == 'e'){	
@@ -161,7 +164,7 @@ public class Server extends Thread{
 			theObject.symbol = winningSymbol;
 		}
 		return theObject;
-	}
+	}			
 
 	public void passObject(int id, PassingObject theObject){
 		for(int i = 0; i < 2; i ++){

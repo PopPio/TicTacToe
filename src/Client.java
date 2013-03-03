@@ -745,17 +745,24 @@ public class Client extends JFrame{
 		}
 	}
 	private void resetScoreButtonPerformed(ActionEvent evt) throws IOException {
+			PassingObject p = new PassingObject();
+			p.resetScore();
+			client.sendObject(p);
+			resetScoreRequest();
+	}
+	
+	public void resetScoreRequest(){
+		scoreX=0;
+		scoreO=0;
+		chatText.addInfo(" RESET SCORE !!!");
+		switchSide();
 		try {
-			scoreX=0;
-			scoreO=0;
-			chatText.addInfo(" RESET SCORE !!!");
-			switchSide();
 			resetAllButton();
-			setCurrentTurn("x");
-		} catch (IOException e){
+		} catch (IOException e) {
+			System.out.println("error in calling resetAllButton method in resetScoreRequest()");
 			e.printStackTrace();
 		}
-		
+		setCurrentTurn("x");
 	}
 	// ************************ Useful Methods ************************
 	protected void createGame() { // call this when receive connection
