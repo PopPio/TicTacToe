@@ -96,7 +96,7 @@ public class Client2 extends JFrame{
 	
 	// Home panel & profile panel
 	JPanel profilePanel,userOnlinePanel;
-	JButton addFriendButton, backToHome, profileButton;
+	JButton addFriendButton, backToHome, profileButton, joinOnlineButton;
 	JLabel profileWin ,profileLoss, profileDraw, friendHead, onlineHead;
 	JTextPane history;
 	JList friendList, onlineList;
@@ -377,15 +377,15 @@ public class Client2 extends JFrame{
 		hostButton.setBorder(null);
 		hostButton.setBorderPainted(false);
 		hostButton.setFocusPainted(false);
-		hostButton.setBackground(PINK_BASE);
+		hostButton.setBackground(GREY_BASE);
 		hostButton.setBounds(20, 560, 90, 20);
 		hostButton.setForeground(BTN_TEXT);
 		hostButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	hostButton.setBackground(PINK_DARK);
+		    	hostButton.setBackground(GREY_MID);
 		    }
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	hostButton.setBackground(PINK_BASE);
+		    	hostButton.setBackground(GREY_BASE);
 		    }
 		});
 		hostButton.addActionListener(new ActionListener() {
@@ -479,20 +479,45 @@ public class Client2 extends JFrame{
 		userOnlinePanel.add(onlineScrollPane);
 		
 		// add friend button
+		joinOnlineButton = new JButton("JOIN GAME");
+		joinOnlineButton.setFont(new Font("Arial", Font.PLAIN, 14));
+		joinOnlineButton.setBorder(null);
+		joinOnlineButton.setBorderPainted(false);
+		joinOnlineButton.setFocusPainted(false);
+		joinOnlineButton.setBackground(PINK_BASE);
+		joinOnlineButton.setBounds(690, 560, 90, 20);
+		joinOnlineButton.setForeground(BTN_TEXT);
+		joinOnlineButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	joinOnlineButton.setBackground(PINK_DARK);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	joinOnlineButton.setBackground(PINK_BASE);
+		    }
+		});
+		joinOnlineButton.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent eSend)
+	        {
+	            //Execute when button is pressed
+	        	addFriendButtonPerformed(eSend);
+	        }
+	    });     
+		
+		// add friend button
 		addFriendButton = new JButton("ADD FRIEND");
 		addFriendButton.setFont(new Font("Arial", Font.PLAIN, 14));
 		addFriendButton.setBorder(null);
 		addFriendButton.setBorderPainted(false);
 		addFriendButton.setFocusPainted(false);
-		addFriendButton.setBackground(PINK_BASE);
-		addFriendButton.setBounds(680, 560, 100, 20);
+		addFriendButton.setBackground(GREY_BASE);
+		addFriendButton.setBounds(470, 560, 100, 20);
 		addFriendButton.setForeground(BTN_TEXT);
 		addFriendButton.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseEntered(java.awt.event.MouseEvent evt) {
-		    	addFriendButton.setBackground(PINK_DARK);
+		    	addFriendButton.setBackground(GREY_MID);
 		    }
 		    public void mouseExited(java.awt.event.MouseEvent evt) {
-		    	addFriendButton.setBackground(PINK_BASE);
+		    	addFriendButton.setBackground(GREY_BASE);
 		    }
 		});
 		addFriendButton.addActionListener(new ActionListener() {
@@ -577,6 +602,7 @@ public class Client2 extends JFrame{
 		homePage.add(userOnlinePanel);
 		homePage.add(profilePanel);
 		homePage.add(addFriendButton);
+		homePage.add(joinOnlineButton);
 		homePage.add(backToHome);
 		
 		
@@ -1054,6 +1080,7 @@ public class Client2 extends JFrame{
 		backToHome.setVisible(true);
 		userOnlinePanel.setVisible(false);
 		addFriendButton.setVisible(false);
+		joinOnlineButton.setVisible(false);
 	}
 	
 	private void disconnectButtonPerformed(ActionEvent evt) {
@@ -1150,6 +1177,7 @@ public class Client2 extends JFrame{
 		backToHome.setVisible(false);
 		userOnlinePanel.setVisible(true);
 		addFriendButton.setVisible(true);
+		joinOnlineButton.setVisible(true);
 	}
 	
 	private void sendButtonPerformed(ActionEvent evt) {
