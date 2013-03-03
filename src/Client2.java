@@ -1479,7 +1479,6 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 	
 	public void createProfiel(int win, int lose, int draw, String textHistory){
 		// erase history in textpane
-		addHistoryRow(textHistory);
 		System.out.println("value of textHistory: " + textHistory);
 		try {
 			history.getDocument().remove(0, history.getDocument().getLength());
@@ -1490,7 +1489,8 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 		profileWin.setText("Win: "+ win);
 		profileLoss.setText("Loss: "+ lose);
 		profileDraw.setText("Draw: "+ draw);
-		
+
+		addHistoryRow(textHistory);
 //		addHistoryRow("win someone");
 //		addHistoryRow("loss PopPio");
 //		addHistoryRow("draw John Doe");
