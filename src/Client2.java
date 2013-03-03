@@ -1492,6 +1492,12 @@ private void joinOnlineButtonPerformed(ActionEvent evt) {
 		b8.reset();
 		
 	}
+	protected void specJoin(String name) {
+		chatText.addInfo(name+" connected as spectator");
+	}
+	protected void specDisconnect(String name) {
+		chatText.addInfo(name+" disconnected");
+	}
 	protected void receiveChat(int chatType,String chat, String name){ //chatType: 1=from opponent, 2=from spec, 3=from player1 and you are spec;
 		Color color;
 		if(chatType == 1){
