@@ -943,6 +943,83 @@ public class Client extends JFrame{
 		b8.yourTurn = turn;
 		
 	}
+	public void receiveTick(int position,String side) { // manual tick
+		switchTurn();
+		System.out.println("receive tick from player:"+position);
+		if(position==0){
+			OXButton oxClick = b0;
+		}else if(position==1){
+			
+		}
+		OXButton oxClick = new OXButton();
+		switch (position) {
+			case 0:  oxClick = b0;
+            		 break;
+            case 1:  oxClick = b1;
+                     break;
+            case 2:  oxClick = b2;
+                     break;
+            case 3:  oxClick = b3;
+                     break;
+            case 4:  oxClick = b4;
+                     break;
+            case 5:  oxClick = b5;
+                     break;
+            case 6:  oxClick = b6;
+                     break;
+            case 7:  oxClick = b7;
+                     break;
+            case 8:  oxClick = b8;
+                     break;
+            default: System.err.println("Invalid position");
+                     break;
+        }
+		// set button to display tick
+		if(side.equalsIgnoreCase("x")){
+			oxClick.tickX();
+		}else if(side.equalsIgnoreCase("o")){
+			oxClick.tickO();
+		}
+	}
+	public void receiveTick(int position) { // create tick for opponent
+		switchTurn();
+		System.out.println("receive tick from other player:"+position);
+		if(position==0){
+			OXButton oxClick = b0;
+		}else if(position==1){
+			
+		}
+		OXButton oxClick = new OXButton();
+		switch (position) {
+			case 0:  oxClick = b0;
+            		 break;
+            case 1:  oxClick = b1;
+                     break;
+            case 2:  oxClick = b2;
+                     break;
+            case 3:  oxClick = b3;
+                     break;
+            case 4:  oxClick = b4;
+                     break;
+            case 5:  oxClick = b5;
+                     break;
+            case 6:  oxClick = b6;
+                     break;
+            case 7:  oxClick = b7;
+                     break;
+            case 8:  oxClick = b8;
+                     break;
+            default: System.err.println("Invalid position");
+                     break;
+        }
+		// set button to display tick
+		if(currentSide.equalsIgnoreCase("x")){
+			oxClick.tickO();
+		}else if(currentSide.equalsIgnoreCase("o")){
+			oxClick.tickX();
+		}
+	}
+	
 	public void win(String side) throws IOException {
 		// call this when win
 		System.out.println(side+" wins !!!");
