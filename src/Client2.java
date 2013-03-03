@@ -340,6 +340,30 @@ public class Client2 extends JFrame{
                 //Execute when button is pressed
             	joinButtonPerformed(eSend);
             }
+        });   
+		
+		final JButton hostButton = new JButton("HOST GAME");
+		hostButton.setFont(new Font("Arial", Font.PLAIN, 14));
+		hostButton.setBorder(null);
+		hostButton.setBorderPainted(false);
+		hostButton.setFocusPainted(false);
+		hostButton.setBackground(PINK_BASE);
+		hostButton.setBounds(20, 560, 90, 20);
+		hostButton.setForeground(BTN_TEXT);
+		hostButton.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		    	hostButton.setBackground(PINK_DARK);
+		    }
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		    	hostButton.setBackground(PINK_BASE);
+		    }
+		});
+		hostButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent eSend)
+            {
+                //Execute when button is pressed
+            	joinButtonPerformed(eSend);
+            }
         });     
 		
 		
